@@ -42,8 +42,9 @@ export default function Layout1 (props: any) {
       <MesList datasource={datasource}/>
        <div style={{borderTop:"1px solid #f3f3f3",width:"350px",display:'flex',justifyContent:'flex-end',alignItems:'center',lineHeight:'60px'}}>
          <Space>
-         <a href="http://localhost:8000/message">查看更多</a>
-          <a href="">设置</a>
+         {/* <a href="http://localhost:8000/message">查看更多</a> */}
+         <Link to="/message?key=all">查看更多</Link>
+         <Link to="/message?key=setting">设置</Link>
         </Space>
        </div> 
        </>
