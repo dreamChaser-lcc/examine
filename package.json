@@ -3,10 +3,10 @@
   "scripts": {
     "start": "umi dev",
     "dev": "npm run start:dev",
-    "start:dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start:dev": "cross-env NODE_ENV=dev webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "umi build",
     "postinstall": "umi generate tmp",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
   },
@@ -32,6 +32,7 @@
     "http-proxy-middleware": "^2.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "react-activation": "^0.9.4",
     "umi": "^3.4.7"
   },
   "devDependencies": {
@@ -44,6 +45,7 @@
     "react": "17.x",
     "react-dom": "17.x",
     "typescript": "^4.1.2",
+    "webpack-dev-server": "^4.0.0",
     "yorkie": "^2.0.0"
   }
 }

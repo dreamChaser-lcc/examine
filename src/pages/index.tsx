@@ -1,22 +1,15 @@
-import React,{useState,useEffect} from 'react'
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Link } from 'umi';
-import './index.less'
+import {  useEffect } from 'react';
 import 'antd/dist/antd.css';
+import '../assets/styles/index.less';
 
-function useSetInterval(callback:()=>void,time:number){
+function useSetInterval(callback: () => void, time: number) {
   useEffect(() => {
-    const i = setInterval(callback,time)
+    const i = setInterval(callback, time);
     return () => {
       clearInterval(i);
-    }
-  }, [])
+    };
+  }, []);
 }
 export default function IndexPage() {
-  return (
-    <>
-     antd learnDemo
-    </>
-  );
+  return <>默认导出页面</>;
 }
