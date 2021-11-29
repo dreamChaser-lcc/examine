@@ -1,9 +1,9 @@
-export default [
-  {
-    path: '/',
-    component: '@/layouts/index', // 主页加载layout公共组件
-  },
-];
+// export default [
+//   {
+//     path: '/',
+//     component: '@/layouts/index', // 主页加载layout公共组件
+//   },
+// ];
 
 export const menus = [
   // 菜单的配置项，用于动态渲染 key:	唯一标志 title: 菜单项值 path：用于路由跳转

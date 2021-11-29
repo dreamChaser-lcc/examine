@@ -5,4 +5,8 @@ export default {
   plugins: [
     './src/plugins/plugin-keep-alive/src/index.js',
   ],
+  base: '/',
+  publicPath: './',
+  // history: { type: 'hash' },
+  // hash: true,	// 清除缓存
 }

@@ -34,12 +34,13 @@ const ProHeader: FC<IProHeaderProps> = () => {
         });
       }
     }
+    // tabs中没有，从缓存中清除
     const cahingNodes = getCachingNodes();
     cahingNodes.forEach(value=>{
       const findIndex = routerTabs.findIndex(item=>item?.pathName===value?.pathName);
       if(findIndex===-1){
         setTimeout(()=>{
-          dropScope(value?.pathName)
+          dropScope(value?.pathName);
         })
       }
     })

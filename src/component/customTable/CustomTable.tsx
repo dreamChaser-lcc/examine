@@ -183,7 +183,7 @@ const CustomTable: FC<ITableProps> = (props) => {
     };
   };
   return (
-    <div className="container">
+    <div className="customTb-container">
       <Row className="tableHead" justify={'space-between'} align={'middle'}>
         <Col id="left" span={12}>
           <Space size="middle">{leftOperation.map((item) => item)}</Space>
