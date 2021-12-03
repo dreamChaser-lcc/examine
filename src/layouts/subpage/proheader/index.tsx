@@ -12,11 +12,15 @@ import { menus } from '../../../../config.router';
 import './style.less';
 import { ReactNode } from '@umijs/renderer-react/node_modules/@types/react';
 
-interface IProHeaderProps {}
-const ProHeader: FC<IProHeaderProps> = () => {
+interface IProHeaderProps {
+  /**侧边栏收缩事件 */
+  onCollapsed: () => void;
+}
+const ProHeader: FC<IProHeaderProps> = (props) => {
+  const { onCollapsed } = props;
   const { dispatch, routerTabs } = useContext(BaseContext);
   const { getCachingNodes, dropScope } = useAliveController();
-  console.log('activeKey', getCachingNodes());
+  // console.log('缓存页面节点信息', getCachingNodes());
   // 当前url pathname
   const currentPathname = history.location.pathname;
   useEffect(() => {
@@ -36,14 +40,16 @@ const ProHeader: FC<IProHeaderProps> = () => {
     }
     // tabs中没有，从缓存中清除
     const cahingNodes = getCachingNodes();
-    cahingNodes.forEach(value=>{
-      const findIndex = routerTabs.findIndex(item=>item?.pathName===value?.pathName);
-      if(findIndex===-1){
-        setTimeout(()=>{
+    cahingNodes.forEach((value) => {
+      const findIndex = routerTabs.findIndex(
+        (item) => item?.pathName === value?.pathName,
+      );
+      if (findIndex === -1) {
+        setTimeout(() => {
           dropScope(value?.pathName);
-        })
+        });
       }
-    })
+    });
   }, [currentPathname]);
   // 删除tabs 并 删除缓存页面
   const handleTabsEdit = (key: any, action: 'add' | 'remove') => {
@@ -63,8 +69,8 @@ const ProHeader: FC<IProHeaderProps> = () => {
     const findItem = routerTabs.find((v) => v.pathname === pathname);
     history.push({ pathname, query: findItem?.query });
   };
-  console.log(routerTabs);
-  const outlineBtn = ():ReactNode => {
+  // console.log('路由标签页Tab', routerTabs);
+  const outlineBtn = (): ReactNode => {
     return (
       <div style={{ display: 'inline-block', width: 30, height: 'inherit' }}>
         <div
@@ -75,7 +81,7 @@ const ProHeader: FC<IProHeaderProps> = () => {
             height: 'inherit',
           }}
         >
-          <MenuFoldOutlined />
+          <MenuFoldOutlined onClick={()=>{onCollapsed()}} />
         </div>
       </div>
     );
@@ -90,7 +96,7 @@ const ProHeader: FC<IProHeaderProps> = () => {
           activeKey={currentPathname}
           onEdit={handleTabsEdit}
           onTabClick={handleTabsClick}
-          tabBarExtraContent={{left:outlineBtn()}}
+          tabBarExtraContent={{ left: outlineBtn() }}
         >
           {routerTabs?.map((item) => {
             return (
