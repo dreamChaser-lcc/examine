@@ -8,7 +8,7 @@
 export const menus = [
   // 菜单的配置项，用于动态渲染 key:	唯一标志 title: 菜单项值 path：用于路由跳转
   {
-    key: 'antd',
+    key: 'antdUI',
     title: 'antd组件',
     children: [
       { key: 'g2-legend', title: 'G2可视化使用', path: '/antdUI/g2-legend' },
@@ -58,7 +58,17 @@ export const menus = [
     title: 'assembly-select',
     path: '/assembly/select',
   },
+  {
+    key: 'echarts-explore',
+    title: 'echart探索',
+    children: [
+      { key: 'lineAndpie', title: '折线图&饼图', path: '/echarts-explore/lineAndpie', },
+      { key: 'ploar', title: '极坐标系', path: '/echarts-explore/polar', },
+      { key: 'scrollTable', title: '滚动表格', path: '/echarts-explore/scrollTable', },
+    ]
+  },
   { key: 'message', title: '消息中心', path: '/message' },
   { key: 'globalState', title: 'hooks的全局状态共享', path: '/globalState' },
   { key: 'test-ts', title: 'test模块', path: '/test-ts' },
+  { key: 'sortable', title: 'sortable拖拽数据', path: '/sortable' },
 ];

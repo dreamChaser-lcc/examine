@@ -7,6 +7,6 @@ export default {
   ],
   base: '/',
   publicPath: './',
-  // history: { type: 'hash' },
+  history: { type: 'hash' },
   // hash: true,	// 清除缓存
 }
