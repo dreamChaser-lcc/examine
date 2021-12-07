@@ -1,0 +1,62 @@
+/*
+* 1920 * 1080
+*/
+#big-screen {
+  background: url(../../../assets/images/big-screen/bg.png) no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size:cover;
+  header {
+    height: 60px;
+    & > h1 {
+      text-align: center;
+      color: #fafafa;
+    }
+    border: 1px solid #313030;
+  }
+  .content {
+    display: flex;
+    height: 1020px;
+    // border: 1px dotted #313030;
+    & > aside:nth-child(1) {
+      flex: 1;
+      background-color: transparent;
+      & > div {
+        position: relative;
+        height: 200px;
+        margin-top: 10px;
+        border-radius: 2px;
+        border: 1px dotted #313030;
+      }
+      & > div::before {
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        width: 8px;
+        height: 8px;
+        content: '';
+        border-top: 1px solid #86C8C7;
+        border-left: 1px solid #86C8C7;
+      }
+      & > div::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        right: -1px;
+        width: 8px;
+        height: 8px;
+        border-bottom: 1px solid #86C8C7;
+        border-right: 1px solid #86C8C7;
+      }
+      // border: 1px dotted #313030;
+    }
+    & > div:nth-child(2) {
+      flex: 2;
+      border: 1px dotted #313030;
+    }
+    & > aside:nth-child(3) {
+      flex: 1;
+      border: 1px dotted #313030;
+    }
+  }
+}
