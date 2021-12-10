@@ -45,6 +45,7 @@ function AliveRouterComponent({ children, history, ...renderProps }: any) {
   }, [history]);
   renderRoutesProps.routes[0].routes = renderRoutesProps.routes[0].routes.map(route => {
     if (route && route.component) {
+      if(!route.path) return route;
       if (route.path.includes('/subpage/')) return route;
       if (typeof route.component === 'function') {
         return {

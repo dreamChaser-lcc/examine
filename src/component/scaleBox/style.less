@@ -1,0 +1,26 @@
+@design_width: 1920px; //设计稿的宽度
+@design_height: 1080px; //设计稿的高度
+#screen-wrapper {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(45, 63, 2);
+  .screen {
+    display: inline-block;
+    width: @design_width;
+    height: @design_height;
+    background: rgb(66, 63, 63);
+    transform-origin: 0 0;
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    .section {
+      height: 200px;
+      width: 200px;
+      outline: 1px solid #ddd;
+      line-height: 200px;
+      font-size: 40px;
+      text-align: center;
+      display: inline-block;
+    }
+  }
+}
