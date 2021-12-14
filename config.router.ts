@@ -65,7 +65,7 @@ export const menus = [
       { key: 'lineAndpie', title: '折线图&饼图', path: '/echarts-explore/lineAndpie', },
       { key: 'ploar', title: '极坐标系', path: '/echarts-explore/polar', },
       { key: 'scrollTable', title: '滚动表格', path: '/echarts-explore/scrollTable', },
-      { key: 'bigScree', title: '数据大屏', path: '/echarts-explore/bigScree', },
+      { key: 'bigScree', title: '数据大屏', path: '/echarts-explore/bigScreen', },
     ]
   },
   { key: 'message', title: '消息中心', path: '/message' },

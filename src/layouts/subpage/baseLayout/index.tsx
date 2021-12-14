@@ -1,15 +1,19 @@
 import React, { FC, useMemo, useState } from 'react';
-import { Badge, Card, Layout, Menu, Popover, Space } from 'antd'; // 布局容器 导航菜单
-import { Link, useAliveController, useLocation } from 'umi'; // umi自带的链接组件
-import _ from 'lodash';
-import { BellOutlined } from '@ant-design/icons';
-import BaseContext from '@/layouts/globalContext';
-import Provider from '@/.umi/plugin-model/Provider';
-import { findCurrentMenuKey, handleRouterInfo } from '@/layouts/utils';
-import { menus } from '@/../config.router';
-import { useGlobal } from '@/layouts/hook';
-import MesList from '../mesList';
+// 组件
 import ProHeader from '../proheader';
+import { Badge, Card, Layout, Menu, Popover, Space } from 'antd'; // 布局容器 导航菜单
+// 方法
+import _ from 'lodash';
+import { findCurrentMenuKey, handleRouterInfo } from '@/layouts/utils';
+import MesList from '../mesList';
+// hooks
+import { useGlobal } from '@/layouts/hook';
+import { Link, useAliveController, useLocation } from 'umi'; // umi自带的链接组件
+// 常量
+import BaseContext from '@/layouts/globalContext';
+import { menus } from '@/../config.router';
+import logo from '@/assets/images/readingLogo1.png';
+
 const { SubMenu } = Menu; // 子菜单
 const { Header, Content, Sider } = Layout; // 顶部布局， 内容部分， 侧边栏
 
@@ -20,9 +24,9 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
     { content: '第二条', time: '2020-02-04' },
   ];
   const [collapsed, setCollapsed] = useState<boolean>();
-  const changeCollapsed = ()=>{
+  const changeCollapsed = () => {
     setCollapsed(!collapsed);
-  }
+  };
   // 默认选中菜单
   const defaultSelectedKey = useMemo(() => {
     const pathname = window.location.pathname;
@@ -72,13 +76,16 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
       <Sider
         collapsed={collapsed}
         width={180}
-        style={{ height: 'calc(100vh-48px)' }}
+        style={{ height: '100%'}}
       >
+        <div style={{ textAlign: 'center', padding: 10 , boxSizing: 'border-box' }}>
+          <img style={{ width: 150, height: 100, boxSizing: 'border-box'  }} src={logo} alt="logo" />
+        </div>
         <Menu
           mode="inline"
           theme="dark"
-          style={{
-            height: '100%',
+          style={{ 
+            height:"calc(100% - 120px)",
             borderRight: 0,
             overflowX: 'hidden',
             overflowY: 'auto',
@@ -107,7 +114,7 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
             className="height-48 head"
             style={{ backgroundColor: '#DEE1E6' }}
           > */}
-            <ProHeader onCollapsed={changeCollapsed}/>
+            <ProHeader onCollapsed={changeCollapsed} />
             {/* <div style={{ position: 'absolute', right: '10vw' }}>
               <Popover
                 placement="bottom"

@@ -23,7 +23,7 @@ export default function ({
     return children;
   }
   if (curLocation.pathname)
-    if (curLocation.pathname === '/echarts-explore/bigScree') {
+    if (curLocation.pathname === '/echarts-explore/bigScreen') {
       // 数据大屏导航
       return <BigScreen />;
     }
