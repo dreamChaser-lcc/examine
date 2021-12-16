@@ -60,16 +60,28 @@ export default () => {
       }
     }
   };
+  const collapseScroll = () => {
+    const tableBodyEle = document.querySelector(
+      '#tableId .ant-table-body',
+    ) as HTMLElement;
+    if (history.location.pathname !== '/echarts-explore/scrollTable') {
+      clearTimer();
+    } else {
+      // 无限自动轮播，不能兼容scroll-behavior: smooth;
+      if (
+        tableBodyEle!.scrollTop <
+        tableBodyEle!.scrollHeight - tableBodyEle?.clientHeight
+      ) {
+        tableBodyEle!.scrollTop += 60;
+      } else {
+        tableBodyEle!.scrollTop = 0;
+      }
+    }
+  };
   const { setTimer, clearTimer } = handleTimer(
     scrollAnimation,
     config.playSpeed,
   );
-  useEffect(() => {
-    setTimer();
-    return () => {
-      clearTimer();
-    };
-  });
 
   return (
     <>
@@ -77,7 +89,7 @@ export default () => {
         message="数据大屏滚动表格动画"
         description="原理：body中的scrollTop不断增加，形成向下移动动画,鼠标hover之后停止动画"
         type="info"
-        style={{margin:20}}
+        style={{ margin: 20 }}
         showIcon
       />
       <Card

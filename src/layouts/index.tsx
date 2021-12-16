@@ -17,7 +17,7 @@ export default function ({
 }: IRouteComponentProps) {
   const [isLogin, setIslogin] = useState<boolean>(true);
   const curLocation = useLocation();
-  console.log(route, resprops);
+  // console.log(route, resprops);
   const allRoutes = route.routes;
   if (!allRoutes?.find((i) => i.path === location.pathname)) {
     return children;

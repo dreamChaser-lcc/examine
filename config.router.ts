@@ -66,6 +66,7 @@ export const menus = [
       { key: 'ploar', title: '极坐标系', path: '/echarts-explore/polar', },
       { key: 'scrollTable', title: '滚动表格', path: '/echarts-explore/scrollTable', },
       { key: 'bigScree', title: '数据大屏', path: '/echarts-explore/bigScreen', },
+      { key: 'animate', title: 'css3动画', path: '/echarts-explore/animate', },
     ]
   },
   { key: 'message', title: '消息中心', path: '/message' },
