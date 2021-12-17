@@ -73,19 +73,21 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
   }
   const sideBarRender = () => {
     return (
-      <Sider
-        collapsed={collapsed}
-        width={180}
-        style={{ height: '100%'}}
-      >
-        <div style={{ textAlign: 'center', padding: 10 , boxSizing: 'border-box' }}>
-          <img style={{ width: 150, height: 100, boxSizing: 'border-box'  }} src={logo} alt="logo" />
+      <Sider collapsed={collapsed} width={180} style={{ height: '100%' }}>
+        <div
+          style={{ textAlign: 'center', padding: 10, boxSizing: 'border-box' }}
+        >
+          <img
+            style={{ width: 150, height: 100, boxSizing: 'border-box' }}
+            src={logo}
+            alt="logo"
+          />
         </div>
         <Menu
           mode="inline"
           theme="dark"
-          style={{ 
-            height:"calc(100% - 120px)",
+          style={{
+            height: 'calc(100% - 120px)',
             borderRight: 0,
             overflowX: 'hidden',
             overflowY: 'auto',
@@ -133,6 +135,7 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
                 id="milk"
                 style={{
                   height: 'calc(100vh - 40px)',
+                  padding: 20,
                   overflow: 'auto',
                   boxSizing: 'border-box',
                   backgroundColor: '#fff',
