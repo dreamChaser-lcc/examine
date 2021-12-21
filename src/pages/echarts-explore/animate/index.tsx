@@ -1,9 +1,9 @@
+// 组件
 import ProCard from '@/component/ProCard';
 import { Switch } from 'antd';
-import { reverse } from 'lodash';
-import { useEffect, useRef, useState } from 'react';
-import { useData } from './hooks/useData';
 import HtmlTable from './htmlTable';
+// 方法
+import { useData } from './hooks/useData';
 import './style.less';
 const dataSource = [
   { sortNumber: 1, name: 'l', money: '1' },

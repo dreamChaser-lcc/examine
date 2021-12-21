@@ -20,6 +20,7 @@ const HtmlTable: FC<IHtmlTableProps<any>> = (props) => {
               {columns.map((item) => {
                 return <th key={item.title + Math.random()}>{item.title}</th>;
               })}
+              {/* 多插入的列，可删除 */}
               <th key="timer">当前时间</th>
             </tr>
           </thead>
@@ -42,6 +43,7 @@ const HtmlTable: FC<IHtmlTableProps<any>> = (props) => {
                       </td>
                     );
                   })}
+                  {/* 多插入的列，可删除 */}
                   <td key={'time' + Math.random()}>
                     {moment(new Date().getTime()).format("YYYY/MM/DD hh:mm:ss")}
                   </td>
