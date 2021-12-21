@@ -51,6 +51,7 @@ export const menus = [
     ],
   },
   { key: 'protable-cn', title: 'ProTable表格', path: '/protable-cn' },
+  { key: 'debug-page', title: '调试组件页面', path: '/debug-page' },
   { key: 'select-cn', title: 'select选择', path: '/select-cn' },
   { key: 'fetch-Spell', title: '封装多个函数组件', path: '/fetch-Spell' },
   {
