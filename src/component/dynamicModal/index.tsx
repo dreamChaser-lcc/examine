@@ -1,18 +1,20 @@
-import { FC, useEffect, useRef } from 'react';
-// 组件
-import { Modal } from 'antd';
-import './style.less';
+import { useEffect } from 'react';
+import { FC, useState, useRef } from 'react';
+// hooks
 import { useModal } from './hook/useModal';
+import './style.less';
 
 interface IDynamicModal {
   modalWidth?: number;
+  visible: boolean;
+  onClose?: () => void;
 }
 /**
  * 动态弹窗
  * feature:可调整窗口尺寸
  */
 const DynamicModal: FC<IDynamicModal> = (props) => {
-  const { modalWidth } = props;
+  const { modalWidth, visible, onClose } = props;
   const resizeTRef = useRef<HTMLDivElement>(null);
   const resizeBRef = useRef<HTMLDivElement>(null);
   const resizeLRef = useRef<HTMLDivElement>(null);
@@ -25,7 +27,8 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
   const titleRef = useRef<HTMLDivElement>(null);
   const modalWarpRef = useRef<HTMLDivElement>(null);
 
-  const {} = useModal({
+  const [disabledState, setDisabled] = useState<boolean>();
+  const { fullScreen, revert } = useModal({
     resizeTRef,
     resizeBRef,
     resizeLRef,
@@ -38,8 +41,17 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
     titleRef,
     modalWarpRef,
   });
-
-  return (
+  const onFullScreen = () => {
+    fullScreen();
+  };
+  const onRevert = () => {
+    revert();
+  };
+  const onClickClose = () => {
+    // setDisabled(false)
+    onClose?.();
+  };
+  return visible ? (
     <div id="dynamicModal">
       {/* <Modal visible title={'动态可调尺寸弹窗'} mask={true} /> */}
       <div className="ant-modal-root">
@@ -65,9 +77,23 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
                 <div ref={titleRef} className="ant-modal-header title-extra">
                   <div>title</div>
                   <div className="modal-oprate">
-                    <button type="button" className="min"></button>
-                    <button type="button" className="max"></button>
-                    <button type="button" className="close"></button>
+                    <button
+                      onClick={onRevert}
+                      title="恢复初始化大小"
+                      type="button"
+                      className="min"
+                    ></button>
+                    <button
+                      onClick={onFullScreen}
+                      title="全屏"
+                      type="button"
+                      className="max"
+                    ></button>
+                    <button
+                      onClick={onClickClose}
+                      type="button"
+                      className="close"
+                    ></button>
                   </div>
                 </div>
               </header>
@@ -78,9 +104,10 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 DynamicModal.defaultProps = {
   modalWidth: 520,
+  visible: false,
 };
 export default DynamicModal;
