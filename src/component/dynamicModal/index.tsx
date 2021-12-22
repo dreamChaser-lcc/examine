@@ -23,7 +23,7 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
   const resizeRBRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const modalWarpRef =  useRef<HTMLDivElement>(null);
+  const modalWarpRef = useRef<HTMLDivElement>(null);
 
   const {} = useModal({
     resizeTRef,
@@ -36,7 +36,7 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
     resizeRBRef,
     modalRef,
     titleRef,
-    modalWarpRef
+    modalWarpRef,
   });
 
   return (
@@ -50,7 +50,7 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
             className="ant-modal modal-extra"
             style={{ width: modalWidth }}
           >
-            <div className="ant-modal-content">
+            <div className="ant-modal-content content-extra">
               <section>
                 <div ref={resizeTRef} className="resizeT"></div>
                 <div ref={resizeBRef} className="resizeB"></div>
@@ -71,7 +71,7 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
                   </div>
                 </div>
               </header>
-              <article className="ant-modal-body">body</article>
+              <article className="ant-modal-body body-extra">body</article>
               <footer className="ant-modal-footer">button</footer>
             </div>
           </div>

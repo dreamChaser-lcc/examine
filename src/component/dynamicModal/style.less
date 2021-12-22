@@ -19,44 +19,56 @@
     transition: color 0.3s;
   }
   .modal-extra {
-    position: relative;
-    .title-extra {
+    position: absolute;
+    left: calc(100vw - 65%);
+    .content-extra {
       display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid #f0f0f0;
-      cursor: move;
-      .modal-oprate {
+      flex-direction:column;
+      width: 100%;
+      height: 100%;
+      .title-extra {
         display: flex;
-        align-items: center;
-        button {
-          background: url(~@/assets/images/sprite/tool.png) no-repeat;
-          margin-left: 5px;
-          display: block;
-          width: 22px;
-          height: 20px;
-          border: 0;
-          cursor: pointer;
-        }
-        button.min {
-          background-position: -29px 0;
-          &:hover {
-            background-position: -29px -29px;
+        justify-content: space-between;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: move;
+        .modal-oprate {
+          display: flex;
+          align-items: center;
+          button {
+            background: url(~@/assets/images/sprite/tool.png) no-repeat;
+            margin-left: 5px;
+            display: block;
+            width: 22px;
+            height: 20px;
+            border: 0;
+            cursor: pointer;
           }
-        }
-        button.max {
-          background-position: -60px 0;
-          &:hover {
-            background-position: -60px -29px;
+          button.min {
+            background-position: -29px 0;
+            &:hover {
+              background-position: -29px -29px;
+            }
           }
-        }
-        button.close {
-          background-position: -89px 0;
-          &:hover {
-            background-position: -89px -29px;
+          button.max {
+            background-position: -60px 0;
+            &:hover {
+              background-position: -60px -29px;
+            }
+          }
+          button.close {
+            background-position: -89px 0;
+            &:hover {
+              background-position: -89px -29px;
+            }
           }
         }
       }
+      .body-extra {
+        height: 100%;
+        overflow: auto;
+      }
     }
+
     .resizeT,
     .resizeB,
     .resizeL,
