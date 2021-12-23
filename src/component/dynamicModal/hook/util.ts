@@ -79,29 +79,39 @@ export const resizeFunc = (
   oDrag: HTMLDivElement,
   mousemoveEvent: MouseEvent,
 ) => {
+  // 光标移动后的X轴位置
+  const movedClientX = mousemoveEvent.clientX;
+  // 光标移动后的Y轴位置
+  const movedClientY = mousemoveEvent.clientY;
+  // 元素距离左侧的距离
+  const offsetLeft = oDrag.offsetLeft;
+  // 元素距离顶部的距离
+  const offsetTop = oDrag.offsetTop;
+  // 元素宽
+  const offsetWidth = oDrag.offsetWidth;
+  // 元素高
+  const offsetHeight = oDrag.offsetHeight;
+  // 可视区的宽度
+  const clientWidth = document.documentElement.clientWidth;
+  // 可视区的高度
+  const clientHeight = document.documentElement.clientHeight;
+
   const toLeft = () => {
-    const event = mousemoveEvent;
     oDrag.style.width =
-      oDrag.offsetWidth + oDrag.offsetLeft - event.clientX + 'px';
-    oDrag.style.left = event.clientX + 'px';
+      offsetWidth + offsetLeft - movedClientX + 'px';
+    oDrag.style.left = movedClientX + 'px';
   };
   const toRight = () => {
-    const event = mousemoveEvent;
-    oDrag.style.width = event.clientX - oDrag.offsetLeft + 'px';
-    oDrag.style.right =
-      document.documentElement.clientWidth - event.clientX + 'px';
+    oDrag.style.width = movedClientX - offsetLeft + 'px';
+    oDrag.style.right = clientWidth - movedClientX + 'px';
   };
   const toTop = () => {
-    const event = mousemoveEvent;
-    oDrag.style.height =
-      oDrag.offsetHeight + oDrag.offsetTop - event.clientY + 'px';
-    oDrag.style.top = event.clientY + 'px';
+    oDrag.style.height = offsetHeight + offsetTop - movedClientY + 'px';
+    oDrag.style.top = movedClientY + 'px';
   };
   const toBottom = () => {
-    const event = mousemoveEvent;
-    oDrag.style.height = event.clientY - oDrag.offsetTop + 'px';
-    oDrag.style.bottom =
-      document.documentElement.clientHeight - event.clientY + 'px';
+    oDrag.style.height = movedClientY - offsetTop + 'px';
+    oDrag.style.bottom = clientHeight - movedClientY + 'px';
   };
   return {
     toLeft,

@@ -1,20 +1,43 @@
-import { useEffect } from 'react';
-import { FC, useState, useRef } from 'react';
+import { ReactNode, FC, useRef } from 'react';
 // hooks
 import { useModal } from './hook/useModal';
+import { initBody, initOperate } from './modalConfig';
+import classNames from 'classnames';
 import './style.less';
+import { Space } from 'antd';
 
 interface IDynamicModal {
+  /**对话框默认宽度 */
   modalWidth?: number;
+  /**是否可见 */
   visible: boolean;
-  onClose?: () => void;
+  /**头部 */
+  title?: ReactNode;
+  /**尾部 */
+  footer?: ReactNode;
+  /**body自定义样式 */
+  bodyExtraClass?: string;
+  /**确定按钮回调 */
+  onOk?:()=>void;
+  /**关闭按钮回调事件 */
+  onCancel?: () => void;
 }
 /**
  * 动态弹窗
  * feature:可调整窗口尺寸
  */
 const DynamicModal: FC<IDynamicModal> = (props) => {
-  const { modalWidth, visible, onClose } = props;
+  const {
+    modalWidth,
+    visible,
+    children,
+    title,
+    footer,
+    bodyExtraClass,
+    onOk,
+    onCancel,
+  } = props;
+
   const resizeTRef = useRef<HTMLDivElement>(null);
   const resizeBRef = useRef<HTMLDivElement>(null);
   const resizeLRef = useRef<HTMLDivElement>(null);
@@ -27,7 +50,6 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
   const titleRef = useRef<HTMLDivElement>(null);
   const modalWarpRef = useRef<HTMLDivElement>(null);
 
-  const [disabledState, setDisabled] = useState<boolean>();
   const { fullScreen, revert } = useModal({
     resizeTRef,
     resizeBRef,
@@ -48,22 +70,29 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
     revert();
   };
   const onClickClose = () => {
-    // setDisabled(false)
-    onClose?.();
+    onCancel?.();
   };
+  /**body样式 */
+  const bodyClassName = classNames('ant-modal-body', {
+    [`${bodyExtraClass}`]: !!bodyExtraClass,
+  });
+  /**对话框样式 */
+  const modalClassName = classNames('ant-modal', { 'modal-extra': true });
+  /**默认的底部操作按钮 */
+  const footOperate = initOperate(onClickClose,onOk);
+
   return visible ? (
     <div id="dynamicModal">
-      {/* <Modal visible title={'动态可调尺寸弹窗'} mask={true} /> */}
       <div className="ant-modal-root">
         <div className="ant-modal-mask"></div>
         <div className="ant-modal-wrap">
           <div
             ref={modalRef}
-            className="ant-modal modal-extra"
+            className={modalClassName}
             style={{ width: modalWidth }}
           >
             <div className="ant-modal-content content-extra">
-              <section>
+              <section id="lcc-modal-cursorTool">
                 <div ref={resizeTRef} className="resizeT"></div>
                 <div ref={resizeBRef} className="resizeB"></div>
                 <div ref={resizeLRef} className="resizeL"></div>
@@ -75,11 +104,11 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
               </section>
               <header className="ant-modal-title">
                 <div ref={titleRef} className="ant-modal-header title-extra">
-                  <div>title</div>
-                  <div className="modal-oprate">
+                  <div id="lcc-modal-footer">{title ? title : 'title'}</div>
+                  <div id="lcc-modal-operate" className="modal-oprate">
                     <button
                       onClick={onRevert}
-                      title="恢复初始化大小"
+                      title="还原"
                       type="button"
                       className="min"
                     ></button>
@@ -97,8 +126,18 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
                   </div>
                 </div>
               </header>
-              <article className="ant-modal-body body-extra">body</article>
-              <footer className="ant-modal-footer">button</footer>
+              <article id="lcc-modal-body" className={bodyClassName}>
+                {children ? children : initBody}
+              </article>
+              <footer id="lcc-modal-footer" className="ant-modal-footer">
+                {footer ? (
+                  footer
+                ) : (
+                  <>
+                    <Space> {footOperate.map((item) => item)}</Space>
+                  </>
+                )}
+              </footer>
             </div>
           </div>
         </div>

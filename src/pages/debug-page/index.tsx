@@ -19,7 +19,14 @@ export default (props: any) => {
       <Button type="primary" onClick={open}>
         打开弹窗
       </Button>
-      <DynamicModal visible={disabled} onClose={close} />
+      <DynamicModal
+        visible={disabled}
+        onCancel={close}
+        title={'自定义头部'}
+        bodyExtraClass="body-extra"
+      >
+        {/* <div>this my custom children</div> */}
+      </DynamicModal>
     </>
   );
 };

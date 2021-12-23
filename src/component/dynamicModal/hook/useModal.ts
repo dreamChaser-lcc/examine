@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useModalProps } from '../typing';
 import { drag, resize } from './util';
 
+/**实现拖拽和扩展等功能扩展的hook */
 export const useModal = (props: useModalProps) => {
   const {
     resizeTRef,
@@ -36,6 +37,8 @@ export const useModal = (props: useModalProps) => {
     };
   };
   const initWindow = () => {
+    // 设置弹出的位置
+    modalRef.current!.style.left = `50vh`;
     // 设置弹窗初始位置
     setInitPosition();
     // 拖拽弹窗
@@ -57,12 +60,9 @@ export const useModal = (props: useModalProps) => {
     // 向右下调整
     resize(modalRef.current!, resizeRBRef.current!, 'RB');
 
-    // const { x, y } = mousePosition;
-
     // 模态框的位置
     const { left, top } = modalRef.current!.getBoundingClientRect();
-    // 设置弹出的位置
-    // modalRef.current!.style.transformOrigin = `${x - left}px ${y - top}px`;
+    
   };
   /**全屏 */
   const fullScreen = () => {
@@ -70,7 +70,7 @@ export const useModal = (props: useModalProps) => {
       modalRef.current.style.top = '0';
       modalRef.current.style.left = '0';
       modalRef.current.style.width = '100%';
-      modalRef.current.style.height = '100vh';
+      modalRef.current.style.height = '100vh'; 
     }
   };
   /**恢复弹窗 */

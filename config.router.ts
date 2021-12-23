@@ -26,29 +26,20 @@ export const menus = [
         key: 'upload',
         title: 'Upload上传',
         children: [
-          {
-            key: 'file-upload',
-            title: '文件上传',
-            path: '/antdUI/file-upload',
-          },
-          {
-            key: 'image-upload',
-            title: '图片上传',
-            path: '/antdUI/image-upload',
-          },
+          { key: 'file-upload', title: '文件上传', path: '/antdUI/file-upload', },
+          { key: 'image-upload', title: '图片上传', path: '/antdUI/image-upload', },
         ],
       },
-      {
-        key: 'datePicker-cn',
-        title: 'DatePicker日期',
-        path: '/antdUI/datePicker-cn',
-      },
-      {
-        key: 'datePicker-cn1',
-        title: 'DatePicker日期1',
-        path: '/antdUI/datePicker-cn1',
-      },
+      { key: 'datePicker-cn', title: 'DatePicker日期', path: '/antdUI/datePicker-cn', },
+      { key: 'datePicker-cn1', title: 'DatePicker日期1', path: '/antdUI/datePicker-cn1', },
     ],
+  },
+  {
+    key: 'complete-demo',
+    title: '封装完成的组件',
+    children: [
+      { key: 'modal', title: '动态对话框', path: '/complete-demo/modal', },
+    ]
   },
   { key: 'protable-cn', title: 'ProTable表格', path: '/protable-cn' },
   { key: 'debug-page', title: '调试组件页面', path: '/debug-page' },
