@@ -1,16 +1,15 @@
-import React, { Fragment, FC, useContext, useEffect } from 'react';
+import { ReactNode, Fragment, FC, useContext, useEffect } from 'react';
 // 组件
 import { Tabs } from 'antd';
 import { MenuFoldOutlined } from '@ant-design/icons';
 // 方法
 import { findCurrentMenuKey } from '@/layouts/utils';
 // 常量
-import BaseContext from '@/layouts/globalContext';
+import BaseContext from '@/globalContext';
 import { history, useAliveController } from 'umi';
 import { menus } from '../../../../config.router';
 // 样式
 import './style.less';
-import { ReactNode } from '@umijs/renderer-react/node_modules/@types/react';
 
 interface IProHeaderProps {
   /**侧边栏收缩事件 */
@@ -81,7 +80,11 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
             height: 'inherit',
           }}
         >
-          <MenuFoldOutlined onClick={()=>{onCollapsed()}} />
+          <MenuFoldOutlined
+            onClick={() => {
+              onCollapsed();
+            }}
+          />
         </div>
       </div>
     );
@@ -89,27 +92,27 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
   return (
     <Fragment>
       <header className="layout-header">
-        {/* <div style={{ position: 'absolute', left: 30, bottom: 0,width:'calc(100% - 30px)' }}> */}
-        <Tabs
-          type="editable-card"
-          hideAdd={true}
-          activeKey={currentPathname}
-          onEdit={handleTabsEdit}
-          onTabClick={handleTabsClick}
-          tabBarExtraContent={{ left: outlineBtn() }}
-        >
-          {routerTabs?.map((item) => {
-            return (
-              <Tabs.TabPane
-                tab={item.name}
-                key={item.pathName}
-                tabKey={item.pathName}
-                closable={item.pathName !== '/'}
-              />
-            );
-          })}
-        </Tabs>
-        {/* </div> */}
+        <div className="nav-board">
+          <Tabs
+            type="editable-card"
+            hideAdd={true}
+            activeKey={currentPathname}
+            onEdit={handleTabsEdit}
+            onTabClick={handleTabsClick}
+            tabBarExtraContent={{ left: outlineBtn() }}
+          >
+            {routerTabs?.map((item) => {
+              return (
+                <Tabs.TabPane
+                  tab={item.name}
+                  key={item.pathName}
+                  tabKey={item.pathName}
+                  closable={item.pathName !== '/'}
+                />
+              );
+            })}
+          </Tabs>
+        </div>
       </header>
     </Fragment>
   );

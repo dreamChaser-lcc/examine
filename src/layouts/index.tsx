@@ -1,11 +1,12 @@
-import React, { useMemo, useState } from 'react';
 import { IRouteComponentProps } from 'umi';
 // 组件
+import Login from '@/pages/login';
 import BigScreen from '@/pages/echarts-explore/bigScreen';
-import Login from './subpage/login';
 import BaseLayout from './subpage/baseLayout';
 // 方法
 import { useLocation } from 'umi';
+import BaseContext from '@/globalContext';
+import { useGlobal } from '@/globalContext/hook';
 
 export default function ({
   children,
@@ -15,9 +16,9 @@ export default function ({
   match,
   ...resprops
 }: IRouteComponentProps) {
-  const [isLogin, setIslogin] = useState<boolean>(true);
+  // const [isLogin, setIslogin] = useState<boolean>(false);
+  // const { isLogin } = useContext(BaseContext);
   const curLocation = useLocation();
-  // console.log(route, resprops);
   const allRoutes = route.routes;
   if (!allRoutes?.find((i) => i.path === location.pathname)) {
     return children;
@@ -27,9 +28,14 @@ export default function ({
       // 数据大屏导航
       return <BigScreen />;
     }
-  return isLogin ? (
-    <BaseLayout>{children}</BaseLayout>
-  ) : (
-    <Login>{children}</Login>
+  const { dispatch, routerTabs, isLogin } = useGlobal();
+  return (
+    <BaseContext.Provider value={{ isLogin, dispatch, routerTabs }}>
+      {isLogin ? (
+        <BaseLayout>{children}</BaseLayout>
+      ) : (
+        <Login>{children}</Login>
+      )}
+    </BaseContext.Provider>
   );
 }
