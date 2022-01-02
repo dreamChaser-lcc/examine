@@ -8,8 +8,12 @@ import {
   handleVerifySuccess,
   remenber,
 } from '@/utils/loginpage/utils';
+// 方法
+import { user_login_api } from '@/api/user';
 // 全局变量
 import BaseContext from '@/globalContext';
+// 常量
+import { SUCCESS_STATUS_CODE } from '@/utils/common_utils';
 
 interface ILoginForm {
   // 登录或register
@@ -26,15 +30,19 @@ const LoginForm: FC<ILoginForm> = () => {
     };
     return temp;
   }, []);
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     const { account, password, remember } = values;
-    if (account === 'Admin' && password === '123456') {
+    const res = await user_login_api(account, password);
+    if (res?.code === SUCCESS_STATUS_CODE) {
+      const { token } = res.result;
+      console.log(res);
       if (remember) {
-        remenber(account, password);
+        remenber(account, password, token);
       } else {
         clearRemenber();
       }
       dispatch('changeLoginState', true);
+      window.location.replace('/');
       handleVerifySuccess('登录成功');
     }
   };

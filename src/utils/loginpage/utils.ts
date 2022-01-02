@@ -39,7 +39,6 @@ export const handleVerifySuccess = (tip: ReactNode) => {
  * @param account 账号
  * @param password 密码
  * @param token token
- * @param clear 是否清除
  */
 export const remenber = (account: string, password: string, token?: any) => {
   localStorage.setItem('account', account);
