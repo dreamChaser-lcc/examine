@@ -1,8 +1,8 @@
 import { IRouteComponentProps } from 'umi';
 // 组件
 import Login from '@/pages/login';
+import BaseLayout from './baseLayout';
 import BigScreen from '@/pages/echarts-explore/bigScreen';
-import BaseLayout from './subpage/baseLayout';
 // 方法
 import { useLocation } from 'umi';
 import BaseContext from '@/globalContext';

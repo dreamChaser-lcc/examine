@@ -7,7 +7,7 @@ import { findCurrentMenuKey } from '@/layouts/utils';
 // 常量
 import BaseContext from '@/globalContext';
 import { history, useAliveController } from 'umi';
-import { menus } from '../../../../config.router';
+import { menus } from '@/../config.router';
 // 样式
 import './style.less';
 
