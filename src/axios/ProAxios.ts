@@ -70,7 +70,7 @@ class ProAxios implements IProAxios {
         if (response.status === 200) {
           const data = response.data;
           if (data.code === SUCCESS_STATUS_CODE) {
-            return Promise.resolve(data);
+            return data;
           } else {
             notification.warn({
               message: data.code,
@@ -83,7 +83,7 @@ class ProAxios implements IProAxios {
         // 响应状态码大于200 触发回调
         const status = error.response.status as number;
         const data = error.response?.data;
-        if (status === 500 && data.message) {
+        if (status === 500 && data?.message) {
           console.log(error.response);
           notification.warn({
             message: data.code,
