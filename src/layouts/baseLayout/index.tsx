@@ -1,18 +1,17 @@
 import React, { FC, useMemo, useState } from 'react';
 // 组件
-import ProHeader from '../proheader';
+import ProHeader from './proheader';
 import { Badge, Card, Layout, Menu, Popover, Space } from 'antd'; // 布局容器 导航菜单
 // 方法
 import _ from 'lodash';
 import { findCurrentMenuKey, handleRouterInfo } from '@/layouts/utils';
-import MesList from '../mesList';
 // hooks
-import { useGlobal } from '@/layouts/hook';
-import { Link, useAliveController, useLocation } from 'umi'; // umi自带的链接组件
+import { Link, useLocation } from 'umi'; // umi自带的链接组件
 // 常量
-import BaseContext from '@/layouts/globalContext';
 import { menus } from '@/../config.router';
 import logo from '@/assets/images/readingLogo1.png';
+import LayoutContext from './layoutContext';
+import MesList from './mesList';
 
 const { SubMenu } = Menu; // 子菜单
 const { Header, Content, Sider } = Layout; // 顶部布局， 内容部分， 侧边栏
@@ -105,50 +104,16 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
       <MesList datasource={datasource} />
     </>
   );
-  const { dispatch, routerTabs } = useGlobal();
   return (
-    <BaseContext.Provider value={{ dispatch, routerTabs }}>
-      <Layout key="layout">
-        <Layout>
-          {sideBarRender()}
-          <Layout>
-            {/* <Header
-            className="height-48 head"
-            style={{ backgroundColor: '#DEE1E6' }}
-          > */}
-            <ProHeader onCollapsed={changeCollapsed} />
-            {/* <div style={{ position: 'absolute', right: '10vw' }}>
-              <Popover
-                placement="bottom"
-                content={content}
-                title="消息提醒"
-                trigger="hover"
-              >
-                <Badge count={2} offset={[2, 0]} size={'small'}>
-                  <BellOutlined style={{ fontSize: '20px' }} />
-                </Badge>
-              </Popover>
-            </div> */}
-            {/* </Header> */}
-            <Content>
-              <div
-                id="milk"
-                style={{
-                  height: 'calc(100vh - 40px)',
-                  padding: 20,
-                  overflow: 'auto',
-                  boxSizing: 'border-box',
-                  backgroundColor: '#fff',
-                }}
-              >
-                {props.children}
-                {/* <Card id="milk">{props.children}</Card> */}
-              </div>
-            </Content>
-          </Layout>
+    <Layout key="layout" id="layout">
+      <Layout>
+        {sideBarRender()}
+        <Layout className="base-layout-right">
+          <ProHeader onCollapsed={changeCollapsed} />
+          <LayoutContext {...props} />
         </Layout>
       </Layout>
-    </BaseContext.Provider>
+    </Layout>
   );
 };
 export default BaseLayout;

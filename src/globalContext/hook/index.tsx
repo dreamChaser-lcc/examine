@@ -1,7 +1,10 @@
-import { IContextProps } from '@/layouts/globalContext';
+import { IContextProps } from '@/globalContext';
 import { useReducer } from 'react';
 import { history } from 'umi';
-export type actionType = 'addRouterTabs' | 'deleteRouterTabs';
+export type actionType =
+  | 'addRouterTabs'
+  | 'deleteRouterTabs'
+  | 'changeLoginState';
 export interface payloadProps {
   name: string;
   pathName: string;
@@ -27,8 +30,11 @@ function globalReducer(
         (item) => item.pathName !== pathName,
       );
       const item = routerTabs.slice(-1)[0];
-      history.push({pathname:item.pathName,query:item.query});
+      history.push({ pathname: item.pathName, query: item.query });
       return { ...state, routerTabs };
+    }
+    case 'changeLoginState': {
+      return { ...state, isLogin: action.payload };
     }
     default:
       return { ...state };
@@ -41,6 +47,7 @@ export const useGlobal = () => {
   ];
   const [state, globalDispatch] = useReducer(globalReducer, {
     routerTabs: initvalue,
+    isLogin: false,
   });
   const dispatch = (action: actionType, payload: any) => {
     globalDispatch({ type: action, payload });
