@@ -1,23 +1,18 @@
-import React, {
-  FC,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { FC, lazy } from 'react';
 
-import { history, IRouteComponentProps } from 'umi';
+import { IRouteComponentProps } from 'umi';
 // 组件
-import Login from '@/pages/login';
-import BaseLayout from './baseLayout';
+const lazyComponent = import('./baseLayout');
+const BaseLayout = lazy(() => lazyComponent);
+// import BaseLayout from './baseLayout';
 import BaseContext from '@/globalContext';
-import BigScreen from '@/pages/echarts-explore/bigScreen';
 // 方法
 import { useGlobal } from '@/globalContext/hook';
-import { user_auth_token_api } from '@/api/user';
 import { useLocation } from 'umi';
 // 常量
-import { SUCCESS_STATUS_CODE } from '@/utils/common_utils';
+import { Spin } from 'antd';
+import { useVerifyToken } from './hooks/verifytoken';
+import { notMenusPage } from '@/contants/common';
 interface Iprops extends IRouteComponentProps {
   tokenApi?: Function;
 }
@@ -25,43 +20,45 @@ const LayoutGuard: FC<Iprops> = (props) => {
   const { children, route, tokenApi } = props;
   const curLocation = useLocation();
   const { dispatch, routerTabs } = useGlobal();
-  const [isLogin, setLogin] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const verifyToken = async () => {
-    setIsLoading(false);
-    const res = await tokenApi?.();
-    setIsLoading(true);
-    if (res?.code === SUCCESS_STATUS_CODE) {
-      setLogin(true);
-    }
-  };
-  useEffect(() => {
-    verifyToken();
-  }, [children]);
-  console.log('in', isLogin);
-  const allRoutes = route.routes;
-  const notMenusPage = ['/echarts-explore/bigScreen', '/login'];
+  const { isLogin } = useVerifyToken({ api: tokenApi });
   const layoutRender = () => {
-    if (isLogin) {
-      if (
-        !allRoutes?.find((i) => i.path === location.pathname) ||
-        notMenusPage.includes(curLocation.pathname)
-      ) {
-        return children;
-      } else {
-        return <BaseLayout>{children}</BaseLayout>;
-      }
-      // if (curLocation.pathname === '/echarts-explore/bigScreen') {
-      //   // 数据大屏导航
-      //   return <BigScreen />;
-      // }
-    } else {
-      return <Login>{children}</Login>;
+    if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {
+      return children;
     }
+    if (notMenusPage.includes(curLocation.pathname)) {
+      return children;
+    }
+    return (
+      <React.Suspense
+        fallback={
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              height: '100%',
+              width: '100%',
+              background: '#fafafa',
+              opacity: 0.6,
+            }}
+          >
+            <Spin
+              spinning={true}
+              size="default"
+              tip="loadding..."
+              style={{ position: 'absolute', left: '50%', top: '50%' }}
+            />
+            ;
+          </div>
+        }
+      >
+        <BaseLayout>{children}</BaseLayout>;
+      </React.Suspense>
+    );
   };
   return (
     <BaseContext.Provider value={{ isLogin, dispatch, routerTabs }}>
-      {isLoading && layoutRender()}
+      {layoutRender()}
     </BaseContext.Provider>
   );
 };
