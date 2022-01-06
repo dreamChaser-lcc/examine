@@ -16,8 +16,11 @@ import MesList from './mesList';
 const { SubMenu } = Menu; // 子菜单
 const { Header, Content, Sider } = Layout; // 顶部布局， 内容部分， 侧边栏
 
-interface IBaseLayoutProps {}
+interface IBaseLayoutProps {
+  showMenus: boolean;
+}
 const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
+  const { children, showMenus } = props;
   const datasource = [
     { content: '第一条', time: '2020-02-04' },
     { content: '第二条', time: '2020-02-04' },
@@ -104,7 +107,7 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
       <MesList datasource={datasource} />
     </>
   );
-  return (
+  return showMenus ? (
     <Layout key="layout" id="layout">
       <Layout>
         {sideBarRender()}
@@ -114,6 +117,8 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
         </Layout>
       </Layout>
     </Layout>
+  ) : (
+    <>{children}</>
   );
 };
 export default BaseLayout;

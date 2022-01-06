@@ -22,6 +22,7 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
   // console.log('缓存页面节点信息', getCachingNodes());
   // 当前url pathname
   const currentPathname = history.location.pathname;
+  console.log(currentPathname);
   useEffect(() => {
     // 当前路由信息
     const curRouter = findCurrentMenuKey(menus, currentPathname);
@@ -93,6 +94,7 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
     <Fragment>
       <header className="layout-header">
         <div className="nav-board">
+          <div className="nav-text">首页 / dasd / das</div>
           <Tabs
             type="editable-card"
             hideAdd={true}

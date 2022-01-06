@@ -1,9 +1,17 @@
-import React, { FC, lazy } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+  lazy,
+} from 'react';
 
 import { IRouteComponentProps } from 'umi';
 // 组件
-const lazyComponent = import('./baseLayout');
-const BaseLayout = lazy(() => lazyComponent);
+import BaseLayout from './baseLayout';
+
 // import BaseLayout from './baseLayout';
 import BaseContext from '@/globalContext';
 // 方法
@@ -13,6 +21,7 @@ import { useLocation } from 'umi';
 import { Spin } from 'antd';
 import { useVerifyToken } from './hooks/verifytoken';
 import { notMenusPage } from '@/contants/common';
+import ProTransition from '@/component/ProTransition';
 interface Iprops extends IRouteComponentProps {
   tokenApi?: Function;
 }
@@ -25,9 +34,7 @@ const LayoutGuard: FC<Iprops> = (props) => {
     if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {
       return children;
     }
-    if (notMenusPage.includes(curLocation.pathname)) {
-      return children;
-    }
+    const pathname = location.hash.replace('#/', '');
     return (
       <React.Suspense
         fallback={
@@ -52,7 +59,10 @@ const LayoutGuard: FC<Iprops> = (props) => {
           </div>
         }
       >
-        <BaseLayout>{children}</BaseLayout>;
+        <BaseLayout showMenus={!notMenusPage.includes(curLocation.pathname)}>
+          <ProTransition animatekey={pathname}>{children}</ProTransition>
+        </BaseLayout>
+        ;
       </React.Suspense>
     );
   };
