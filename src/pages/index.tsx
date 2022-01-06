@@ -1,6 +1,5 @@
 import {  useEffect } from 'react';
 import 'antd/dist/antd.css';
-import '../assets/styles/index.less';
 
 function useSetInterval(callback: () => void, time: number) {
   useEffect(() => {
@@ -11,5 +10,6 @@ function useSetInterval(callback: () => void, time: number) {
   }, []);
 }
 export default function IndexPage() {
+ 
   return <>默认导出页面</>;
 }

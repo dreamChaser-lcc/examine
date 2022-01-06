@@ -6,7 +6,6 @@
 // }
 .layout-header {
   position: relative;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -15,8 +14,20 @@
   .ant-tabs-top > .ant-tabs-nav {
     margin: 0 !important;
   }
-  .nav-text {
+  button .ant-tabs-tab-remove{
+    display: none !important;
+  }
+  .nav-breadcrumb {
+    display: flex;
     height: 50px;
+    align-items: center;
     border-bottom: 1px solid #b6b4b6;
+  }
+  .collapsed-btn {
+    display: 'flex';
+    width: 30;
+    justify-content: 'center';
+    align-items: 'center';
+    height: 'inherit';
   }
 }

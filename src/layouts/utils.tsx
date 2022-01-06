@@ -3,27 +3,30 @@
  * 添加parantKeys
  * (扩展运算符单层浅拷贝数组引用地址)
  */
-export  function handleRouterInfo (preRouter:any[],parentKeys:string[]):returnType[]{
-  const result:returnType[] = preRouter?.map(function(item,_,arr){
+export function handleRouterInfo(
+  preRouter: any[],
+  parentKeys: string[],
+): returnType[] {
+  const result: returnType[] = preRouter?.map(function (item, _, arr) {
     const children = item?.children;
-    if(children){
+    if (children) {
       const temp = [...parentKeys] ?? [];
-      item.parentKeys =[...temp] ;
-      temp.push(item.key)
+      item.parentKeys = [...temp];
+      temp.push(item.key);
       const subParentKeys = [...temp];
-      handleRouterInfo(item.children,subParentKeys);
-    }else{
-      const temp:string[] = item.parentKeys ?? [];
-      item.parentKeys =[...temp,...parentKeys] ;
+      handleRouterInfo(item.children, subParentKeys);
+    } else {
+      const temp: string[] = item.parentKeys ?? [];
+      item.parentKeys = [...temp, ...parentKeys];
     }
-    return item
-  })
+    return item;
+  });
   return result;
 }
 type returnType =
   | { key: string; title: string; path: string; parentKeys: string[] }
   | false;
-  
+
 /**
  * 递归 查询匹配的key
  */

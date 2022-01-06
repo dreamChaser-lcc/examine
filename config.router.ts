@@ -1,12 +1,30 @@
-// export default [
-//   {
-//     path: '/',
-//     component: '@/layouts/index', // 主页加载layout公共组件
-//   },
-// ];
-
+/**
+ * 生成面包屑 key和title键值对
+ * @returns {
+ *  key:title
+ * }
+ */
+export const getBreadCrumbMenus = () => {
+  const result: Record<string, string> = {};
+  const generate = (originArr: any[]) => {
+    originArr.forEach((item) => {
+      const { key, children } = item;
+      if (key) result[key] = item.title;
+      if (Array.isArray(children) && children.length) {
+        generate(children);
+      } else return;
+    });
+  };
+  generate(menus);
+  return result;
+};
 export const menus = [
   // 菜单的配置项，用于动态渲染 key:	唯一标志 title: 菜单项值 path：用于路由跳转
+  {
+    key: 'dashboard',
+    title: 'dashboard',
+    path: '/dashboard'
+  },
   {
     key: 'antdUI',
     title: 'antd组件',
@@ -17,7 +35,7 @@ export const menus = [
       { key: 'step-cn', title: 'Step步骤条', path: '/antdUI/step-cn' },
       { key: 'image-cn', title: 'Image图片', path: '/antdUI/image-cn' },
       {
-        key: 'combination-cn',
+        key: 'combination',
         title: 'Tabs+Table',
         path: '/antdUI/combination',
       },
@@ -26,8 +44,8 @@ export const menus = [
         key: 'upload',
         title: 'Upload上传',
         children: [
-          { key: 'file-upload', title: '文件上传', path: '/antdUI/file-upload', },
-          { key: 'image-upload', title: '图片上传', path: '/antdUI/image-upload', },
+          { key: 'file-upload', title: '文件上传', path: '/antdUI/upload/file-upload', },
+          { key: 'image-upload', title: '图片上传', path: '/antdUI/upload/image-upload', },
         ],
       },
       { key: 'datePicker-cn', title: 'DatePicker日期', path: '/antdUI/datePicker-cn', },
@@ -46,9 +64,9 @@ export const menus = [
   { key: 'select-cn', title: 'select选择', path: '/select-cn' },
   { key: 'fetch-Spell', title: '封装多个函数组件', path: '/fetch-Spell' },
   {
-    key: 'assembly-cn/select',
-    title: 'assembly-select',
-    path: '/assembly/select',
+    key: 'assembly',
+    title: 'assembly',
+    children: [{ key: 'select',title:'select',path: '/assembly/select' }]
   },
   {
     key: 'echarts-explore',

@@ -12,6 +12,9 @@ import { menus } from '@/../config.router';
 import logo from '@/assets/images/readingLogo1.png';
 import LayoutContext from './layoutContext';
 import MesList from './mesList';
+// 样式
+import '@/assets/styles/index.less';
+import Siderbar from './siderbar';
 
 const { SubMenu } = Menu; // 子菜单
 const { Header, Content, Sider } = Layout; // 顶部布局， 内容部分， 侧边栏
@@ -21,96 +24,16 @@ interface IBaseLayoutProps {
 }
 const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
   const { children, showMenus } = props;
-  const datasource = [
-    { content: '第一条', time: '2020-02-04' },
-    { content: '第二条', time: '2020-02-04' },
-  ];
-  const [collapsed, setCollapsed] = useState<boolean>();
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+
   const changeCollapsed = () => {
     setCollapsed(!collapsed);
   };
-  // 默认选中菜单
-  const defaultSelectedKey = useMemo(() => {
-    const pathname = window.location.pathname;
-    // 给chilren加入parentKey
-    const newMenus = handleRouterInfo(menus, []);
-    const curRouter = findCurrentMenuKey(newMenus, pathname);
-    if (curRouter) {
-      return curRouter;
-    }
-  }, []);
-  const curLocation = useLocation();
-  // 默认选中菜单(替代)
-  const defaultSelect = useMemo(() => {
-    const keyArr = curLocation.pathname.split('/');
-    const openKeys = keyArr.slice(0, keyArr.length - 1);
-    const selectKeys = keyArr.slice(keyArr.length - 1);
-    return {
-      openKeys,
-      selectKeys,
-    };
-  }, [curLocation]);
-  function getMenuItem(menuArr: any) {
-    // 获取菜单项
-    // 迭代menuArr
-    return _.map(menuArr, (route) => {
-      const iconName: any = route?.icon;
-      if (route.children) {
-        // 有多级菜单时
-        return (
-          <SubMenu
-            key={route.key}
-            title={<div title={route.title}>{route.title}</div>}
-          >
-            {getMenuItem(route.children)}
-          </SubMenu>
-        );
-      }
-      return (
-        <Menu.Item key={route.key} title={route.title}>
-          <Link to={route.path}>{route.title}</Link>
-        </Menu.Item>
-      );
-    });
-  }
-  const sideBarRender = () => {
-    return (
-      <Sider collapsed={collapsed} width={180} style={{ height: '100%' }}>
-        <div
-          style={{ textAlign: 'center', padding: 10, boxSizing: 'border-box' }}
-        >
-          <img
-            style={{ width: 150, height: 100, boxSizing: 'border-box' }}
-            src={logo}
-            alt="logo"
-          />
-        </div>
-        <Menu
-          mode="inline"
-          theme="dark"
-          style={{
-            height: 'calc(100% - 120px)',
-            borderRight: 0,
-            overflowX: 'hidden',
-            overflowY: 'auto',
-          }}
-          defaultOpenKeys={defaultSelect?.openKeys ?? ['']}
-          defaultSelectedKeys={defaultSelect?.selectKeys ?? ['']}
-        >
-          {getMenuItem(menus)}
-        </Menu>
-      </Sider>
-    );
-  };
-  const content = (
-    <>
-      <MesList datasource={datasource} />
-    </>
-  );
+  console.log("showMenus",showMenus)
   return showMenus ? (
-    <Layout key="layout" id="layout">
+    <Layout key="layout" id="layout" className=".base-layout">
       <Layout>
-        {sideBarRender()}
+        <Siderbar collapsed={collapsed} />
         <Layout className="base-layout-right">
           <ProHeader onCollapsed={changeCollapsed} />
           <LayoutContext {...props} />

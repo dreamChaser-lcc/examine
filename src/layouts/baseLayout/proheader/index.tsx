@@ -1,15 +1,14 @@
 import { ReactNode, Fragment, FC, useContext, useEffect } from 'react';
 // 组件
-import { Tabs } from 'antd';
-import { MenuFoldOutlined } from '@ant-design/icons';
+import { Breadcrumb, Tabs } from 'antd';
+import { MenuFoldOutlined, HomeOutlined } from '@ant-design/icons';
 // 方法
 import { findCurrentMenuKey } from '@/layouts/utils';
 // 常量
 import BaseContext from '@/globalContext';
-import { history, useAliveController } from 'umi';
-import { menus } from '@/../config.router';
-// 样式
-import './style.less';
+import { history, Link, useAliveController } from 'umi';
+import { getBreadCrumbMenus, menus } from '@/../config.router';
+import React from 'react';
 
 interface IProHeaderProps {
   /**侧边栏收缩事件 */
@@ -22,7 +21,6 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
   // console.log('缓存页面节点信息', getCachingNodes());
   // 当前url pathname
   const currentPathname = history.location.pathname;
-  console.log(currentPathname);
   useEffect(() => {
     // 当前路由信息
     const curRouter = findCurrentMenuKey(menus, currentPathname);
@@ -69,37 +67,61 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
     const findItem = routerTabs.find((v) => v.pathname === pathname);
     history.push({ pathname, query: findItem?.query });
   };
-  // console.log('路由标签页Tab', routerTabs);
   const outlineBtn = (): ReactNode => {
     return (
-      <div style={{ display: 'inline-block', width: 30, height: 'inherit' }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 'inherit',
+      <div
+        style={{
+          display: 'flex',
+          width: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 'inherit',
+        }}
+      >
+        <MenuFoldOutlined
+          onClick={() => {
+            onCollapsed();
           }}
-        >
-          <MenuFoldOutlined
-            onClick={() => {
-              onCollapsed();
-            }}
-          />
-        </div>
+        />
       </div>
     );
   };
+  /**面包屑 */
+  const renderBeadcrumb = () => {
+    const allMenus = getBreadCrumbMenus();
+    // filter 会过滤undefined或''
+    const snippet = currentPathname.split('/').filter((i) => i);
+    const extraBreadcrumbItems = snippet.map((item, index) => {
+      let url = snippet.slice(0, index + 1).join('/');
+      url = index === 0 ? url : `/${url}`;
+      return (
+        <Breadcrumb.Item key={item}>
+          <span>{allMenus[item]} </span>
+        </Breadcrumb.Item>
+      );
+    });
+    const basicItem = [
+      <Breadcrumb.Item key="home">
+        <Link to="/">
+          <HomeOutlined />
+          Home
+        </Link>
+      </Breadcrumb.Item>,
+    ].concat(extraBreadcrumbItems);
+    return <Breadcrumb>{basicItem}</Breadcrumb>;
+  };
   return (
     <Fragment>
-      <header className="layout-header">
+      <header className="base-layout-header">
         <div className="nav-board">
-          <div className="nav-text">首页 / dasd / das</div>
+          <div className="nav-breadcrumb">{renderBeadcrumb()}</div>
           <Tabs
             type="editable-card"
             hideAdd={true}
             activeKey={currentPathname}
             onEdit={handleTabsEdit}
+            animated
+            className='tabs-layout'
             onTabClick={handleTabsClick}
             tabBarExtraContent={{ left: outlineBtn() }}
           >
@@ -109,6 +131,7 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
                   tab={item.name}
                   key={item.pathName}
                   tabKey={item.pathName}
+                  style={{background:'red'}}
                   closable={item.pathName !== '/'}
                 />
               );

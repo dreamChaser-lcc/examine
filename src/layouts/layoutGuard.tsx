@@ -29,8 +29,9 @@ const LayoutGuard: FC<Iprops> = (props) => {
   const { children, route, tokenApi } = props;
   const curLocation = useLocation();
   const { dispatch, routerTabs } = useGlobal();
-  const { isLogin } = useVerifyToken({ api: tokenApi });
+  // const { isLogin } = useVerifyToken({ api: tokenApi });
   const layoutRender = () => {
+    console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
     if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {
       return children;
     }
@@ -67,7 +68,7 @@ const LayoutGuard: FC<Iprops> = (props) => {
     );
   };
   return (
-    <BaseContext.Provider value={{ isLogin, dispatch, routerTabs }}>
+    <BaseContext.Provider value={{ dispatch, routerTabs }}>
       {layoutRender()}
     </BaseContext.Provider>
   );
