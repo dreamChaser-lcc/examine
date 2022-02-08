@@ -56,14 +56,12 @@ const LayoutGuard: FC<Iprops> = (props) => {
               tip="loadding..."
               style={{ position: 'absolute', left: '50%', top: '50%' }}
             />
-            ;
           </div>
         }
       >
         <BaseLayout showMenus={!notMenusPage.includes(curLocation.pathname)}>
           <ProTransition animatekey={pathname}>{children}</ProTransition>
         </BaseLayout>
-        ;
       </React.Suspense>
     );
   };
