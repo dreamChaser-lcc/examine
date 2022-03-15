@@ -31,11 +31,12 @@ const LayoutGuard: FC<Iprops> = (props) => {
   const { dispatch, routerTabs } = useGlobal();
   // const { isLogin } = useVerifyToken({ api: tokenApi });
   const layoutRender = () => {
-    console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
+    // console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
     if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {
       return children;
     }
     const pathname = location.hash.replace('#/', '');
+    const showMenus = !notMenusPage.includes(curLocation.pathname);
     return (
       <React.Suspense
         fallback={
@@ -59,7 +60,7 @@ const LayoutGuard: FC<Iprops> = (props) => {
           </div>
         }
       >
-        <BaseLayout showMenus={!notMenusPage.includes(curLocation.pathname)}>
+        <BaseLayout showmenus={showMenus}>
           <ProTransition animatekey={pathname}>{children}</ProTransition>
         </BaseLayout>
       </React.Suspense>

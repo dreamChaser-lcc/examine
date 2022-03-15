@@ -20,7 +20,7 @@ const Siderbar: FC<SiderbarProps> = (props) => {
     const keyArr = curLocation.pathname.split('/');
     const openKeys = keyArr.slice(0, keyArr.length - 1);
     const selectKeys = keyArr.slice(keyArr.length - 1);
-    console.log(keyArr,openKeys)
+    // console.log(keyArr,openKeys)
     setOpenkeys(openKeys)
     return {
       openKeys,

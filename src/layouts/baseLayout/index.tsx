@@ -20,17 +20,16 @@ const { SubMenu } = Menu; // 子菜单
 const { Header, Content, Sider } = Layout; // 顶部布局， 内容部分， 侧边栏
 
 interface IBaseLayoutProps {
-  showMenus: boolean;
+  showmenus: string | boolean;
 }
 const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
-  const { children, showMenus } = props;
+  const { children, showmenus } = props;
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const changeCollapsed = () => {
     setCollapsed(!collapsed);
   };
-  console.log("showMenus",showMenus)
-  return showMenus ? (
+  return showmenus ? (
     <Layout key="layout" id="layout" className=".base-layout">
       <Layout>
         <Siderbar collapsed={collapsed} />
