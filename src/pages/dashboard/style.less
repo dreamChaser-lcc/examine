@@ -6,10 +6,16 @@
   background-color: #fafafb;
   width: 100%;
   height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  .header {
+    flex-basis: 100px;
+  }
   .container {
-    height: calc(100vh - 200px);
-    padding: 10px;
-    overflow: auto;
+    flex: 1;
+    // padding: 10px;
+    // overflow: auto;
     .first-row {
       display: flex;
       justify-content: space-around;
@@ -17,13 +23,13 @@
       & .left,
       & .right {
         flex: 0 0 250px;
-        height: 200px;
+        height: 300px;
         box-shadow: @shadow;
         border-radius: @radius;
       }
       & .center {
         flex: 1;
-        height: 200px;
+        height: 300px;
         box-shadow: @shadow;
         border-radius: @radius;
         margin: 0 20px;
@@ -38,12 +44,12 @@
         flex: 1;
         box-shadow: @shadow;
         border-radius: @radius;
-        height: 200px;
+        height: 300px;
         margin: 0 20px 0 0;
       }
       & .right {
         flex: 0 0 250px;
-        height: 200px;
+        height: 300px;
         box-shadow: @shadow;
         border-radius: @radius;
       }
