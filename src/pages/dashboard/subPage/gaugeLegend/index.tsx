@@ -1,5 +1,6 @@
-import EChartsReact from 'echarts-for-react';
 import { FC } from 'react';
+// 组件
+import EChartsReact from 'echarts-for-react';
 
 interface IGaugeLendProps {}
 const GaugeLegend: FC<IGaugeLendProps> = (props) => {

@@ -1,5 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
+// 组件
 import EChartsReact from 'echarts-for-react';
+import { Col, Row, Select } from 'antd';
 
 interface ILineLegendProps {
   width?: number | string;
@@ -11,9 +13,9 @@ const LineLegend: FC<ILineLegendProps> = (props) => {
   const option = {
     tooltip: {
       trigger: 'axis',
-      axisPointer:{
-        type: 'cross'
-      }
+      axisPointer: {
+        type: 'line',
+      },
     },
     // toolbox: {
     //   feature: {
@@ -28,15 +30,15 @@ const LineLegend: FC<ILineLegendProps> = (props) => {
       {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        nameRotate: 50,
         axisTick: { show: false },
         axisLine: { show: false },
+        axisLabel: { rotate: 20 },
+        boundaryGap: false,
       },
       {
         type: 'category',
         position: 'top',
         data: [20, 32, 91, 34, 29, 330, 132],
-        nameRotate: 50,
         axisTick: { show: false },
         axisLine: { show: false },
       },
@@ -69,12 +71,35 @@ const LineLegend: FC<ILineLegendProps> = (props) => {
     ],
   };
   return (
-    <EChartsReact
-      option={option}
-      lazyUpdate
-      style={{ width: 'auto', height: 300 }}
-      opts={{ renderer: 'svg', height: 300 }}
-    />
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1 }}>
+        <EChartsReact
+          option={option}
+          lazyUpdate
+          style={{ width: 'auto', height: 250 }}
+          opts={{ renderer: 'svg' }}
+        />
+      </div>
+      <div style={{ flexBasis: 50, padding: '0 15px',marginTop:-15 }}>
+        <Row justify="space-between">
+          <Col>
+            <div style={{ fontWeight: 'bold' }}>New Customer Email Sent</div>
+            14.step funnel
+          </Col>
+          <Col>
+            Show Data：
+            <Select
+              defaultValue="thisWeek"
+              style={{ width: 120 }}
+              onChange={() => {}}
+            >
+              <Select.Option value="thisWeek">this week</Select.Option>
+              <Select.Option value="lastWeek">last Week</Select.Option>
+            </Select>
+          </Col>
+        </Row>
+      </div>
+    </div>
   );
 };
 LineLegend.defaultProps = {

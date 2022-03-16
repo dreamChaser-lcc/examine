@@ -8,6 +8,7 @@ import moment from 'moment';
 import './style.less';
 import GaugeLegend from './subPage/gaugeLegend';
 import GeoLegend from './subPage/geoLegend';
+import TaskCard from './subPage/taskCard';
 
 export default () => {
   const curDate = useMemo(() => {
@@ -28,7 +29,9 @@ export default () => {
           <div className="center">
             <LineLegend />
           </div>
-          <div className="right">3</div>
+          <div className="right">
+            <TaskCard />
+          </div>
         </div>
         <div className="second-row">
           <div className="left">

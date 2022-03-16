@@ -1,4 +1,5 @@
 import { FC, useEffect, useMemo, useState } from 'react';
+// 组件
 import EChartsReact, { EChartsOption } from 'echarts-for-react';
 
 interface IRingLegendProps {
