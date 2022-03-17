@@ -1,6 +1,7 @@
 import { FC } from 'react';
 // 组件
 import EChartsReact from 'echarts-for-react';
+import { Button } from 'antd';
 
 interface IGaugeLendProps {}
 const GaugeLegend: FC<IGaugeLendProps> = (props) => {
@@ -58,12 +59,22 @@ const GaugeLegend: FC<IGaugeLendProps> = (props) => {
     ],
   };
   return (
-    <EChartsReact
-      option={option}
-      lazyUpdate
-      style={{ width: 'auto', height: 300 }}
-      opts={{ renderer: 'svg', height: 300 }}
-    />
+    <>
+      <header>
+        <h4 style={{ textAlign: 'center', height: 50 }}>Metric2F</h4>
+      </header>
+      <EChartsReact
+        option={option}
+        lazyUpdate
+        style={{ width: 'auto', height: 200 }}
+        opts={{ renderer: 'svg', height: 200 }}
+      />
+      <footer style={{ textAlign: 'center', height: 50 }}>
+        <Button type="primary"  ghost>
+          Danger
+        </Button>
+      </footer>
+    </>
   );
 };
 export default GaugeLegend;

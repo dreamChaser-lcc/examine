@@ -3,8 +3,8 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 import { Col, Row } from 'antd';
 // 方法
-import { GET } from '@/axios';
 import Analysis from './analysis';
+import { GET } from '@/axios';
 
 interface IGeoLegendProps {}
 const GeoLegend: FC<IGeoLegendProps> = () => {
@@ -485,6 +485,7 @@ const GeoLegend: FC<IGeoLegendProps> = () => {
       </Col>
       <Col flex={1}>
         <div
+          id="geoWrap"
           ref={geoRef}
           style={{ height: 300, width: 'calc(100% - 0px)' }}
         ></div>
