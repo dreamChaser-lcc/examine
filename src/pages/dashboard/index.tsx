@@ -1,14 +1,15 @@
 import { useMemo } from 'react';
 // 组件
+import { Col, Row} from 'antd';
 import RingLegend from './subPage/ringlegend';
 import LineLegend from './subPage/lineLegend';
+import GaugeLegend from './subPage/gaugeLegend';
+import GeoLegend from './subPage/geoLegend';
+import TaskCard from './subPage/taskCard';
 // 方法
 import moment from 'moment';
 // 样式
 import './style.less';
-import GaugeLegend from './subPage/gaugeLegend';
-import GeoLegend from './subPage/geoLegend';
-import TaskCard from './subPage/taskCard';
 
 export default () => {
   const curDate = useMemo(() => {
@@ -18,8 +19,15 @@ export default () => {
   return (
     <div className="dashboard-wrap">
       <header className="header">
-        <h1>Welcome to my space,Lcc</h1>
-        <h5>{curDate}</h5>
+        <Row justify="space-between" align='middle'>
+          <Col>
+            <div>
+              <h1>Welcome to my space,Lcc</h1>
+              <h5>{curDate}</h5>
+            </div>
+          </Col>
+          <Col>当前页面仅实现UI,使用Fake数据</Col>
+        </Row>
       </header>
       <div className="container">
         <div className="first-row">

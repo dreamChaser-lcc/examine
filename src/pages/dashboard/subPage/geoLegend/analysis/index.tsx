@@ -7,29 +7,29 @@ interface IAnalysisProps {}
 const Analysis: FC<IAnalysisProps> = () => {
   const descripteConfig = [
     {
-      label: 'asd',
-      value: '12',
+      label: 'shanghai',
+      value: '30.8k',
       style: {
         background: '#46D79D',
       },
     },
     {
-      label: 'asd',
-      value: '12',
+      label: 'guangzhou',
+      value: '26.2k',
       style: {
         background: '#FF974A',
       },
     },
     {
-      label: 'asd',
-      value: '12',
+      label: 'hainan',
+      value: '23.9k',
       style: {
         background: '#BE42FF',
       },
     },
     {
-      label: 'asd',
-      value: '12',
+      label: 'fujian',
+      value: '20.3k',
       style: {
         background: '#0766FF',
       },
@@ -44,7 +44,8 @@ const Analysis: FC<IAnalysisProps> = () => {
             align="center"
             style={{ fontSize: 18, fontWeight: 'bold', padding: '10px 8px' }}
           >
-            <TeamOutlined /> 11.2k
+            <TeamOutlined />
+            USERS:101.2k
           </Space>
         </main>
         <List

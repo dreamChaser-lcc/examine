@@ -15,6 +15,7 @@ const GaugeLegend: FC<IGaugeLendProps> = (props) => {
           width: 18,
         },
         axisLine: {
+          roundCap: false,
           lineStyle: {
             width: 18,
           },
@@ -23,16 +24,10 @@ const GaugeLegend: FC<IGaugeLendProps> = (props) => {
           show: false,
         },
         splitLine: {
-          length: 10,
-          lineStyle: {
-            width: 2,
-            color: '#999',
-          },
+          show: false,
         },
         axisLabel: {
-          distance: 20,
-          color: '#999',
-          fontSize: 12,
+          show: false,
         },
         anchor: {
           show: true,
@@ -61,18 +56,45 @@ const GaugeLegend: FC<IGaugeLendProps> = (props) => {
   return (
     <>
       <header>
-        <h4 style={{ textAlign: 'center', height: 50 }}>Metric2F</h4>
+        <div
+          style={{
+            textAlign: 'center',
+            lineHeight: '50px',
+            fontWeight: 'bold',
+            verticalAlign: 'middle',
+          }}
+        >
+          Metric2F
+        </div>
       </header>
       <EChartsReact
         option={option}
         lazyUpdate
-        style={{ width: 'auto', height: 200 }}
+        style={{ width: 'auto', height: 200, marginTop: '-1.5rem' }}
         opts={{ renderer: 'svg', height: 200 }}
       />
       <footer style={{ textAlign: 'center', height: 50 }}>
-        <Button type="primary"  ghost>
-          Danger
-        </Button>
+        <div
+          style={{
+            marginTop: '-1.5rem',
+            fontSize: 8,
+            paddingBottom: '10px',
+            color: '#9F9FA7',
+          }}
+        >
+          Next income Last 12 Months
+        </div>
+        <button
+          style={{
+            backgroundColor: '#F1F1F5',
+            color: '#9F9FA7',
+            padding: 8,
+            borderRadius: 5,
+            border: 'none',
+          }}
+        >
+          learn more
+        </button>
       </footer>
     </>
   );
