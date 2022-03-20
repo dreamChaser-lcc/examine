@@ -44,6 +44,7 @@
     "umi": "^3.4.7"
   },
   "devDependencies": {
+    "@types/echarts": "^4.9.13",
     "@types/lodash": "^4.14.168",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
