@@ -1,15 +1,14 @@
-import {  useEffect } from 'react';
+//组件
+import Header from '@/component/Index/header';
+import Container from '@/component/Index/container';
+// antd样式
 import 'antd/dist/antd.css';
 
-function useSetInterval(callback: () => void, time: number) {
-  useEffect(() => {
-    const i = setInterval(callback, time);
-    return () => {
-      clearInterval(i);
-    };
-  }, []);
-}
 export default function IndexPage() {
- 
-  return <>默认导出页面</>;
+  return (
+    <>
+      <Header />
+      <Container />
+    </>
+  );
 }
