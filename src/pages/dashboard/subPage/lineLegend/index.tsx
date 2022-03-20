@@ -1,7 +1,8 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 // 组件
-import EChartsReact from 'echarts-for-react';
 import { Col, Row, Select } from 'antd';
+import ProEcharts from '@/component/ProEcharts';
+import { EChartOptionType } from '@/component/ProEcharts/typing';
 
 interface ILineLegendProps {
   width?: number | string;
@@ -9,8 +10,10 @@ interface ILineLegendProps {
 }
 const LineLegend: FC<ILineLegendProps> = (props) => {
   const { height, width } = props;
-
-  const option = {
+  const thisWeekData = [20, 32, 91, 34, 29, 330, 132];
+  const lastWeekData = [20, 32, 91, 34, 29, 330, 132].reverse();
+  const [showData, setShowData] = useState<any>(thisWeekData);
+  const option: EChartOptionType = {
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -66,21 +69,17 @@ const LineLegend: FC<ILineLegendProps> = (props) => {
           shadowOffsetY: 20,
           opacity: 0.1,
         },
-        data: [20, 32, 91, 34, 29, 330, 132],
+        data: showData,
       },
     ],
   };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1 }}>
-        <EChartsReact
-          option={option}
-          lazyUpdate
-          style={{ width: 'auto', height: 250 }}
-          opts={{ renderer: 'svg' }}
-        />
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <div style={{ flex: '1 1 auto' }}>
+        <ProEcharts option={option} height={250} opts={{ renderer: 'svg' }} />
       </div>
-      <div style={{ flexBasis: 50, padding: '0 15px',marginTop:-15 }}>
+      <div style={{ flexBasis: 50, padding: '0 15px', marginTop: -15 }}>
         <Row justify="space-between">
           <Col>
             <div style={{ fontWeight: 'bold' }}>New Customer Email Sent</div>
@@ -91,10 +90,20 @@ const LineLegend: FC<ILineLegendProps> = (props) => {
             <Select
               defaultValue="thisWeek"
               style={{ width: 120 }}
-              onChange={() => {}}
+              onChange={(val) => {
+                if (val === 'thisWeek') {
+                  setShowData(thisWeekData);
+                } else {
+                  setShowData(lastWeekData);
+                }
+              }}
             >
-              <Select.Option value="thisWeek">this week</Select.Option>
-              <Select.Option value="lastWeek">last Week</Select.Option>
+              <Select.Option key="cur" value="thisWeek">
+                this week
+              </Select.Option>
+              <Select.Option key="last" value="lastWeek">
+                last Week
+              </Select.Option>
             </Select>
           </Col>
         </Row>

@@ -1,6 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 // 组件
 import EChartsReact, { EChartsOption } from 'echarts-for-react';
+import ProEcharts from '@/component/ProEcharts';
 
 interface IRingLegendProps {
   width?: number | string;
@@ -36,7 +37,7 @@ const RingLegend: FC<IRingLegendProps> = (props) => {
         avoidLabelOverlap: true,
         label: {
           show: true,
-          formatter: (params: any) => "custom Content",
+          formatter: (params: any) => 'custom Content',
           position: 'center',
           fontSize: 12,
         },
@@ -64,10 +65,10 @@ const RingLegend: FC<IRingLegendProps> = (props) => {
   //   setOptions(option);
   // },[option])
   return (
-    <EChartsReact
+    <ProEcharts
       option={option}
       lazyUpdate
-      style={{ width: '250px', height: 300 }}
+      wrapStyle={{ height: 300 }}
       opts={{ renderer: 'svg', height: 300 }}
     />
   );

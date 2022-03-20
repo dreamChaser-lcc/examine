@@ -1,7 +1,6 @@
 import { FC } from 'react';
 // 组件
-import EChartsReact from 'echarts-for-react';
-import { Button } from 'antd';
+import ProEcharts from '@/component/ProEcharts';
 
 interface IGaugeLendProps {}
 const GaugeLegend: FC<IGaugeLendProps> = (props) => {
@@ -67,11 +66,10 @@ const GaugeLegend: FC<IGaugeLendProps> = (props) => {
           Metric2F
         </div>
       </header>
-      <EChartsReact
+      <ProEcharts
         option={option}
         lazyUpdate
-        style={{ width: 'auto', height: 200, marginTop: '-1.5rem' }}
-        opts={{ renderer: 'svg', height: 200 }}
+        wrapStyle={{ height: 200, marginTop: '-1.5rem' }}
       />
       <footer style={{ textAlign: 'center', height: 50 }}>
         <div

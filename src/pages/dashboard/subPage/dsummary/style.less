@@ -1,0 +1,43 @@
+@bgc: #f0f2f5;
+@media screen and (min-width: 768px) {
+  .dsummary-warp {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    & .w\:1\/4 {
+      .ant-card-body {
+        padding: 10px;
+      }
+      //原子CSS命名规则
+      width: 25%;
+      margin-right: 10px;
+      .pd-10 {
+        padding: 10px;
+      }
+      .pd-12 {
+        padding: 10px;
+      }
+      .fs-14 {
+        font-size: 14px;
+      }
+      .fs-20 {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .flex {
+        display: flex;
+      }
+      .center {
+        align-items: center;
+      }
+      .between {
+        justify-content: space-between;
+      }
+    }
+  }
+}
+.dsummary-warp {
+  background-color: @bgc;
+  padding: 10px;
+  display: flex;
+}
