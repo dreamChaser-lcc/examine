@@ -23,7 +23,7 @@ export const menus = [
   {
     key: 'dashboard',
     title: 'dashboard',
-    path: '/dashboard'
+    path: '/dashboard',
   },
   {
     key: 'antdUI',
@@ -44,20 +44,41 @@ export const menus = [
         key: 'upload',
         title: 'Upload上传',
         children: [
-          { key: 'file-upload', title: '文件上传', path: '/antdUI/upload/file-upload', },
-          { key: 'image-upload', title: '图片上传', path: '/antdUI/upload/image-upload', },
+          {
+            key: 'file-upload',
+            title: '文件上传',
+            path: '/antdUI/upload/file-upload',
+          },
+          {
+            key: 'image-upload',
+            title: '图片上传',
+            path: '/antdUI/upload/image-upload',
+          },
         ],
       },
-      { key: 'datePicker-cn', title: 'DatePicker日期', path: '/antdUI/datePicker-cn', },
-      { key: 'datePicker-cn1', title: 'DatePicker日期1', path: '/antdUI/datePicker-cn1', },
+      {
+        key: 'datePicker-cn',
+        title: 'DatePicker日期',
+        path: '/antdUI/datePicker-cn',
+      },
+      {
+        key: 'datePicker-cn1',
+        title: 'DatePicker日期1',
+        path: '/antdUI/datePicker-cn1',
+      },
     ],
   },
   {
     key: 'complete-demo',
     title: '封装完成的组件',
     children: [
-      { key: 'modal', title: '动态对话框', path: '/complete-demo/modal', },
-    ]
+      { key: 'modal', title: '动态对话框', path: '/complete-demo/modal' },
+      {
+        key: 'IconsList',
+        title: 'icons列表',
+        path: '/complete-demo/IconsList',
+      },
+    ],
   },
   { key: 'protable-cn', title: 'ProTable表格', path: '/protable-cn' },
   { key: 'debug-page', title: '调试组件页面', path: '/debug-page' },
@@ -66,18 +87,30 @@ export const menus = [
   {
     key: 'assembly',
     title: 'assembly',
-    children: [{ key: 'select',title:'select',path: '/assembly/select' }]
+    children: [{ key: 'select', title: 'select', path: '/assembly/select' }],
   },
   {
     key: 'echarts-explore',
     title: 'echart探索',
     children: [
-      { key: 'lineAndpie', title: '折线图&饼图', path: '/echarts-explore/lineAndpie', },
-      { key: 'ploar', title: '极坐标系', path: '/echarts-explore/polar', },
-      { key: 'scrollTable', title: '滚动表格', path: '/echarts-explore/scrollTable', },
-      { key: 'bigScree', title: '数据大屏', path: '/echarts-explore/bigScreen', },
-      { key: 'animate', title: 'css3动画', path: '/echarts-explore/animate', },
-    ]
+      {
+        key: 'lineAndpie',
+        title: '折线图&饼图',
+        path: '/echarts-explore/lineAndpie',
+      },
+      { key: 'ploar', title: '极坐标系', path: '/echarts-explore/polar' },
+      {
+        key: 'scrollTable',
+        title: '滚动表格',
+        path: '/echarts-explore/scrollTable',
+      },
+      {
+        key: 'bigScree',
+        title: '数据大屏',
+        path: '/echarts-explore/bigScreen',
+      },
+      { key: 'animate', title: 'css3动画', path: '/echarts-explore/animate' },
+    ],
   },
   { key: 'message', title: '消息中心', path: '/message' },
   { key: 'globalState', title: 'hooks的全局状态共享', path: '/globalState' },

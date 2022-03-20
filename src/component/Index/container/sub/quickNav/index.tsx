@@ -3,27 +3,28 @@ import { FC, memo } from 'react';
 import { Card } from 'antd';
 import { CaretLeftOutlined } from '@ant-design/icons';
 import IndexWork from '@/assets/images/indexWork.svg';
+import MyIcon from '@/component/myIcon';
 
 const QuickNav: FC = () => {
   const navConfig = [
     {
       key: 'index',
-      icon: <CaretLeftOutlined />,
+      icon: <MyIcon type="icon-shouye" />,
       label: '首页',
     },
     {
       key: 'component',
-      icon: <CaretLeftOutlined />,
+      icon: <MyIcon type="icon-zujianhua" />,
       label: '组件',
     },
     {
       key: 'dashboard',
-      icon: <CaretLeftOutlined />,
+      icon: <MyIcon type="icon-shouyedashboard" />,
       label: '仪表盘',
     },
     {
       key: 'legend',
-      icon: <CaretLeftOutlined />,
+      icon: <MyIcon type="icon-tubiao" />,
       label: '图表',
     },
   ];
