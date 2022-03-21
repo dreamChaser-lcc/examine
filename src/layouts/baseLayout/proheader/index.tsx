@@ -36,6 +36,8 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
         });
       }
     }
+  }, [currentPathname]);
+  useEffect(() => {
     // tabs中没有，从缓存中清除
     const cahingNodes = getCachingNodes();
     cahingNodes.forEach((value) => {
@@ -48,7 +50,7 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
         });
       }
     });
-  }, [currentPathname, routerTabs]);
+  }, [routerTabs]);
   // 删除tabs 并 删除缓存页面
   const handleTabsEdit = (key: any, action: 'add' | 'remove') => {
     switch (action) {
@@ -56,9 +58,9 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
         break;
       case 'remove':
         dispatch('deleteRouterTabs', { pathName: key });
-        setTimeout(() => {
-          dropScope(key);
-        });
+      // setTimeout(() => {
+      //   dropScope(key);
+      // });
     }
   };
   // 点击切换

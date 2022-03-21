@@ -1,9 +1,10 @@
+import { notClearTabs } from '@/contants/common';
 import { IContextProps } from '@/globalContext';
 import { useReducer } from 'react';
 import { history } from 'umi';
 
 /**下拉菜单 */
-type dropMenusType = 'closeToLeft' | 'closeToRight' | 'closeOther' | 'closeAll';
+type dropMenusType = 'closeToLeft' | 'closeToRight' | 'closeOther';
 /**其他 */
 type otherType = 'addRouterTabs' | 'deleteRouterTabs' | 'changeLoginState';
 
@@ -46,6 +47,25 @@ function globalReducer(
       if (index !== -1) {
         routerTabs.splice(1, index - 1);
       }
+      return { ...copyState, routerTabs };
+    }
+    case 'closeToRight': {
+      const { pathName } = action.payload;
+      const temp = copyState.routerTabs;
+      const index = temp?.findIndex((item) => {
+        return item?.pathName === pathName;
+      });
+      if (index !== -1) {
+        const routerTabs = temp.slice(0, index + 1);
+        return { ...copyState, routerTabs };
+      }
+      return state;
+    }
+    case 'closeOther': {
+      const { pathName } = action.payload;
+      const routerTabs = copyState.routerTabs?.filter((item) => {
+        return [pathName, ...notClearTabs].includes(item?.pathName);
+      });
       return { ...copyState, routerTabs };
     }
     case 'changeLoginState': {
