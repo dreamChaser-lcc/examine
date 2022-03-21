@@ -37,7 +37,7 @@ export const projectConfig: IProjectConfigProps[] = [
   },
   {
     key: 'VueJs',
-    icon: <MyIcon type="icon-tubiao" />,
+    icon: <MyIcon type="icon-Vue" />,
     title: 'Vue',
     content: '今天的只需要比昨天的你更好',
     description: '框架',

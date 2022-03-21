@@ -33,15 +33,15 @@ export function copyText(
   text: string,
   generateTemp?: (text: string) => string,
 ) {
-  return new Promise((resolve, reject) => {
+  return new Promise<string | false>((resolve, reject) => {
     /**复制的内容 */
     const temp = typeof generateTemp === 'function' ? generateTemp(text) : text;
-    try {
-      // oldCopyFunc(temp)
-      newCopyFunc(temp);
-      resolve(temp);
-    } catch (e) {
-      reject(false);
-    }
+    newCopyFunc(temp)
+      .then(() => {
+        resolve(temp);
+      })
+      .catch(() => {
+        reject(false);
+      });
   });
 }

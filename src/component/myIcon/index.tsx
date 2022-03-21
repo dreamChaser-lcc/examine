@@ -8,7 +8,7 @@ interface IMyIconProps {
   size?: number;
   /**颜色 */
   color?: string;
-  /**图标源 暂不可用*/
+  /**图标源 */
   scriptUrl?: string;
   /**样式 */
   style?: CSSProperties;
