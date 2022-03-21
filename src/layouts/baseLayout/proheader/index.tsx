@@ -2,13 +2,13 @@ import { ReactNode, Fragment, FC, useContext, useEffect } from 'react';
 // 组件
 import { Breadcrumb, Tabs } from 'antd';
 import { MenuFoldOutlined, HomeOutlined } from '@ant-design/icons';
+import DropMenus from './sub/dropMenus';
 // 方法
 import { findCurrentMenuKey } from '@/layouts/utils';
 // 常量
 import BaseContext from '@/globalContext';
 import { history, Link, useAliveController } from 'umi';
 import { getBreadCrumbMenus, menus } from '@/../config.router';
-import React from 'react';
 
 interface IProHeaderProps {
   /**侧边栏收缩事件 */
@@ -40,15 +40,15 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
     const cahingNodes = getCachingNodes();
     cahingNodes.forEach((value) => {
       const findIndex = routerTabs.findIndex(
-        (item) => item?.pathName === value?.pathName,
+        (item) => item?.pathName === value?.name,
       );
       if (findIndex === -1) {
         setTimeout(() => {
-          dropScope(value?.pathName);
+          dropScope(value.name as string);
         });
       }
     });
-  }, [currentPathname]);
+  }, [currentPathname, routerTabs]);
   // 删除tabs 并 删除缓存页面
   const handleTabsEdit = (key: any, action: 'add' | 'remove') => {
     switch (action) {
@@ -59,7 +59,6 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
         setTimeout(() => {
           dropScope(key);
         });
-        break;
     }
   };
   // 点击切换
@@ -121,17 +120,17 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
             activeKey={currentPathname}
             onEdit={handleTabsEdit}
             animated
-            className='tabs-layout'
+            className="tabs-layout"
             onTabClick={handleTabsClick}
             tabBarExtraContent={{ left: outlineBtn() }}
           >
             {routerTabs?.map((item) => {
               return (
                 <Tabs.TabPane
-                  tab={item.name}
+                  tab={<DropMenus tabInfo={item}>{item.name}</DropMenus>}
                   key={item.pathName}
                   tabKey={item.pathName}
-                  style={{background:'red'}}
+                  style={{ background: 'red' }}
                   closable={item.pathName !== '/'}
                 />
               );

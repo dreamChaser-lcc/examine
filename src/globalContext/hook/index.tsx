@@ -1,10 +1,13 @@
 import { IContextProps } from '@/globalContext';
 import { useReducer } from 'react';
 import { history } from 'umi';
-export type actionType =
-  | 'addRouterTabs'
-  | 'deleteRouterTabs'
-  | 'changeLoginState';
+
+/**下拉菜单 */
+type dropMenusType = 'closeToLeft' | 'closeToRight' | 'closeOther' | 'closeAll';
+/**其他 */
+type otherType = 'addRouterTabs' | 'deleteRouterTabs' | 'changeLoginState';
+
+export type actionType = otherType | dropMenusType;
 export interface payloadProps {
   name: string;
   pathName: string;
@@ -18,26 +21,38 @@ function globalReducer(
   state: IContextProps,
   action: IGlobalprops,
 ): IContextProps {
+  const copyState = JSON.parse(JSON.stringify(state)) as IContextProps;
   switch (action.type) {
     case 'addRouterTabs': {
-      const temp = state.routerTabs;
+      const temp = copyState.routerTabs;
       const routerTabs = [...temp, action.payload];
-      return { ...state, routerTabs };
+      return { ...copyState, routerTabs };
     }
     case 'deleteRouterTabs': {
       const { pathName } = action.payload;
-      const routerTabs = state.routerTabs?.filter(
+      const routerTabs = copyState.routerTabs?.filter(
         (item) => item.pathName !== pathName,
       );
       const item = routerTabs.slice(-1)[0];
       history.push({ pathname: item.pathName, query: item.query });
-      return { ...state, routerTabs };
+      return { ...copyState, routerTabs };
+    }
+    case 'closeToLeft': {
+      const { pathName } = action.payload;
+      const routerTabs = copyState.routerTabs;
+      const index = routerTabs?.findIndex((item) => {
+        return item?.pathName === pathName;
+      });
+      if (index !== -1) {
+        routerTabs.splice(1, index - 1);
+      }
+      return { ...copyState, routerTabs };
     }
     case 'changeLoginState': {
-      return { ...state, isLogin: action.payload };
+      return { ...copyState, isLogin: action.payload };
     }
     default:
-      return { ...state };
+      return { ...copyState };
   }
 }
 
