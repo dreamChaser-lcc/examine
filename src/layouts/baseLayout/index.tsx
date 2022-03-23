@@ -20,7 +20,7 @@ const { SubMenu } = Menu; // 子菜单
 const { Header, Content, Sider } = Layout; // 顶部布局， 内容部分， 侧边栏
 
 interface IBaseLayoutProps {
-  showmenus: string | boolean;
+  showmenus: string | boolean | number;
 }
 const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
   const { children, showmenus } = props;

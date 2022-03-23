@@ -1,6 +1,6 @@
 import { ReactNode, Fragment, FC, useContext, useEffect } from 'react';
 // 组件
-import { Breadcrumb, Tabs } from 'antd';
+import { Breadcrumb, Col, Row, Tabs } from 'antd';
 import { MenuFoldOutlined, HomeOutlined } from '@ant-design/icons';
 import DropMenus from './sub/dropMenus';
 // 方法
@@ -109,13 +109,22 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
         </Link>
       </Breadcrumb.Item>,
     ].concat(extraBreadcrumbItems);
-    return <Breadcrumb>{basicItem}</Breadcrumb>;
+    return (
+      <div className="nav-breadcrumb">
+        <div>
+          <Breadcrumb>{basicItem}</Breadcrumb>
+        </div>
+        <div>
+          <Breadcrumb>{basicItem}</Breadcrumb>{' '}
+        </div>
+      </div>
+    );
   };
   return (
     <Fragment>
       <header className="base-layout-header">
         <div className="nav-board">
-          <div className="nav-breadcrumb">{renderBeadcrumb()}</div>
+          {renderBeadcrumb()}
           <Tabs
             type="editable-card"
             hideAdd={true}

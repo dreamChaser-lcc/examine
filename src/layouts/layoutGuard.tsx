@@ -36,7 +36,7 @@ const LayoutGuard: FC<Iprops> = (props) => {
       return children;
     }
     const pathname = location.hash.replace('#/', '');
-    const showMenus = !notMenusPage.includes(curLocation.pathname);
+    const showMenus = !notMenusPage.includes(curLocation.pathname) ? 1 : 0;
     return (
       <React.Suspense
         fallback={

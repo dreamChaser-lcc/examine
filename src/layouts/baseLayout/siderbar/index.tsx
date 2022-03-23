@@ -2,10 +2,12 @@ import { FC, Key, useMemo, useState } from 'react';
 // 组件
 import { Layout, Menu } from 'antd';
 import { Link, useLocation } from 'umi';
+import MyIcon from '@/component/myIcon';
 // 方法
 import _ from 'lodash';
 // 常量
 import logo from '@/assets/images/readingLogo1.png';
+import brown from '/public/logo_brown.png';
 import { menus } from '@/../config.router';
 
 interface SiderbarProps {
@@ -13,7 +15,7 @@ interface SiderbarProps {
 }
 const Siderbar: FC<SiderbarProps> = (props) => {
   const { collapsed } = props;
-  const [openkeys,setOpenkeys] = useState<string[]>([]);
+  const [openkeys, setOpenkeys] = useState<string[]>([]);
 
   const curLocation = useLocation();
   const defaultSelect = useMemo(() => {
@@ -21,15 +23,15 @@ const Siderbar: FC<SiderbarProps> = (props) => {
     const openKeys = keyArr.slice(0, keyArr.length - 1);
     const selectKeys = keyArr.slice(keyArr.length - 1);
     // console.log(keyArr,openKeys)
-    setOpenkeys(openKeys)
+    setOpenkeys(openKeys);
     return {
       openKeys,
       selectKeys,
     };
   }, [curLocation]);
-  const onOpenChange = (openKeys:any[])=>{
-    setOpenkeys(openKeys)
-  }
+  const onOpenChange = (openKeys: any[]) => {
+    setOpenkeys(openKeys);
+  };
   // 子菜单
   const getMenuItem = (menuArr: any) => {
     // 迭代menuArr
@@ -39,6 +41,11 @@ const Siderbar: FC<SiderbarProps> = (props) => {
         // 有多级菜单时
         return (
           <Menu.SubMenu
+            icon={
+              route?.iconCode ? (
+                <MyIcon size={18} type={route?.iconCode} />
+              ) : null
+            }
             key={route.key}
             title={<div title={route.title}>{route.title}</div>}
           >
@@ -47,7 +54,13 @@ const Siderbar: FC<SiderbarProps> = (props) => {
         );
       }
       return (
-        <Menu.Item key={route.key} title={route.title}>
+        <Menu.Item
+          icon={
+            route?.iconCode ? <MyIcon size={18} type={route?.iconCode} /> : null
+          }
+          key={route.key}
+          title={route.title}
+        >
           <Link to={route.path}>{route.title}</Link>
         </Menu.Item>
       );
@@ -60,7 +73,11 @@ const Siderbar: FC<SiderbarProps> = (props) => {
       className="base-layout-sider"
     >
       <div className="log-image-wrapper">
-        <img className="image" src={logo} alt="logo" />
+        {collapsed ? (
+          <img className={'image-collapse'} src={brown} alt="logo" />
+        ) : (
+          <img className={'image'} src={logo} alt="logo" />
+        )}
       </div>
       <Menu
         mode="inline"
