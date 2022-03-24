@@ -38,7 +38,7 @@ const PlanList: FC<IPlanListProps> = () => {
       <>
         {data?.length ? null : (
           <Space>
-            当前网络不加请刷新
+            当前网络不佳请刷新
             <Button
               loading={loading}
               icon={<RedoOutlined />}

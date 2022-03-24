@@ -3,12 +3,14 @@ import { ReactNode, Fragment, FC, useContext, useEffect } from 'react';
 import { Breadcrumb, Col, Row, Tabs } from 'antd';
 import { MenuFoldOutlined, HomeOutlined } from '@ant-design/icons';
 import DropMenus from './sub/dropMenus';
+import TabpaneOperation from './sub/tabpaneOperation';
 // 方法
 import { findCurrentMenuKey } from '@/layouts/utils';
 // 常量
 import BaseContext from '@/globalContext';
 import { history, Link, useAliveController } from 'umi';
 import { getBreadCrumbMenus, menus } from '@/../config.router';
+import BreadcrumbExtra from './sub/breadcrumbExtra';
 
 interface IProHeaderProps {
   /**侧边栏收缩事件 */
@@ -115,7 +117,7 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
           <Breadcrumb>{basicItem}</Breadcrumb>
         </div>
         <div>
-          <Breadcrumb>{basicItem}</Breadcrumb>{' '}
+          <BreadcrumbExtra />
         </div>
       </div>
     );
@@ -133,7 +135,10 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
             animated
             className="tabs-layout"
             onTabClick={handleTabsClick}
-            tabBarExtraContent={{ left: outlineBtn() }}
+            tabBarExtraContent={{
+              left: outlineBtn(),
+              right: <TabpaneOperation />,
+            }}
           >
             {routerTabs?.map((item) => {
               return (

@@ -22,6 +22,11 @@ interface IconsConfigProps {
   code: string;
 }
 export const iconsConfig: IconsConfigProps[] = [
+  { title: '取消全屏', code: 'icon-quxiaoquanping' },
+  { title: '全屏', code: 'icon-quanping' },
+  { title: '关闭其他', code: 'icon-guanbiqita' },
+  { title: '关闭右侧', code: 'icon-guanbiyouce' },
+  { title: '关闭左侧', code: 'icon-guanbizuoce' },
   { title: 'dashboard', code: 'icon-dashboard' },
   { title: '消息中心', code: 'icon-xiaoxizhongxin' },
   { title: '测试申请', code: 'icon-ceshishenqing' },
