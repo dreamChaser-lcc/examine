@@ -54,7 +54,11 @@ const LoginForm: FC<ILoginForm> = () => {
       <Form
         name="basic"
         wrapperCol={{ span: 24 }}
-        initialValues={{ remember: true }}
+        initialValues={{
+          remember: true,
+          account: 'Admin',
+          password: '123456',
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"

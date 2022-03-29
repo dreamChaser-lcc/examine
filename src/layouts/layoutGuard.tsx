@@ -1,14 +1,6 @@
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-  lazy,
-} from 'react';
+import React, { FC, useEffect } from 'react';
 
-import { IRouteComponentProps } from 'umi';
+import { history, IRouteComponentProps } from 'umi';
 // 组件
 import BaseLayout from './baseLayout';
 
@@ -22,6 +14,7 @@ import { Spin } from 'antd';
 import { useVerifyToken } from './hooks/verifytoken';
 import { notMenusPage } from '@/contants/common';
 import ProTransition from '@/component/ProTransition';
+import Login from '@/pages/login';
 interface Iprops extends IRouteComponentProps {
   tokenApi?: Function;
 }
@@ -29,7 +22,8 @@ const LayoutGuard: FC<Iprops> = (props) => {
   const { children, route, tokenApi } = props;
   const curLocation = useLocation();
   const { dispatch, routerTabs } = useGlobal();
-  // const { isLogin } = useVerifyToken({ api: tokenApi });
+  const { isLogin } = useVerifyToken({ api: tokenApi });
+
   const layoutRender = () => {
     // console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
     if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {

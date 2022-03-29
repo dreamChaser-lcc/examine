@@ -81,7 +81,7 @@ class ProAxios implements IProAxios {
       },
       (error) => {
         // 响应状态码大于200 触发回调
-        const status = error.response.status as number;
+        const status = error.response?.status as number;
         const data = error.response?.data;
         if (status === 500 && data?.message) {
           console.log(error.response);

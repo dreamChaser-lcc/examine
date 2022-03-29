@@ -44,25 +44,29 @@ export default () => {
   };
   const scrollAnimation = async () => {
     const tableBodyEle = document.querySelector(
-      '#tableId .ant-table-body',
+      '#tableIdCustom .ant-table-body',
     ) as HTMLElement;
     if (history.location.pathname !== '/echarts-explore/scrollTable') {
       clearTimer();
     } else {
+      if (!tableBodyEle) {
+        clearTimer();
+        return;
+      }
       // 无限自动轮播，不能兼容scroll-behavior: smooth;
       if (
-        tableBodyEle!.scrollTop <
-        tableBodyEle!.scrollHeight - tableBodyEle?.clientHeight
+        tableBodyEle?.scrollTop <
+        tableBodyEle?.scrollHeight - tableBodyEle?.clientHeight
       ) {
-        tableBodyEle!.scrollTop += 1;
+        tableBodyEle.scrollTop += 1;
       } else {
-        tableBodyEle!.scrollTop = 0;
+        tableBodyEle.scrollTop = 0;
       }
     }
   };
   const collapseScroll = () => {
     const tableBodyEle = document.querySelector(
-      '#tableId .ant-table-body',
+      '#tableIdCustom .ant-table-body',
     ) as HTMLElement;
     if (history.location.pathname !== '/echarts-explore/scrollTable') {
       clearTimer();
@@ -98,7 +102,7 @@ export default () => {
         style={{ width: 600, margin: '10px 20px' }}
       >
         <div
-          id="tableId"
+          id="tableIdCustom"
           onMouseEnter={(event) => {
             clearTimer();
           }}

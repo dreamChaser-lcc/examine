@@ -50,11 +50,11 @@ export const menus = [
         path: '/echarts-explore/lineAndpie',
       },
       { key: 'ploar', title: '极坐标系', path: '/echarts-explore/polar' },
-      {
-        key: 'scrollTable',
-        title: '滚动表格',
-        path: '/echarts-explore/scrollTable',
-      },
+      // {
+      //   key: 'scrollTable',
+      //   title: '滚动表格',
+      //   path: '/echarts-explore/scrollTable',
+      // },
       // {
       //   key: 'bigScree',
       //   title: '数据大屏',

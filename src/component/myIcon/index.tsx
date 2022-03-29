@@ -18,7 +18,7 @@ const MyIcon: FC<IMyIconProps> = (props) => {
   const Icon = createFromIconfontCN({
     scriptUrl: scriptUrl
       ? scriptUrl
-      : '//at.alicdn.com/t/font_3262579_pyzjzh41j7o.js', // 在 iconfont.cn 上生成
+      : '//at.alicdn.com/t/font_3262579_hhebhh9sihd.js', // 在 iconfont.cn 上生成
   });
   return (
     <Icon style={{ fontSize: size, color, ...style }} {...restProps}></Icon>

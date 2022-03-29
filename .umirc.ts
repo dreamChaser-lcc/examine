@@ -11,7 +11,7 @@ export default {
   favicon: '/favicon.ico',
   proxy: {
     '/api': {
-      target: 'http://localhost:8080',
+      target: 'http://150.158.189.25:8080',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },
