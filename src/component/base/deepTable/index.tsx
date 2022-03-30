@@ -1,9 +1,11 @@
 import React, { FC, ReactNode } from 'react';
 import { Table, TableProps } from 'antd';
-import { ColumnsType } from 'antd/lib/table';
+import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/lib/table';
 import { useColumns } from './hook/useColumns';
+import SearchForm from './searchForm';
 
-export interface columnsProps {
+type AntColumnsType<RecordType> = ColumnType<RecordType>;
+export interface columnsProps extends AntColumnsType<any> {
   /* 标题 */
   title: ReactNode | (({ sortOrder, sortColumn, filters }: any) => ReactNode);
   dataIndex: string;
@@ -44,13 +46,39 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       title: '住址',
       dataIndex: 'address',
     },
+    {
+      title: 'Action',
+      dataIndex: 'operation',
+      fixed: 'right',
+      width: 100,
+      render: () => <a>action</a>,
+    },
   ];
   const { columns: newColumns, newDataSource } = useColumns({ dataSource });
   console.log(newDataSource);
   return (
-    <>
-      <Table dataSource={newDataSource} columns={columns} />
-    </>
+    <div
+      style={{
+        height: '100%',
+        background: '#fff',
+        padding: 10,
+        border: '1px solid #dcdde1',
+        borderRadius: 5,
+      }}
+    >
+      <>
+        <SearchForm />
+      </>
+      <Table
+        dataSource={newDataSource}
+        columns={columns}
+        pagination={{
+          size: 'small',
+          pageSizeOptions: [5, 10, 20, 50],
+          total: 500,
+        }}
+      />
+    </div>
   );
 };
 export default DeepTable;
