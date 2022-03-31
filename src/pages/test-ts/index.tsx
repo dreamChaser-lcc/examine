@@ -59,7 +59,7 @@ export default (props:any) => {
       {/* <div id="box" style={{width:'200px',height:'200px',backgroundColor:'red'}} onMouseMove={handleMouseMove}>
           {mouseTaget}
         </div> */}
-      {/* <DeepTable columns={[]} /> */}
+      <DeepTable columns={[]} />
       <Detail/>
     </>
   );

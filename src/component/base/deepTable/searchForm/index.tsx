@@ -8,7 +8,7 @@ const SearchForm: FC<ISearchFormProps> = () => {
   const [form] = Form.useForm();
 
   const getFields = () => {
-    const count = expand ? 10 : 6;
+    const count = expand ? 6 : 3;
     const children = [];
     for (let i = 0; i < count; i++) {
       children.push(

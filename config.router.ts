@@ -40,6 +40,25 @@ export const menus = [
     ],
   },
   {
+    key: 'unComplete-demo',
+    title: '未封装组件',
+    iconCode: 'icon-zujian',
+    children: [
+      { key: 'details', title: '详情页', path: '/unComplete-demo/detail' },
+      {
+        key: 'tables',
+        title: '表格',
+        path: '/unComplete-demo/table',
+      },
+    ],
+  },
+  {
+    key: 'protable-cn',
+    title: 'ProTable表格',
+    iconCode: 'icon-xiaoxizhongxin',
+    path: '/proTable-cn',
+  },
+  {
     key: 'echarts-explore',
     title: 'echart探索',
     iconCode: 'icon-tubiao-bingtu',
@@ -68,12 +87,6 @@ export const menus = [
     title: '拖拽数据',
     iconCode: 'icon-tuozhuai',
     path: '/sortable',
-  },
-  {
-    key: 'protable-cn',
-    title: 'ProTable表格',
-    iconCode: 'icon-xiaoxizhongxin',
-    path: '/protable-cn',
   },
   {
     key: 'debug-page',

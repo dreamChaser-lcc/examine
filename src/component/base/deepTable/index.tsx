@@ -25,19 +25,19 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       // key: '1',
       name: '1',
       age: 32,
-      address: '西湖区湖底公园1号',
+      address: '仓山区万达1号',
     },
     {
       // key: '2',
       name: '2',
       age: 42,
-      address: '西湖区湖底公园1号',
+      address: '仓山区万达2号',
     },
   ];
 
   const columns: columnsProps[] = [
     {
-      title: <>123</>,
+      title: '排序',
       dataIndex: 'name',
     },
     {
@@ -110,8 +110,8 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
           <Button type="primary" icon={<PlusOutlined />}>
             新增
           </Button>
-          <Button>Clear filters</Button>
-          <Button>Clear filters and sorters</Button>
+          {/* <Button>Clear filters</Button>
+          <Button>Clear filters and sorters</Button> */}
         </Space>
         <Table
           dataSource={newDataSource}
