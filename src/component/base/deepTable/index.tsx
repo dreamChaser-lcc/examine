@@ -1,8 +1,10 @@
 import React, { FC, ReactNode } from 'react';
-import { Table, TableProps } from 'antd';
+import { Button, Dropdown, Menu, Space, Table, TableProps } from 'antd';
 import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/lib/table';
+import { PlusOutlined } from '@ant-design/icons';
 import { useColumns } from './hook/useColumns';
 import SearchForm from './searchForm';
+import MyIcon from '@/component/myIcon';
 
 type AntColumnsType<RecordType> = ColumnType<RecordType>;
 export interface columnsProps extends AntColumnsType<any> {
@@ -47,11 +49,39 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       dataIndex: 'address',
     },
     {
-      title: 'Action',
+      title: '操作',
       dataIndex: 'operation',
       fixed: 'right',
       width: 100,
-      render: () => <a>action</a>,
+      render: () => {
+        const size = 'middle';
+        const menu = (
+          <Menu onClick={() => 'handleMenuClick'}>
+            <Menu.Item
+              key="edit"
+              icon={<MyIcon size="middle" type="icon-bianji" />}
+            >
+              编辑
+            </Menu.Item>
+            <Menu.Item
+              key="delete"
+              style={{ color: 'red' }}
+              icon={<MyIcon size="middle" type="icon-shanchu" />}
+            >
+              删除
+            </Menu.Item>
+          </Menu>
+        );
+
+        return (
+          <>
+            <Dropdown.Button overlay={menu} key="detail">
+              <MyIcon size="middle" type="icon-chakan" />
+              查看
+            </Dropdown.Button>
+          </>
+        );
+      },
     },
   ];
   const { columns: newColumns, newDataSource } = useColumns({ dataSource });
@@ -69,15 +99,31 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       <>
         <SearchForm />
       </>
-      <Table
-        dataSource={newDataSource}
-        columns={columns}
-        pagination={{
-          size: 'small',
-          pageSizeOptions: [5, 10, 20, 50],
-          total: 500,
+      <div
+        style={{
+          marginTop: 10,
+          paddingTop: 10,
+          borderTop: '1px solid rgb(220, 221, 225)',
         }}
-      />
+      >
+        <Space style={{ marginBottom: 16 }}>
+          <Button type="primary" icon={<PlusOutlined />}>
+            新增
+          </Button>
+          <Button>Clear filters</Button>
+          <Button>Clear filters and sorters</Button>
+        </Space>
+        <Table
+          dataSource={newDataSource}
+          bordered
+          columns={columns}
+          pagination={{
+            size: 'small',
+            pageSizeOptions: [5, 10, 20, 50],
+            total: 500,
+          }}
+        />
+      </div>
     </div>
   );
 };

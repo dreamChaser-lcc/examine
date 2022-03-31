@@ -55,7 +55,7 @@ const SearchForm: FC<ISearchFormProps> = () => {
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">
-              Search
+              查询
             </Button>
             <Button
               style={{ margin: '0 8px' }}
@@ -63,7 +63,7 @@ const SearchForm: FC<ISearchFormProps> = () => {
                 form.resetFields();
               }}
             >
-              Clear
+              重置
             </Button>
             <a
               style={{ fontSize: 12 }}
@@ -71,7 +71,17 @@ const SearchForm: FC<ISearchFormProps> = () => {
                 setExpand(!expand);
               }}
             >
-              {expand ? <UpOutlined /> : <DownOutlined />} Collapse
+              {expand ? (
+                <>
+                  <UpOutlined />
+                  收起
+                </>
+              ) : (
+                <>
+                  <DownOutlined />
+                  展开
+                </>
+              )}
             </a>
           </Col>
         </Row>

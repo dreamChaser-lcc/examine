@@ -7,6 +7,7 @@ import path from 'path';
 import axios from 'axios';
 import { GET } from '@/axios';
 import DeepTable from '@/component/base/deepTable';
+import Detail from '@/component/base/detail';
 // const api = async ()=>{
 //   const {data:res} =  await axios.get("/app/tenantUser/allapi");
 //   console.log(res)
@@ -58,7 +59,8 @@ export default (props:any) => {
       {/* <div id="box" style={{width:'200px',height:'200px',backgroundColor:'red'}} onMouseMove={handleMouseMove}>
           {mouseTaget}
         </div> */}
-      <DeepTable columns={[]} />
+      {/* <DeepTable columns={[]} /> */}
+      <Detail/>
     </>
   );
 };

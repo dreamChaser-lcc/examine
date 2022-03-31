@@ -22,6 +22,10 @@ interface IconsConfigProps {
   code: string;
 }
 export const iconsConfig: IconsConfigProps[] = [
+  { title: '查看', code: 'icon-chakan' },
+  { title: '编辑', code: 'icon-bianji' },
+  { title: '添加', code: 'icon-tianjia' },
+  { title: '删除', code: 'icon-shanchu' },
   { title: '取消全屏_o', code: 'icon-quxiaoquanping_o' },
   { title: '全屏_o', code: 'icon-quanping_o' },
   { title: '退出', code: 'icon-tuichu1' },
