@@ -27,7 +27,7 @@ const IconsList: FC = () => {
   return (
     <Card
       title="可点击复制使用（IE除外）"
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: '100%', }}
       extra={
         <Space>
           复制类型:
