@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Install dependencies,
+yarn Install dependencies
 
 ```bash
 $ yarn
@@ -12,6 +12,19 @@ Start the dev server,
 
 ```bash
 $ yarn start
+```
+or
+
+npm Install dependencies,recommend use npm 7+
+
+```bash
+$ npm install
+```
+
+Start the dev server,
+
+```bash
+$ npm start
 ```
 
 ## 提交规范
