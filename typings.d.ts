@@ -1,6 +1,7 @@
 declare module '*.css';
 declare module '*.less';
 declare module '*.gif';
+declare module '*.json';
 declare module '*.png';
 declare module '*.svg' {
   export function ReactComponent(

@@ -8,21 +8,22 @@ import Analysis from './analysis';
 /**常量 */
 import { EChartOptionType } from '@/component/ProEcharts/typing';
 import { data, geoCoordMap } from './geoConfig';
+import geoJson from '@/assets/json/geo_china.json';
 
 interface IGeoLegendProps {}
 const GeoLegend: FC<IGeoLegendProps> = () => {
-  const [geoJson, setGeoJson] = useState<any>();
+  // const [geoJson, setGeoJson] = useState<any>();
 
   /**获取在线中国地图GEOJSON数据 */
-  const getGeoJSON = async () => {
-    const res = await GET(
-      'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json',
-    );
-    setGeoJson(res);
-  };
-  useEffect(() => {
-    getGeoJSON();
-  }, []);
+  // const getGeoJSON = async () => {
+  //   const res = await GET(
+  //     'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json',
+  //   );
+  //   setGeoJson(res);
+  // };
+  // useEffect(() => {
+  //   getGeoJSON();
+  // }, []);
 
   const convertData = function (data: any) {
     const res = [];
@@ -102,7 +103,10 @@ const GeoLegend: FC<IGeoLegendProps> = () => {
           option={option}
           onBeforeInit={(echarts) => {
             /**注册地图背景 */
-            echarts.registerMap('china', { geoJSON: geoJson });
+            echarts.registerMap('china', {
+              geoJSON: geoJson,
+              specialAreas: {},
+            });
           }}
         />
       </Col>
