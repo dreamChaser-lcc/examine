@@ -56,7 +56,7 @@ export const menus = [
     key: 'protable-cn',
     title: 'ProTable表格',
     iconCode: 'icon-xiaoxizhongxin',
-    path: '/proTable-cn',
+    path: '/protable-cn',
   },
   {
     key: 'echarts-explore',
