@@ -22,7 +22,7 @@ function oldCopyFunc(temp: string) {
  * @returns
  */
 async function newCopyFunc(temp: string) {
-  navigator.clipboard.writeText(temp);
+  return oldCopyFunc(temp) || navigator.clipboard.writeText(temp);
 }
 /**
  * 复制文本
