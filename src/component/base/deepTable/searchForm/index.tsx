@@ -1,12 +1,43 @@
 import { Button, Col, Form, Input, Row, Select } from 'antd';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import { FC, useState } from 'react';
+import { useFormItems } from './hooks/useFormItems';
+import { ProFormItemProps } from './interface';
+const config: ProFormItemProps[] = [
+  {
+    name: 'field1',
+    // label: 'field1',
+    formItemType: 'Input',
+    span: 6,
+    fieldProps: {
+      Input: {
+        name: '13',
+        placeholder: 'field1',
+      },
+    },
+  },
+  {
+    name: 'field2',
+    // label: 'field2',
+    formItemType: 'Select',
+    span: 6,
+    fieldProps: {
+      Select: {
+        placeholder: 'field2',
+        options: [
+          { label: '1', value: 1 },
+          { label: '2', value: 2 },
+        ],
+      },
+    },
+  },
+];
 
 interface ISearchFormProps {}
 const SearchForm: FC<ISearchFormProps> = () => {
   const [expand, setExpand] = useState(false);
   const [form] = Form.useForm();
-
+  const  formItems = useFormItems(config);
   const getFields = () => {
     const count = expand ? 6 : 3;
     const children = [];
@@ -48,10 +79,10 @@ const SearchForm: FC<ISearchFormProps> = () => {
       <Form
         form={form}
         name="advanced_search"
-        className="ant-advanced-search-form"
+        // className="ant-advanced-search-form"
         onFinish={onFinish}
       >
-        <Row gutter={24}>{getFields()}</Row>
+        <Row gutter={24}>{formItems}</Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">

@@ -1,7 +1,8 @@
 export default {
   devServer: {
-    port: 8001,
+    port: 8080,
   },
+  title: 'My_Admin',
   // mfsu:{},
   plugins: ['./src/plugins/plugin-keep-alive/src/index.js'],
   base: '/',
@@ -9,7 +10,7 @@ export default {
   history: { type: 'hash' },
   // hash: true,	// 清除缓存
   favicon: '/favicon.ico',
-  proxy: {
+  proxy: { 
     '/api': {
       target: 'http://150.158.189.25:8006',
       changeOrigin: true,

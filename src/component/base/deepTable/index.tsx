@@ -1,10 +1,72 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect, useMemo, useRef } from 'react';
+// 组件
 import { Button, Dropdown, Menu, Space, Table, TableProps } from 'antd';
-import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/lib/table';
-import { PlusOutlined } from '@ant-design/icons';
-import { useColumns } from './hook/useColumns';
 import SearchForm from './searchForm';
 import MyIcon from '@/component/myIcon';
+import { PlusOutlined } from '@ant-design/icons';
+// 方法
+import { useColumns } from './hook/useColumns';
+// 常量
+import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/lib/table';
+
+const dataSource: any[] = new Array(20).fill(1).map((item,index)=>{
+  return  {
+    // key: '1',
+    name: `${index}`,
+    age: 32,
+    address: `仓山区万达1${index}号`,
+  };
+})
+
+const columns: columnsProps[] = [
+  {
+    title: '排序',
+    dataIndex: 'name',
+  },
+  {
+    title: '年龄',
+    dataIndex: 'age',
+  },
+  {
+    title: '住址',
+    dataIndex: 'address',
+  },
+  {
+    title: '操作',
+    dataIndex: 'operation',
+    fixed: 'right',
+    width: 100,
+    render: () => {
+      const size = 'middle';
+      const menu = (
+        <Menu onClick={() => 'handleMenuClick'}>
+          <Menu.Item
+            key="edit"
+            icon={<MyIcon size="middle" type="icon-bianji" />}
+          >
+            编辑
+          </Menu.Item>
+          <Menu.Item
+            key="delete"
+            style={{ color: 'red' }}
+            icon={<MyIcon size="middle" type="icon-shanchu" />}
+          >
+            删除
+          </Menu.Item>
+        </Menu>
+      );
+
+      return (
+        <>
+          <Dropdown.Button overlay={menu} key="detail">
+            <MyIcon size="middle" type="icon-chakan" />
+            查看
+          </Dropdown.Button>
+        </>
+      );
+    },
+  },
+];
 
 type AntColumnsType<RecordType> = ColumnType<RecordType>;
 export interface columnsProps extends AntColumnsType<any> {
@@ -19,73 +81,26 @@ export interface IDeepTableProps extends TableProps<any> {
 }
 const DeepTable: FC<IDeepTableProps> = (props) => {
   const { ...resProps } = props;
+  const tableDomRef = useRef<HTMLDivElement>(null);
+  const autoHight = useMemo(() => {
+    const container = document.getElementsByClassName('base-layout-content')[0] as HTMLDivElement;
+    if(tableDomRef?.current){
+      const height = container.offsetHeight  - tableDomRef?.current?.offsetTop;
+      console.log(height)
+      return height;
+    }
+    return 500
+  },[tableDomRef.current,tableDomRef?.current?.offsetTop]);
+  // useEffect(()=>{
+  //   autoHight()
+  // },[])
 
-  const dataSource: any[] = [
-    {
-      // key: '1',
-      name: '1',
-      age: 32,
-      address: '仓山区万达1号',
-    },
-    {
-      // key: '2',
-      name: '2',
-      age: 42,
-      address: '仓山区万达2号',
-    },
-  ];
+  const {
+    columns: newColumns,
+    total,
+    newDataSource,
+  } = useColumns({ dataSource, columns });
 
-  const columns: columnsProps[] = [
-    {
-      title: '排序',
-      dataIndex: 'name',
-    },
-    {
-      title: '年龄',
-      dataIndex: 'age',
-    },
-    {
-      title: '住址',
-      dataIndex: 'address',
-    },
-    {
-      title: '操作',
-      dataIndex: 'operation',
-      fixed: 'right',
-      width: 100,
-      render: () => {
-        const size = 'middle';
-        const menu = (
-          <Menu onClick={() => 'handleMenuClick'}>
-            <Menu.Item
-              key="edit"
-              icon={<MyIcon size="middle" type="icon-bianji" />}
-            >
-              编辑
-            </Menu.Item>
-            <Menu.Item
-              key="delete"
-              style={{ color: 'red' }}
-              icon={<MyIcon size="middle" type="icon-shanchu" />}
-            >
-              删除
-            </Menu.Item>
-          </Menu>
-        );
-
-        return (
-          <>
-            <Dropdown.Button overlay={menu} key="detail">
-              <MyIcon size="middle" type="icon-chakan" />
-              查看
-            </Dropdown.Button>
-          </>
-        );
-      },
-    },
-  ];
-  const { columns: newColumns, newDataSource } = useColumns({ dataSource });
-  console.log(newDataSource);
   return (
     <div
       style={{
@@ -114,14 +129,19 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
           <Button>Clear filters and sorters</Button> */}
         </Space>
         <Table
-          dataSource={newDataSource}
+          dataSource={dataSource}
+          ref={tableDomRef}
           bordered
+          rowKey="name"
           columns={columns}
           pagination={{
             size: 'small',
             pageSizeOptions: [5, 10, 20, 50],
-            total: 500,
+            total,
+            showSizeChanger: true,
+            showQuickJumper: true,
           }}
+          scroll={{y:autoHight}}
         />
       </div>
     </div>

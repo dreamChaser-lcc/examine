@@ -6,9 +6,10 @@ import MyIcon from '@/component/myIcon';
 // 方法
 import _ from 'lodash';
 // 常量
-import logo from '@/assets/images/readingLogo1.png';
-import brown from '/public/logo_brown.png';
+// import logo from '@/assets/images/readingLogo1.png';
+import logo from '/public/logo.png';
 import { menus } from '@/../config.router';
+import classNames from 'classnames';
 
 interface SiderbarProps {
   collapsed: boolean;
@@ -66,18 +67,18 @@ const Siderbar: FC<SiderbarProps> = (props) => {
       );
     });
   };
+  const logoClass = classNames('sider-logo', {
+    hide: collapsed,
+  });
   return (
     <Layout.Sider
       collapsed={collapsed}
       width={180}
       className="base-layout-sider"
     >
-      <div className="log-image-wrapper">
-        {collapsed ? (
-          <img className={'image-collapse'} src={brown} alt="logo" />
-        ) : (
-          <img className={'image'} src={logo} alt="logo" />
-        )}
+      <div className={logoClass}>
+        <img className="image" src={logo} alt="logo" />
+        <span className="label">MyAdmin</span>
       </div>
       <Menu
         mode="inline"

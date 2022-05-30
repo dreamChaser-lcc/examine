@@ -14,18 +14,26 @@
 /**侧边栏*/
 .base-layout-sider {
   height: 100%;
-  .log-image-wrapper {
+  .sider-logo{
     text-align: center;
-    padding: 10px;
-    .image {
-      width: 150px;
-      height: 100px;
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    & .image{
+      width: 32px;
     }
-    .image-collapse {
-      width: 45px;
+    & .label {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
     }
   }
-
+  .hide{
+    justify-content: center;
+    & .label{
+      display: none;
+    }
+  }
   .sider-menus {
     height: calc(100% - 60px);
     border-right: 0;

@@ -11,10 +11,10 @@ interface IParams {
   refreshTime?: number;
 }
 export const useVerifyToken = ({ api, refreshTime = 10 }: IParams) => {
-  const timerRef = useRef<any>();
+  const timerRef = useRef<any>(null);
   const [isLogin, setLogin] = useState<boolean>(false);
   const curLocation = useLocation();
-  console.log(timerRef);
+  // console.log(timerRef);
   useEffect(() => {
     if (!timerRef.current && !notMenusPage.includes(curLocation.pathname)) {
       timerRef.current = setTimeout(async () => {

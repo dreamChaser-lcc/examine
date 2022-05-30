@@ -7,6 +7,7 @@ import { IProAxios } from './typings';
 
 const BASE_TARGET = 'http://localhost:8080';
 
+const ERROR_TIMEOUT = '网络连接超时';
 /**状态码对应提示信息 */
 const codeMessage: Record<number, string> = {
   200: '服务器成功返回请求的数据。',
@@ -92,7 +93,7 @@ class ProAxios implements IProAxios {
         } else {
           notification.error({
             message: status,
-            description: codeMessage[status],
+            description: codeMessage?.[status] || ERROR_TIMEOUT,
           });
         }
       },
