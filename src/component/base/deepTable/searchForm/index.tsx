@@ -1,12 +1,14 @@
 import { Button, Col, Form, Input, Row, Select } from 'antd';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 import { FC, useState } from 'react';
-import { useFormItems } from './hooks/useFormItems';
+import { renderField, useFormItems } from './hooks/useFormItems';
 import { ProFormItemProps } from './interface';
+import useProFormContent from './hooks/useProFormContent';
+import ProFormItem from './proformItem';
 const config: ProFormItemProps[] = [
   {
     name: 'field1',
-    // label: 'field1',
+    label: 'field1',
     formItemType: 'Input',
     span: 6,
     fieldProps: {
@@ -18,7 +20,7 @@ const config: ProFormItemProps[] = [
   },
   {
     name: 'field2',
-    // label: 'field2',
+    label: 'field2',
     formItemType: 'Select',
     span: 6,
     fieldProps: {
@@ -37,7 +39,7 @@ interface ISearchFormProps {}
 const SearchForm: FC<ISearchFormProps> = () => {
   const [expand, setExpand] = useState(false);
   const [form] = Form.useForm();
-  const  formItems = useFormItems(config);
+  const { formItems } = useFormItems(config);
   const getFields = () => {
     const count = expand ? 6 : 3;
     const children = [];
@@ -82,7 +84,17 @@ const SearchForm: FC<ISearchFormProps> = () => {
         // className="ant-advanced-search-form"
         onFinish={onFinish}
       >
-        <Row gutter={24}>{formItems}</Row>
+        {/* <useProFormContent.Provider value={{ form, dataFormats: {} }}> */}
+        <Row gutter={24}>
+          <ProFormItem {...config[0]}>
+            {renderField(
+              config[0]?.formItemType,
+              config[0]?.fieldProps,
+              config[0],
+            )}
+          </ProFormItem>
+          {/* {getFields()} */}
+        </Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">
@@ -91,6 +103,7 @@ const SearchForm: FC<ISearchFormProps> = () => {
             <Button
               style={{ margin: '0 8px' }}
               onClick={() => {
+                console.log('in', form.getFieldsValue(true));
                 form.resetFields();
               }}
             >
@@ -116,6 +129,7 @@ const SearchForm: FC<ISearchFormProps> = () => {
             </a>
           </Col>
         </Row>
+        {/* </useProFormContent.Provider> */}
       </Form>
     </>
   );
