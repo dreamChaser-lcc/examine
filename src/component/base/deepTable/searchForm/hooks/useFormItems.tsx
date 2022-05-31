@@ -4,16 +4,11 @@ import ProFormItem from '../proformItem';
 
 /**
  *渲染的表单元素
- * @param {ProFormItemType} formItemType 表单元素类型
- * @param {ProFieldProps} fieldProps  表单元素配置
  * @param {ProFormItemProps } formItemConfig 表单配置
  * @returns 表单元素
  */
-export const renderField = (
-  formItemType: ProFormItemType,
-  fieldProps: ProFieldProps,
-  formItemConfig: ProFormItemProps,
-) => {
+export const renderField = (formItemConfig: ProFormItemProps) => {
+  const { formItemType, fieldProps } = formItemConfig;
   switch (formItemType) {
     case 'Input':
       return <Input {...fieldProps?.Input} />;
@@ -28,14 +23,9 @@ export const renderField = (
  */
 export const useFormItems = (formItemConfig: ProFormItemProps[]) => {
   const formItems = formItemConfig.map((record, index) => {
-    const key = `${record?.name}+${index}`;
-    const { span, formItemType, fieldProps, ...restProps } = record;
-    const label = record?.label;
-    return (
-      <ProFormItem {...record}>
-        {renderField(formItemType, fieldProps, record)}
-      </ProFormItem>
-    );
+    // const key = `${record?.name}+${index}`;
+    // const { span, formItemType, fieldProps, ...restProps } = record;
+    return <ProFormItem {...record}>{renderField(record)}</ProFormItem>;
   });
   return {
     formItems,

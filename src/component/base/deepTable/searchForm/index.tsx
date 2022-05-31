@@ -85,16 +85,7 @@ const SearchForm: FC<ISearchFormProps> = () => {
         onFinish={onFinish}
       >
         {/* <useProFormContent.Provider value={{ form, dataFormats: {} }}> */}
-        <Row gutter={24}>
-          <ProFormItem {...config[0]}>
-            {renderField(
-              config[0]?.formItemType,
-              config[0]?.fieldProps,
-              config[0],
-            )}
-          </ProFormItem>
-          {/* {getFields()} */}
-        </Row>
+        <Row gutter={24}>{formItems}</Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">

@@ -1,4 +1,11 @@
-import React, { FC, ReactNode, useEffect, useMemo, useRef } from 'react';
+import React, {
+  FC,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 // 组件
 import { Button, Dropdown, Menu, Space, Table, TableProps } from 'antd';
 import SearchForm from './searchForm';
@@ -8,15 +15,17 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useColumns } from './hook/useColumns';
 // 常量
 import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/lib/table';
+import { getBoundTop } from './utils';
+import { useResize } from '@/hooks/useResize';
 
-const dataSource: any[] = new Array(20).fill(1).map((item,index)=>{
-  return  {
+const dataSource: any[] = new Array(20).fill(1).map((item, index) => {
+  return {
     // key: '1',
     name: `${index}`,
     age: 32,
     address: `仓山区万达1${index}号`,
   };
-})
+});
 
 const columns: columnsProps[] = [
   {
@@ -35,7 +44,7 @@ const columns: columnsProps[] = [
     title: '操作',
     dataIndex: 'operation',
     fixed: 'right',
-    width: 100,
+    width: 150,
     render: () => {
       const size = 'middle';
       const menu = (
@@ -82,24 +91,28 @@ export interface IDeepTableProps extends TableProps<any> {
 const DeepTable: FC<IDeepTableProps> = (props) => {
   const { ...resProps } = props;
   const tableDomRef = useRef<HTMLDivElement>(null);
-  const autoHight = useMemo(() => {
-    const container = document.getElementsByClassName('base-layout-content')[0] as HTMLDivElement;
-    if(tableDomRef?.current){
-      const height = container.offsetHeight  - tableDomRef?.current?.offsetTop;
-      console.log(height)
-      return height;
+  const [tableHight, setTableHight] = useState<number>();
+  /**计算表格高度 */
+  const autoHight = () => {
+    if (tableDomRef?.current) {
+      const container = document.querySelector('body') as HTMLBodyElement;
+      setTimeout(() => {
+        const top = getBoundTop(tableDomRef?.current);
+        const height = container?.clientHeight - top - 120;
+        console.log(height, top);
+        setTableHight(height || 500);
+      }, 100);
     }
-    return 500
-  },[tableDomRef.current,tableDomRef?.current?.offsetTop]);
-  // useEffect(()=>{
-  //   autoHight()
-  // },[])
+  };
+  useResize(autoHight);
+  useEffect(() => {
+    autoHight();
+  }, [tableDomRef?.current]);
 
-  const {
-    columns: newColumns,
-    total,
-    newDataSource,
-  } = useColumns({ dataSource, columns });
+  const { columns: newColumns, total, newDataSource } = useColumns({
+    dataSource,
+    columns,
+  });
 
   return (
     <div
@@ -130,9 +143,9 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
         </Space>
         <Table
           dataSource={dataSource}
-          ref={tableDomRef}
           bordered
           rowKey="name"
+          ref={tableDomRef}
           columns={columns}
           pagination={{
             size: 'small',
@@ -141,7 +154,7 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
             showSizeChanger: true,
             showQuickJumper: true,
           }}
-          scroll={{y:autoHight}}
+          scroll={{ y: tableHight }}
         />
       </div>
     </div>

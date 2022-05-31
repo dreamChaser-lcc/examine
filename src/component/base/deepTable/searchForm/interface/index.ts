@@ -26,4 +26,6 @@ export interface ProFormItemProps extends FormItemProps {
   span?: number | string;
   /**验证格式 */
   rules?: Rule[];
+  /**元素宽度 */
+  width?: number | string;
 }

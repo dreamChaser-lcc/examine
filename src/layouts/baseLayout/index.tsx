@@ -30,13 +30,11 @@ const BaseLayout: FC<IBaseLayoutProps> = (props: any) => {
     setCollapsed(!collapsed);
   };
   return showmenus ? (
-    <Layout key="layout" id="layout" className=".base-layout">
-      <Layout>
-        <Siderbar collapsed={collapsed} />
-        <Layout className="base-layout-right">
-          <ProHeader onCollapsed={changeCollapsed} />
-          <LayoutContext {...props} />
-        </Layout>
+    <Layout key="layout" id="layout" className="base-layout">
+      <Siderbar collapsed={collapsed} />
+      <Layout className="base-layout-right">
+        <ProHeader onCollapsed={changeCollapsed} />
+        <LayoutContext {...props} />
       </Layout>
     </Layout>
   ) : (
