@@ -99,7 +99,7 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       setTimeout(() => {
         const top = getBoundTop(tableDomRef?.current);
         const height = container?.clientHeight - top - 120;
-        console.log(height, top);
+        // console.log(height, top);
         setTableHight(height || 500);
       }, 100);
     }
@@ -124,9 +124,7 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
         borderRadius: 5,
       }}
     >
-      <>
-        <SearchForm />
-      </>
+      <SearchForm />
       <div
         style={{
           marginTop: 10,

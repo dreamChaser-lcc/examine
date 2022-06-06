@@ -24,8 +24,15 @@ export interface ProFormItemProps extends FormItemProps {
   fieldProps: ProFieldProps;
   /**所占栅格 */
   span?: number | string;
+  /**元素宽度 */
+  width?: number | string | FormItemWidthEnum;
   /**验证格式 */
   rules?: Rule[];
-  /**元素宽度 */
-  width?: number | string;
+}
+
+/**默认表单宽度(px) */
+export enum FormItemWidthEnum {
+  'Input' = 150,
+  'Select' = 200,
+  'Operation' = 280,
 }

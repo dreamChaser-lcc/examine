@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 // 组件
 import { Col, Form } from 'antd';
 // 方法
 import classNames from 'classnames';
 // 常量
-import { ProFormItemProps } from '../interface';
+import { FormItemWidthEnum, ProFormItemProps } from '../interface';
 import '../styles/index.less';
 
 const ProFormItem: FC<ProFormItemProps> = (props) => {
@@ -12,14 +12,24 @@ const ProFormItem: FC<ProFormItemProps> = (props) => {
     span,
     children,
     label,
+    width,
     fieldProps,
     formItemType,
     ...restProps
   } = props;
-  const key = `${restProps?.name}`;
+
   const className = classNames('append-tips');
+  /**FormItem宽度配置 */
+  const wrapConfig = useMemo(() => {
+    if (span) {
+      return { span };
+    }
+    return {
+      style: { width: width ? width : FormItemWidthEnum[formItemType] },
+    };
+  }, [span, width]);
   return (
-    <Col className={className} data-tips={label} span={span} key={key}>
+    <Col className={className} data-tips={label} {...wrapConfig}>
       <Form.Item name={restProps?.name} {...restProps}>
         {children}
       </Form.Item>

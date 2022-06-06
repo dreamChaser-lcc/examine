@@ -23,9 +23,13 @@ export const renderField = (formItemConfig: ProFormItemProps) => {
  */
 export const useFormItems = (formItemConfig: ProFormItemProps[]) => {
   const formItems = formItemConfig.map((record, index) => {
-    // const key = `${record?.name}+${index}`;
+    const key = `${record?.name}+${index}`;
     // const { span, formItemType, fieldProps, ...restProps } = record;
-    return <ProFormItem {...record}>{renderField(record)}</ProFormItem>;
+    return (
+      <ProFormItem key={key} {...record}>
+        {renderField(record)}
+      </ProFormItem>
+    );
   });
   return {
     formItems,

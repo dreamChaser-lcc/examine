@@ -1,16 +1,18 @@
+import { FC, useEffect, useRef, useState } from 'react';
+// 组件
 import { Button, Col, Form, Input, Row, Select } from 'antd';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
-import { FC, useState } from 'react';
 import { renderField, useFormItems } from './hooks/useFormItems';
-import { ProFormItemProps } from './interface';
-import useProFormContent from './hooks/useProFormContent';
-import ProFormItem from './proformItem';
+// 常量
+import { FormItemWidthEnum, ProFormItemProps } from './interface';
+import { useResize } from '@/hooks/useResize';
+
 const config: ProFormItemProps[] = [
   {
     name: 'field1',
     label: 'field1',
     formItemType: 'Input',
-    span: 6,
+    // span: 6,
     fieldProps: {
       Input: {
         name: '13',
@@ -22,10 +24,40 @@ const config: ProFormItemProps[] = [
     name: 'field2',
     label: 'field2',
     formItemType: 'Select',
-    span: 6,
+    // span: 6,
     fieldProps: {
       Select: {
         placeholder: 'field2',
+        options: [
+          { label: '1', value: 1 },
+          { label: '2', value: 2 },
+        ],
+      },
+    },
+  },
+  {
+    name: 'field3',
+    label: 'field3',
+    formItemType: 'Select',
+    // span: 6,
+    fieldProps: {
+      Select: {
+        placeholder: 'field3',
+        options: [
+          { label: '1', value: 1 },
+          { label: '2', value: 2 },
+        ],
+      },
+    },
+  },
+  {
+    name: 'field4',
+    label: 'field4',
+    formItemType: 'Select',
+    // span: 6,
+    fieldProps: {
+      Select: {
+        placeholder: 'field4',
         options: [
           { label: '1', value: 1 },
           { label: '2', value: 2 },
@@ -38,8 +70,32 @@ const config: ProFormItemProps[] = [
 interface ISearchFormProps {}
 const SearchForm: FC<ISearchFormProps> = () => {
   const [expand, setExpand] = useState(false);
+  const [itemConfig, setItemConfig] = useState<ProFormItemProps[]>([]);
   const [form] = Form.useForm();
-  const { formItems } = useFormItems(config);
+  const wrapDomRef = useRef<HTMLDivElement>(null);
+
+  /**不需要放入弹窗的formItem */
+  const getSimpleItem = () => {
+    let usAbleWidth =
+      (wrapDomRef.current &&
+        wrapDomRef.current?.clientWidth - FormItemWidthEnum['Operation']) ||
+      0;
+    const arr: ProFormItemProps[] = [];
+    config.every((item) => {
+      usAbleWidth -= FormItemWidthEnum[item.formItemType] ?? 0;
+      const pushAble = usAbleWidth > 0;
+      if (pushAble) {
+        arr.push(item);
+      }
+      return pushAble;
+    });
+    setItemConfig(arr);
+  };
+  useResize(() => {
+    getSimpleItem();
+  });
+
+  const { formItems } = useFormItems(itemConfig);
   const getFields = () => {
     const count = expand ? 6 : 3;
     const children = [];
@@ -72,12 +128,11 @@ const SearchForm: FC<ISearchFormProps> = () => {
     }
     return children;
   };
-
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
   return (
-    <>
+    <div ref={wrapDomRef}>
       <Form
         form={form}
         name="advanced_search"
@@ -85,12 +140,9 @@ const SearchForm: FC<ISearchFormProps> = () => {
         onFinish={onFinish}
       >
         {/* <useProFormContent.Provider value={{ form, dataFormats: {} }}> */}
-        <Row gutter={24}>{formItems}</Row>
-        <Row>
-          <Col span={24} style={{ textAlign: 'right' }}>
-            <Button type="primary" htmlType="submit">
-              查询
-            </Button>
+        <Row gutter={24}>
+          {formItems}
+          <Col style={{ textAlign: 'right' }}>
             <Button
               style={{ margin: '0 8px' }}
               onClick={() => {
@@ -100,8 +152,15 @@ const SearchForm: FC<ISearchFormProps> = () => {
             >
               重置
             </Button>
-            <a
-              style={{ fontSize: 12 }}
+            <Button type="primary" htmlType="submit">
+              查询
+            </Button>
+            <Button
+              type="primary"
+              style={{
+                fontSize: 12,
+                borderLeft: '1px solid #dfe6e9',
+              }}
               onClick={() => {
                 setExpand(!expand);
               }}
@@ -117,12 +176,12 @@ const SearchForm: FC<ISearchFormProps> = () => {
                   展开
                 </>
               )}
-            </a>
+            </Button>
           </Col>
         </Row>
         {/* </useProFormContent.Provider> */}
       </Form>
-    </>
+    </div>
   );
 };
 export default SearchForm;
