@@ -1,4 +1,6 @@
+// 组件
 import { Col, Form, Input, Select } from 'antd';
+// 常量
 import { ProFieldProps, ProFormItemProps, ProFormItemType } from '../interface';
 import ProFormItem from '../proformItem';
 
@@ -15,7 +17,7 @@ export const renderField = (formItemConfig: ProFormItemProps) => {
     case 'Select':
       return <Select {...fieldProps?.Select} />;
     default:
-      return <></>;
+      return null;
   }
 };
 /**

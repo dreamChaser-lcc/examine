@@ -132,7 +132,14 @@ const SearchForm: FC<ISearchFormProps> = () => {
     console.log('Received values of form: ', values);
   };
   return (
-    <div ref={wrapDomRef}>
+    <div
+      ref={wrapDomRef}
+      style={{
+        marginBottom: 10,
+        paddingBottom: 10,
+        borderBottom: '1px solid rgb(220, 221, 225)',
+      }}
+    >
       <Form
         form={form}
         name="advanced_search"

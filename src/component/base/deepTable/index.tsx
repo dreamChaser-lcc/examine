@@ -17,6 +17,7 @@ import { useColumns } from './hook/useColumns';
 import { ColumnGroupType, ColumnsType, ColumnType } from 'antd/lib/table';
 import { getBoundTop } from './utils';
 import { useResize } from '@/hooks/useResize';
+import HeadToolBar from './headToolBar';
 
 const dataSource: any[] = new Array(20).fill(1).map((item, index) => {
   return {
@@ -126,19 +127,20 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
     >
       <SearchForm />
       <div
-        style={{
-          marginTop: 10,
-          paddingTop: 10,
-          borderTop: '1px solid rgb(220, 221, 225)',
-        }}
+      // style={{
+      //   marginTop: 10,
+      //   paddingTop: 10,
+      //   borderTop: '1px solid rgb(220, 221, 225)',
+      // }}
       >
-        <Space style={{ marginBottom: 16 }}>
+        <HeadToolBar />
+        {/* <Space style={{ marginBottom: 16 }}>
           <Button type="primary" icon={<PlusOutlined />}>
             新增
-          </Button>
-          {/* <Button>Clear filters</Button>
+          </Button> */}
+        {/* <Button>Clear filters</Button>
           <Button>Clear filters and sorters</Button> */}
-        </Space>
+        {/* </Space> */}
         <Table
           dataSource={dataSource}
           bordered
