@@ -65,7 +65,7 @@ const LoginForm: FC<ILoginForm> = () => {
       >
         <Form.Item
           name="account"
-          initialValue={user.account}
+          // initialValue={user.account}
           rules={[{ required: true, message: '请输入账号' }]}
         >
           <Input placeholder="账号：Admin" />
@@ -73,7 +73,7 @@ const LoginForm: FC<ILoginForm> = () => {
 
         <Form.Item
           name="password"
-          initialValue={user.pwd}
+          // initialValue={user.pwd}
           rules={[{ required: true, message: '请输入密码' }]}
         >
           <Input.Password placeholder="密码：123456" />

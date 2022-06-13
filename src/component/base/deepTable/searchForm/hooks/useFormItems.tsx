@@ -2,7 +2,7 @@
 import { Col, Form, Input, Select } from 'antd';
 // 常量
 import { ProFieldProps, ProFormItemProps, ProFormItemType } from '../interface';
-import ProFormItem from '../proformItem';
+import ProFormItem from '../proFormItems';
 
 /**
  *渲染的表单元素
@@ -21,19 +21,24 @@ export const renderField = (formItemConfig: ProFormItemProps) => {
   }
 };
 /**
- *
+ * 生成formItems
  */
-export const useFormItems = (formItemConfig: ProFormItemProps[]) => {
+export const useFormItems = (
+  formItemConfig: ProFormItemProps[],
+  isSearch?: boolean,
+) => {
   const formItems = formItemConfig.map((record, index) => {
     const key = `${record?.name}+${index}`;
     // const { span, formItemType, fieldProps, ...restProps } = record;
     return (
-      <ProFormItem key={key} {...record}>
+      <ProFormItem
+        isSearch={isSearch}
+        key={key}
+        {...record}
+      >
         {renderField(record)}
       </ProFormItem>
     );
   });
-  return {
-    formItems,
-  };
+  return formItems;
 };

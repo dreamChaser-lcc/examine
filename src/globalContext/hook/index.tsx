@@ -1,4 +1,4 @@
-import { notClearTabs } from '@/contants/common';
+import { notClearTabs } from '@/constants/common';
 import { IContextProps } from '@/globalContext';
 import { useReducer } from 'react';
 import { history } from 'umi';

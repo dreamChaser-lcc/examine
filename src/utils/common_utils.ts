@@ -1,3 +1,5 @@
+import { message } from 'antd';
+
 export const SUCCESS_STATUS_CODE = '00000';
 
 /**
@@ -45,3 +47,59 @@ export function copyText(
       });
   });
 }
+
+/** 当前全屏的元素*/
+const fullElement = () => {
+  let doc: any = document;
+  return (
+    doc.fullscreenElement ||
+    doc.webkitFullscreenElement ||
+    doc.msFullscreenElement ||
+    doc.mozFullscreenElement ||
+    null
+  );
+};
+/** 是否全屏*/
+export const isFullScreen = () => {
+  let doc: any = document;
+  return !!(doc.webkitIsFullscreen || fullElement());
+};
+/**
+ * 全屏 （element元素对象的方法）
+ * @param el 元素
+ */
+export const requestFullScreen = (el: any = document.body) => {
+  if (el.requestFullscreen) {
+    // W3C
+    el.requestFullscreen();
+  } else if (el.mozRequestFullScreen) {
+    // FIREFOX 火狐
+    el.mozRequestFullScreen();
+  } else if (el.msRequestFullscreen) {
+    //MSIE  IE
+    el.msRequestFullscreen();
+  } else if (el.webkitRequestFullscreen) {
+    // CHROME 谷歌
+    el.webkitRequestFullScreen();
+  } else {
+    message.warning('您当前使用的浏览器不支持全屏');
+    return;
+  }
+};
+/**
+ * 退出全屏 （document文档对象的方法）
+ */
+export const exitFullscreen = () => {
+  let doc: any = document;
+  if (doc.exitFullscreen && isFullScreen()) {
+    doc.exitFullscreen();
+  } else if (doc.mozCancelFullScreen) {
+    doc.mozCancelFullScreen();
+  } else if (doc.msExitFullscreen) {
+    doc.msExiFullscreen();
+  } else if (doc.webkitCancelFullScreen) {
+    doc.webkitCancelFullScreen();
+  } else if (doc.webkitExitFullscreen) {
+    doc.webkitExitFullscreen();
+  }
+};

@@ -12,7 +12,7 @@ import { useLocation } from 'umi';
 // 常量
 import { Spin } from 'antd';
 import { useVerifyToken } from './hooks/verifytoken';
-import { notMenusPage } from '@/contants/common';
+import { notMenusPage } from '@/constants/common';
 import ProTransition from '@/component/ProTransition';
 import Login from '@/pages/login';
 interface Iprops extends IRouteComponentProps {

@@ -1,12 +1,16 @@
-import { FC, ReactNode, CSSProperties, memo } from 'react';
+import { FC, ReactNode, CSSProperties, memo, MutableRefObject } from 'react';
 // 组件
+import { FullscreenOutlined, RedoOutlined } from '@ant-design/icons';
+import { Space, Tooltip } from 'antd';
+// 方法
 import {
-  FullscreenOutlined,
-  RedoOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
-import { Button, Space, Tooltip } from 'antd';
-
+  exitFullscreen,
+  isFullScreen,
+  requestFullScreen,
+} from '@/utils/common_utils';
+//常量
+import { DEEPTABLECLASS } from '@/constants/common';
+// 方法
 enum TOOL_Enum {
   'fullScreen' = 'fullScreen',
   'reload' = 'reload',
@@ -16,12 +20,24 @@ enum TOOL_TIP_Enum {
   'reload' = '刷新',
 }
 
+interface ICondition {
+  /**表格实例 */
+  deepTableRef: MutableRefObject<HTMLDivElement | null>;
+  /**表格刷新 */
+  tableReload: () => void;
+}
 interface IHeadToolBarProps {
+  /**表格参数 */
+  condition: ICondition;
+  /**头部操作按钮 */
   headOperation?: ReactNode[];
+  /**工具栏字典配置 */
   tools?: TOOL_Enum[];
 }
+/**头部操作&工具栏 */
 const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
-  const { headOperation, tools } = props;
+  const { headOperation, tools, condition } = props;
+
   const rowStyle: CSSProperties = {
     padding: '10px 20px',
     display: 'flex',
@@ -32,14 +48,29 @@ const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
     fontSize: 16,
     color: '#636e72',
   };
-  /**头部按钮 */
-  const renderHeadOperate = () => {
-    return headOperation;
+
+  const handleFullScreen = () => {
+    const element = condition.deepTableRef?.current;
+    isFullScreen() ? exitFullscreen() : requestFullScreen(element);
   };
+  const handleToolClick = (toolKey: TOOL_Enum) => {
+    switch (toolKey) {
+      case TOOL_Enum.fullScreen:
+        return handleFullScreen();
+      case TOOL_Enum.reload:
+        return condition.tableReload();
+    }
+  };
+
   /**工具栏 */
   const renderTool = () => {
     return tools?.map((toolKey) => {
-      const props = { key: toolKey };
+      const props = {
+        key: toolKey,
+        onClick: () => {
+          handleToolClick(toolKey);
+        },
+      };
       let tool: ReactNode;
       switch (toolKey) {
         case 'fullScreen':
@@ -51,8 +82,12 @@ const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
       }
       return (
         <Tooltip
+          key={props.key}
           placement="top"
           title={TOOL_TIP_Enum[toolKey]}
+          getPopupContainer={() =>
+            document.querySelector(DEEPTABLECLASS) || document.body
+          }
           arrowPointAtCenter
         >
           {tool}
@@ -70,13 +105,15 @@ const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
     </div>
   );
 };
+
 HeadToolBar.defaultProps = {
   tools: [TOOL_Enum.reload, TOOL_Enum.fullScreen],
-  headOperation: [
-    <Button type="primary" icon={<PlusOutlined />}>
-      新增
-    </Button>,
-    <Button>Clear filters</Button>,
-  ],
+  // headOperation: [
+  //   <Button type="primary" icon={<PlusOutlined />}>
+  //     新增
+  //   </Button>,
+  //   <Button>Clear filters</Button>,
+  // ],
 };
+
 export default memo(HeadToolBar);

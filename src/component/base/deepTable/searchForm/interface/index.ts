@@ -28,6 +28,8 @@ export interface ProFormItemProps extends FormItemProps {
   width?: number | string | FormItemWidthEnum;
   /**验证格式 */
   rules?: Rule[];
+  /**是否查询框表单 */
+  isSearch?: boolean;
 }
 
 /**默认表单宽度(px) */

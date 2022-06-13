@@ -10,6 +10,7 @@ import '../styles/index.less';
 const ProFormItem: FC<ProFormItemProps> = (props) => {
   const {
     span,
+    isSearch,
     children,
     label,
     width,
@@ -18,22 +19,36 @@ const ProFormItem: FC<ProFormItemProps> = (props) => {
     ...restProps
   } = props;
 
-  const className = classNames('append-tips');
+  /**文本显示配置 */
+  const labelConfig = useMemo(() => {
+    if (isSearch) {
+      return {
+        className: classNames({ 'append-tips': isSearch }),
+        'data-tips': label,
+      };
+    }
+    return { label };
+  }, [isSearch, label]);
+
   /**FormItem宽度配置 */
   const wrapConfig = useMemo(() => {
-    if (span) {
-      return { span };
+    if (isSearch) {
+      return {
+        style: { width: width ? width : FormItemWidthEnum[formItemType] },
+      };
     }
-    return {
-      style: { width: width ? width : FormItemWidthEnum[formItemType] },
-    };
+    return { span };
   }, [span, width]);
   return (
-    <Col className={className} data-tips={label} {...wrapConfig}>
-      <Form.Item name={restProps?.name} {...restProps}>
+    <Col {...wrapConfig}>
+      <Form.Item name={restProps?.name} {...labelConfig} {...restProps}>
         {children}
       </Form.Item>
     </Col>
   );
+};
+ProFormItem.defaultProps = {
+  isSearch: false,
+  span: 24,
 };
 export default ProFormItem;
