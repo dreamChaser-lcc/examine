@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { FormItemProps, Rule } from 'antd/lib/form';
-import { InputProps, InputRef, Select } from 'antd';
+import { InputProps, InputRef, Select, FormInstance } from 'antd';
 
 /**
  * 自动推断参数类型
@@ -38,3 +38,17 @@ export enum FormItemWidthEnum {
   'Select' = 200,
   'Operation' = 280,
 }
+
+export interface SearchFormAction
+  extends Pick<
+    FormInstance,
+    | 'getFieldsValue'
+    | 'scrollToField'
+    | 'setFields'
+    | 'setFieldsValue'
+    | 'resetFields'
+    | 'submit'
+  > {
+  // getFieldsValue: (nameList:(string|number[])) => any;
+}
+export type SearchFormActionType = Partial<SearchFormAction>;

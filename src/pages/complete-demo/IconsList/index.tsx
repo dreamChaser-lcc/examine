@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import MyIcon from '@/component/myIcon';
 import { Card, message, Space, Switch } from 'antd';
 import { iconsConfig } from './iconsConfig';
-import { copyText } from '@/utils/common_utils';
+import { copyText } from '@/utils/dom.utils';
 
 const IconsList: FC = () => {
   const [copyType, setCopyType] = useState<boolean>(true);
@@ -27,7 +27,7 @@ const IconsList: FC = () => {
   return (
     <Card
       title="可点击复制使用（IE除外）"
-      style={{ width: '100%', }}
+      style={{ width: '100%' }}
       extra={
         <Space>
           复制类型:

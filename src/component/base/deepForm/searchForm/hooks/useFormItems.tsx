@@ -1,7 +1,7 @@
 // 组件
-import { Col, Form, Input, Select } from 'antd';
+import { Input, Select } from 'antd';
 // 常量
-import { ProFieldProps, ProFormItemProps, ProFormItemType } from '../interface';
+import { ProFormItemProps } from '../interface';
 import ProFormItem from '../proFormItems';
 
 /**
@@ -31,11 +31,7 @@ export const useFormItems = (
     const key = `${record?.name}+${index}`;
     // const { span, formItemType, fieldProps, ...restProps } = record;
     return (
-      <ProFormItem
-        isSearch={isSearch}
-        key={key}
-        {...record}
-      >
+      <ProFormItem isSearch={isSearch} key={key} {...record}>
         {renderField(record)}
       </ProFormItem>
     );

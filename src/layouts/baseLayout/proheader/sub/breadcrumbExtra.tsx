@@ -4,7 +4,7 @@ import { history } from 'umi';
 // 组件
 import MyIcon from '@/component/myIcon';
 import { Avatar, Dropdown, Menu, Space } from 'antd';
-import { clearRemenber } from '@/utils/loginpage/utils';
+import { clearRemenber } from '@/utils/login.utils';
 
 const BreadcrumbExtra: FC = () => {
   const menu = (

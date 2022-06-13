@@ -7,13 +7,13 @@ import {
   handleVerifyError,
   handleVerifySuccess,
   remenber,
-} from '@/utils/loginpage/utils';
+} from '@/utils/login.utils';
 // 方法
 import { user_login_api } from '@/api/user';
 // 全局变量
 import BaseContext from '@/globalContext';
 // 常量
-import { SUCCESS_STATUS_CODE } from '@/utils/common_utils';
+import { SUCCESS_STATUS_CODE } from '@/utils/dom.utils';
 
 interface ILoginForm {
   // 登录或register

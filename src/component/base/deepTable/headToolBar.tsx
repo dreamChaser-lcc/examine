@@ -7,10 +7,10 @@ import {
   exitFullscreen,
   isFullScreen,
   requestFullScreen,
-} from '@/utils/common_utils';
+} from '@/utils/dom.utils';
 //常量
-import { DEEPTABLECLASS } from '@/constants/common';
-// 方法
+import { DEEP_TABLE_CLASS } from '@/constants/common';
+// 枚举
 enum TOOL_Enum {
   'fullScreen' = 'fullScreen',
   'reload' = 'reload',
@@ -86,7 +86,7 @@ const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
           placement="top"
           title={TOOL_TIP_Enum[toolKey]}
           getPopupContainer={() =>
-            document.querySelector(DEEPTABLECLASS) || document.body
+            document.querySelector(DEEP_TABLE_CLASS) || document.body
           }
           arrowPointAtCenter
         >

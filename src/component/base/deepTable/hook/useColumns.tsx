@@ -5,8 +5,8 @@ import { Dropdown, Menu } from 'antd';
 // 方法
 import { cloneDeep } from 'lodash';
 // 常量
-import { DEEPTABLECLASS } from '@/constants/common';
-import { columnsProps, IDeepTableProps } from '..';
+import { DEEP_TABLE_CLASS } from '@/constants/common';
+import { columnsProps } from '..';
 
 const handleColumns = (
   state: columnsProps[],
@@ -62,7 +62,7 @@ const handleColumns = (
                    * https://github.com/ant-design/ant-design/issues/24250
                    */
                   getPopupContainer={() =>
-                    document.querySelector(DEEPTABLECLASS) || document.body
+                    document.querySelector(DEEP_TABLE_CLASS) || document.body
                   }
                   key="detail"
                 >
