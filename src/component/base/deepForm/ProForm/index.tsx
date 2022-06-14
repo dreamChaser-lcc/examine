@@ -34,8 +34,7 @@ const ProForm: FC<IProFormProps> = (props) => {
         const msg = val?.errors?.[0];
         msg && notification.warning({ message: msg });
       });
-    });
-    console.log(correctValues);
+    }); 
     return correctValues ? correctValues : false;
   };
 

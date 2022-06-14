@@ -1,5 +1,13 @@
 // 组件
-import { Input, Select } from 'antd';
+import {
+  Cascader,
+  DatePicker,
+  Input,
+  InputNumber,
+  Select,
+  Switch,
+  TreeSelect,
+} from 'antd';
 // 常量
 import { ProFormItemProps } from '../interface';
 import ProFormItem from '../proFormItems';
@@ -14,8 +22,18 @@ export const renderField = (formItemConfig: ProFormItemProps) => {
   switch (formItemType) {
     case 'Input':
       return <Input {...fieldProps?.Input} />;
+    case 'InputNumber':
+      return <InputNumber {...fieldProps?.InputNumber} />;
     case 'Select':
       return <Select {...fieldProps?.Select} />;
+    case 'TreeSelect':
+      return <TreeSelect {...fieldProps?.TreeSelect} />;
+    case 'Cascader':
+      return <Cascader {...fieldProps?.Cascader} />;
+    case 'DatePicker':
+      return <DatePicker {...fieldProps?.DatePicker} />;
+    case 'Switch':
+      return <Switch {...fieldProps?.Switch} />;
     default:
       return null;
   }
