@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, MutableRefObject, useRef, useState } from 'react';
 // 组件
 import { Button, message, notification, PageHeader, Space } from 'antd';
 import { DetailOperationEnum } from './interface';
@@ -7,10 +7,15 @@ import { useForm } from 'antd/lib/form/Form';
 import { FormActionType } from '../deepForm/ProForm/interface';
 import DeepForm from '../deepForm';
 
-interface IDetailProps {}
-const Detail: FC<IDetailProps> = () => {
+interface IDetailProps {
+  bindId?: string;
+  actionRef?: MutableRefObject<{ show?: () => void; hide?: () => void }>;
+}
+const Detail: FC<IDetailProps> = (props) => {
+  const { actionRef, bindId } = props;
   const [form] = useForm();
   const formRef = useRef<FormActionType>();
+  const [visible, setVisible] = useState<boolean>(false);
   const [isDetail, setIsDetail] = useState<boolean>(false);
   const CONFIG = {
     span: 12,
@@ -23,10 +28,28 @@ const Detail: FC<IDetailProps> = () => {
   const handleClick = (key: keyof typeof DetailOperationEnum) => {
     message.success(`点击了 ${DetailOperationEnum[key]}，key--${key}`);
   };
+  const changeVisible = (action: 'show' | 'hide') => {
+    if (!bindId) return;
+    const el = document.getElementById(bindId) as HTMLElement;
+    if (el) {
+      el.style.display = action === 'show' ? 'none' : 'block';
+      setVisible(action === 'show');
+    }
+  };
+  if (actionRef) {
+    actionRef.current = {
+      show: () => {
+        changeVisible('show');
+      },
+      hide: () => {
+        changeVisible('hide');
+      },
+    };
+  }
 
   const beforeSubmit = () => {
     const values = formRef.current?.onValidate();
-    console.log(values)
+    console.log(values);
     // form
     //   .validateFields()
     //   .then((res) => {
@@ -47,6 +70,7 @@ const Detail: FC<IDetailProps> = () => {
     //     }
     //   });
   };
+  if (!visible) return null;
   return (
     <div
       style={{

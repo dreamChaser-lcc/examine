@@ -118,6 +118,8 @@ export default () => {
     },
   ];
   return (
+    <div id='tableId'>
     <DeepTable dataSource={dataSource} rowKey="name" formItems={config} columns={columns} />
+    </div>
   );
 };
