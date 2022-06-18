@@ -1,21 +1,20 @@
 import { FC, MutableRefObject, useRef, useState } from 'react';
 // 组件
-import { Button, Col, Drawer } from 'antd';
-import { FunnelPlotOutlined } from '@ant-design/icons';
+import { Button, Col, Drawer, Space } from 'antd';
+import { FunnelPlotOutlined, SearchOutlined } from '@ant-design/icons';
 import ProForm from '../ProForm';
 // 方法
 import { useResize } from '@/hooks/useResize';
 import { filterObj } from '@/utils/common.utils';
 // 常量
+import { SearchFormActionType } from './interface';
 import {
+  FormActionType,
   FormItemWidthEnum,
   ProFormItemProps,
-  SearchFormActionType,
-} from './interface';
-import { FormActionType } from '../ProForm/interface';
-
+} from '../ProForm/interface';
 export interface ISearchFormProps {
-  actionRef?: MutableRefObject<SearchFormActionType | undefined>;
+  actionRef?: MutableRefObject<SearchFormActionType>;
   /**查询配置 */
   formItems?: ProFormItemProps[];
   /**查询回调 */
@@ -67,26 +66,32 @@ const SearchForm: FC<ISearchFormProps> = (props) => {
   const searchBtn = () => {
     if (!formItems?.length) return false;
     return (
-      <Col style={{ textAlign: 'right' }}>
-        <Button style={{ margin: '0 8px' }} onClick={onSubmit}>
-          重置
-        </Button>
-        <Button type="primary" onClick={handleSubmit}>
-          查询
-        </Button>
-        {expandItems.length ? (
-          <Button
-            type="primary"
-            style={{
-              fontSize: 14,
-              padding: '0 10px',
-              borderLeft: '1px solid #dfe6e9',
-            }}
-            onClick={changeMoreSearchAble}
-          >
-            <FunnelPlotOutlined />
-          </Button>
-        ) : null}
+      <Col>
+        <Space>
+          <Button onClick={onSubmit}>重置</Button>
+          <span>
+            <Button
+              type="primary"
+              icon={<SearchOutlined />}
+              onClick={handleSubmit}
+            >
+              查询
+            </Button>
+            {expandItems.length ? (
+              <Button
+                type="primary"
+                style={{
+                  fontSize: '14px',
+                  padding: ' 0 10px',
+                  borderLeft: ' 1px solid #dfe6e9',
+                }}
+                onClick={changeMoreSearchAble}
+              >
+                <FunnelPlotOutlined />
+              </Button>
+            ) : null}
+          </span>
+        </Space>
       </Col>
     );
   };
@@ -141,11 +146,7 @@ const SearchForm: FC<ISearchFormProps> = (props) => {
   return (
     <div
       ref={wrapDomRef}
-      style={{
-        marginBottom: 10,
-        paddingBottom: 10,
-        borderBottom: '1px solid rgb(220, 221, 225)',
-      }}
+      className="proForm-wrap"
     >
       <ProForm
         actionRef={simpleRef}

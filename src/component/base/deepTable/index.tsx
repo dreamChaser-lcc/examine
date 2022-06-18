@@ -1,37 +1,22 @@
-import { FC, Key, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 // 组件
-import { Table, TableProps } from 'antd';
-import SearchForm from '../deepForm/searchForm';
+import { Table } from 'antd';
 import HeadToolBar from './headToolBar';
+import DeepForm from '../deepForm';
 // 方法
 import { useResize } from '@/hooks/useResize';
 import { useColumns } from './hook/useColumns';
 import { getBoundTop } from './utils';
 // 常量
-import { ColumnType } from 'antd/lib/table';
 import { DEEP_TABLE_CLASS_NAME } from '@/constants/common';
-import { ProFormItemProps } from '../deepForm/searchForm/interface';
-import DeepForm from '../deepForm';
+import { IDeepTableProps } from './interface';
+import { SearchFormActionType } from '../deepForm/searchForm/interface';
+import classNames from 'classnames';
 
-type AntColumnsType<RecordType> = ColumnType<RecordType>;
-export interface columnsProps extends AntColumnsType<any> {
-  /* 标题 */
-  title: ReactNode | (({ sortOrder, sortColumn, filters }: any) => ReactNode);
-  dataIndex: string;
-}
-export interface IDeepTableProps extends TableProps<any> {
-  /**查询配置 */
-  formItems?: ProFormItemProps[];
-  /**列配置 */
-  columns: columnsProps[];
-  /**可固定高度,否则自适应 */
-  defaultHight?: number | string;
-  /**操作按钮回调 */
-  onOperationClick?: (key: Key, record: any, index: number) => void;
-}
 const DeepTable: FC<IDeepTableProps> = (props) => {
   const {
     defaultHight,
+    actionRef,
     rowKey,
     onOperationClick,
     formItems,
@@ -42,9 +27,12 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
   const [tableHight, setTableHight] = useState<number | string>();
   const [loading, setLoading] = useState<boolean>();
 
-  const tableDomRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<any>();
+  /**查询框 */
+  const searchRef = useRef<SearchFormActionType>();
+  /**表格容器 */
   const deepTableRef = useRef<HTMLDivElement>(null);
+  /**antd 表格 */
+  const tableDomRef = useRef<HTMLDivElement>(null);
 
   /**计算表格高度 */
   const autoHight = () => {
@@ -52,7 +40,7 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       const container = document.querySelector('body') as HTMLBodyElement;
       setTimeout(() => {
         const top = getBoundTop(tableDomRef?.current);
-        const height = container?.clientHeight - top - 120;
+        const height = container?.clientHeight - top - 130;
         setTableHight(height || 500);
       }, 100);
     }
@@ -78,17 +66,21 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
       setLoading(false);
     }, 1000);
   };
+  if (actionRef) {
+    actionRef.current = {
+      reload: tableReload,
+      onSearch,
+      searchFormRef: searchRef,
+    };
+  }
+  const wrapClass = classNames(
+    'deepTable-wrap',
+    DEEP_TABLE_CLASS_NAME
+  );
   return (
     <div
       ref={deepTableRef}
-      className={DEEP_TABLE_CLASS_NAME}
-      style={{
-        height: '100%',
-        background: '#fff',
-        padding: 10,
-        border: '1px solid #dcdde1',
-        borderRadius: 5,
-      }}
+      className={wrapClass}
     >
       <DeepForm.SearchForm
         actionRef={searchRef}
@@ -106,8 +98,8 @@ const DeepTable: FC<IDeepTableProps> = (props) => {
         bordered
         rowKey={rowKey}
         {...resProps}
-        loading={loading}
         ref={tableDomRef}
+        loading={loading}
         pagination={{
           size: 'small',
           pageSizeOptions: [5, 10, 20, 50],

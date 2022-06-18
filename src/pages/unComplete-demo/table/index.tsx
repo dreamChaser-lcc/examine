@@ -1,5 +1,6 @@
-import DeepTable, { columnsProps } from '@/component/base/deepTable';
-import { ProFormItemProps } from '@/component/base/deepForm/searchForm/interface';
+import { columnsProps } from '@/component/base/deepTable/interface';
+import { ProFormItemProps } from '@/component/base/deepForm/ProForm/interface';
+import DeepTable from '@/component/base/deepTable';
 
 export default () => {
   const dataSource: any[] = new Array(20).fill(1).map((item, index) => {
@@ -118,8 +119,14 @@ export default () => {
     },
   ];
   return (
-    <div id='tableId'>
-    <DeepTable dataSource={dataSource} rowKey="name" formItems={config} columns={columns} />
+    <div id="tableId">
+      <DeepTable
+        dataSource={dataSource}
+        rowKey="name"
+        formItems={config}
+        columns={columns}
+        onOperationClick={() => {}}
+      />
     </div>
   );
 };

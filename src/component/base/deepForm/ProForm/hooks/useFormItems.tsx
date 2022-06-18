@@ -9,7 +9,7 @@ import {
   TreeSelect,
 } from 'antd';
 // 常量
-import { ProFormItemProps } from '../interface';
+import { ProFormItemProps } from '../../ProForm/interface';
 import ProFormItem from '../proFormItems';
 
 /**
@@ -47,9 +47,20 @@ export const useFormItems = (
 ) => {
   const formItems = formItemConfig.map((record, index) => {
     const key = `${record?.name}+${index}`;
-    // const { span, formItemType, fieldProps, ...restProps } = record;
+    const { isDetail, render, ...restProps } = record;
+    /**详情或自定义渲染 */
+    if (isDetail || render) {
+      if (isDetail) {
+        return (
+          <ProFormItem isSearch={isSearch} key={key} {...restProps}>
+            {render?.()}
+          </ProFormItem>
+        );
+      }
+      return render?.();
+    }
     return (
-      <ProFormItem isSearch={isSearch} key={key} {...record}>
+      <ProFormItem isSearch={isSearch} key={key} {...restProps}>
         {renderField(record)}
       </ProFormItem>
     );

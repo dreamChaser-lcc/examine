@@ -6,7 +6,7 @@ import { Dropdown, Menu } from 'antd';
 import { cloneDeep } from 'lodash';
 // 常量
 import { DEEP_TABLE_CLASS } from '@/constants/common';
-import { columnsProps } from '..';
+import { columnsProps } from '../interface';
 
 const handleColumns = (
   state: columnsProps[],

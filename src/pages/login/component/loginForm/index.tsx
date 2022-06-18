@@ -12,8 +12,8 @@ import {
 import { user_login_api } from '@/api/user';
 // 全局变量
 import BaseContext from '@/globalContext';
+import { SUCCESS_STATUS_CODE } from '@/constants/common';
 // 常量
-import { SUCCESS_STATUS_CODE } from '@/utils/dom.utils';
 
 interface ILoginForm {
   // 登录或register

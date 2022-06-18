@@ -1,9 +1,9 @@
 // dependence
 import axios, { AxiosRequestConfig } from 'axios';
 // 常量
-import { SUCCESS_STATUS_CODE } from '@/utils/dom.utils';
 import { notification } from 'antd';
 import { IProAxios } from './typings';
+import { SUCCESS_STATUS_CODE } from '@/constants/common';
 
 const BASE_TARGET = 'http://localhost:8080';
 

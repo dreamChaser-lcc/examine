@@ -1,6 +1,5 @@
 import { message } from 'antd';
 
-export const SUCCESS_STATUS_CODE = '00000';
 
 /**
  * 复制文本实现（old）

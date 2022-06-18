@@ -1,33 +1,43 @@
-import { FC, MutableRefObject, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 // 组件
-import { Button, message, notification, PageHeader, Space } from 'antd';
-import { DetailOperationEnum } from './interface';
-import { useForm } from 'antd/lib/form/Form';
+import { Button, PageHeader, Space } from 'antd';
+import DeepForm from '../deepForm';
+// 方法
+import { unstable_batchedUpdates } from 'react-dom';
+import { DetailContext } from './hooks/detailContext';
+import { useFormatItems } from './hooks/useFomatItems';
 // 常量
 import { FormActionType } from '../deepForm/ProForm/interface';
-import DeepForm from '../deepForm';
+import { SUCCESS_STATUS_CODE } from '@/constants/common';
+import { IDetailProps } from './interface';
 
-interface IDetailProps {
-  bindId?: string;
-  actionRef?: MutableRefObject<{ show?: () => void; hide?: () => void }>;
-}
 const Detail: FC<IDetailProps> = (props) => {
-  const { actionRef, bindId } = props;
-  const [form] = useForm();
+  const {
+    title,
+    actionRef,
+    bindId,
+    defaultLineNumber,
+    formItems,
+    onBack,
+    onSubmit,
+    onBeforeSubmit,
+    fetchApi,
+    onFinish,
+    onFail,
+  } = props;
   const formRef = useRef<FormActionType>();
   const [visible, setVisible] = useState<boolean>(false);
   const [isDetail, setIsDetail] = useState<boolean>(false);
-  const CONFIG = {
-    span: 12,
-  };
-  const getFieldValue = (name?: string) => {
-    const result = form.getFieldsValue();
-    console.log(result);
-    return result;
-  };
-  const handleClick = (key: keyof typeof DetailOperationEnum) => {
-    message.success(`点击了 ${DetailOperationEnum[key]}，key--${key}`);
-  };
+  const [detailData, setDetailData] = useState<any>();
+
+  const [newFormItems] = useFormatItems(
+    formItems,
+    defaultLineNumber,
+    detailData,
+    isDetail,
+  );
+
+  /**显示详情&隐藏绑定id元素 */
   const changeVisible = (action: 'show' | 'hide') => {
     if (!bindId) return;
     const el = document.getElementById(bindId) as HTMLElement;
@@ -36,8 +46,54 @@ const Detail: FC<IDetailProps> = (props) => {
       setVisible(action === 'show');
     }
   };
+  const detail = (record?: any) => {
+    changeVisible('show');
+    unstable_batchedUpdates(() => {
+      setIsDetail(true);
+      setDetailData(record);
+    });
+  };
+  const edit = (record?: any) => {
+    changeVisible('show');
+    unstable_batchedUpdates(() => {
+      setIsDetail(false);
+      setDetailData(record);
+    });
+    setTimeout(() => {
+      formRef.current?.form.setFieldsValue(record);
+    });
+  };
+  const handleConfirm = async () => {
+    let params = await formRef.current?.onValidate();
+    if (onSubmit) {
+      onSubmit?.(params);
+      return void 0;
+    }
+    if (onBeforeSubmit) {
+      const isAsyncFunc =
+        Object.prototype.toString.call(onBeforeSubmit) ===
+        '[object AsyncFunction]';
+      params = isAsyncFunc
+        ? await onBeforeSubmit?.(params)
+        : onBeforeSubmit?.(params);
+    }
+    if (fetchApi) {
+      const res = await fetchApi(params);
+      if (res?.code === SUCCESS_STATUS_CODE) {
+        onFinish?.(res);
+      } else {
+        onFail?.(res);
+      }
+    }
+  };
+  const handleBack = () => {
+    changeVisible('hide');
+    onBack?.();
+  };
   if (actionRef) {
     actionRef.current = {
+      detail,
+      edit,
       show: () => {
         changeVisible('show');
       },
@@ -46,170 +102,36 @@ const Detail: FC<IDetailProps> = (props) => {
       },
     };
   }
-
-  const beforeSubmit = () => {
-    const values = formRef.current?.onValidate();
-    console.log(values);
-    // form
-    //   .validateFields()
-    //   .then((res) => {
-    //     notification.success({
-    //       message: '成功',
-    //       description: JSON.stringify(getFieldValue()),
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     const { errorFields } = err;
-    //     if (errorFields && Array.isArray(errorFields)) {
-    //       errorFields.forEach((item) => {
-    //         const info = item?.errors?.[0];
-    //         notification.warning({
-    //           message: info,
-    //         });
-    //       });
-    //     }
-    //   });
-  };
   if (!visible) return null;
   return (
-    <div
-      style={{
-        minHeight: '100%',
-        background: '#fff',
-        // backgroundImage: `url(${cell})`,
-      }}
-    >
-      <PageHeader
-        onBack={() => {
-          // history.goBack();
-          handleClick('arrow');
-        }}
-        style={{
-          // background: '#f1f2f6',
-          marginBottom: 20,
-          borderBottom: '1px solid #dfe6e9',
-        }}
-        title="详情"
-        // subTitle="This is a subtitle"
-        extra={
-          <Space>
-            {/* <Switch
-              unCheckedChildren="不可编辑"
-              checkedChildren="可编辑"
-              checked={isDetail}
-              onChange={(able) => {
-                getFieldValue();
-                setIsDetail(able);
-              }}
-            /> */}
-            <Button
-              type="primary"
-              onClick={() => {
-                beforeSubmit();
-              }}
-            >
-              获取表单
-            </Button>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleClick('confirm');
-              }}
-            >
-              确定
-            </Button>
-            <Button
-              onClick={() => {
-                handleClick('cancel');
-              }}
-            >
-              取消
-            </Button>
-          </Space>
-        }
-      />
-      <DeepForm
-        actionRef={formRef}
-        labelCol={{ span: 6 }}
-        formItems={[
-          {
-            label: 'Input',
-            name: 'inputVal',
-            formItemType: 'Input',
-            rules: [{ required: true }],
-          },
-          {
-            label: 'Select',
-            name: 'select',
-            formItemType: 'Select',
-            fieldProps: {
-              Select: {
-                options: [{ label: 'Demo', value: 'demo' }],
-              },
-            },
-            rules: [{ required: true }],
-          },
-          {
-            label: 'TreeSelect',
-            name: 'treeSelect',
-            formItemType: 'TreeSelect',
-            fieldProps: {
-              TreeSelect: {
-                treeData: [
-                  {
-                    title: 'Light',
-                    value: 'light',
-                    children: [{ title: 'Bamboo', value: 'bamboo' }],
-                  },
-                ],
-              },
-            },
-            rules: [{ required: true }],
-          },
-          {
-            label: 'Cascader',
-            name: 'cascader',
-            formItemType: 'Cascader',
-            fieldProps: {
-              Cascader: {
-                options: [
-                  {
-                    value: 'zhejiang',
-                    label: 'Zhejiang',
-                    children: [
-                      {
-                        value: 'hangzhou',
-                        label: 'Hangzhou',
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-            rules: [{ required: true }],
-          },
-          {
-            label: 'DatePicker',
-            name: 'datePicker',
-            formItemType: 'DatePicker',
-            rules: [{ required: true }],
-          },
-          {
-            label: 'InputNumber',
-            name: 'inputNumber',
-            formItemType: 'InputNumber',
-            rules: [{ required: true }],
-          },
-          {
-            label: 'Switch',
-            name: 'inputNumber',
-            formItemType: 'Switch',
-            valuePropName: 'checked',
-            rules: [{ required: true }],
-          },
-        ]}
-      />
-    </div>
+    <DetailContext.Provider value={{ detailData: {} }}>
+      <div
+        className="detail-wrap"
+      >
+        <PageHeader
+          onBack={handleBack}
+          className="detail-head"
+          title={title}
+          extra={
+            <Space>
+              <Button type="primary" onClick={handleConfirm}>
+                确定
+              </Button>
+              <Button onClick={handleBack}>取消</Button>
+            </Space>
+          }
+        />
+        <DeepForm
+          actionRef={formRef}
+          labelCol={{ span: 6 }}
+          formItems={newFormItems}
+        />
+      </div>
+    </DetailContext.Provider>
   );
+};
+Detail.defaultProps = {
+  defaultLineNumber: 2,
+  title: '详情页',
 };
 export default Detail;

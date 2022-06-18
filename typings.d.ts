@@ -10,3 +10,8 @@ declare module '*.svg' {
   const url: string;
   export default url;
 }
+/**umirc的define全局变量  */
+declare const APPINFO: {
+  dependencies: Record<string, string>;
+  devDependencies: Record<string, string>;
+};

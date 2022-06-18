@@ -23,7 +23,6 @@ const LayoutGuard: FC<Iprops> = (props) => {
   const curLocation = useLocation();
   const { dispatch, routerTabs } = useGlobal();
   const { isLogin } = useVerifyToken({ api: tokenApi });
-
   const layoutRender = () => {
     // console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
     if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {

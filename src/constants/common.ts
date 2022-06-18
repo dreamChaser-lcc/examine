@@ -6,3 +6,5 @@ export const notClearTabs = ['/'];
 export const DEEP_TABLE_CLASS_NAME = 'lcc-deepTable';
 /**DeepTable表格类名 (查找元素)*/
 export const DEEP_TABLE_CLASS = `.${DEEP_TABLE_CLASS_NAME}`;
+
+export const SUCCESS_STATUS_CODE = '00000';

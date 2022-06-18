@@ -2,10 +2,9 @@ import { FC, MutableRefObject, ReactNode } from 'react';
 // 组件
 import { Form, FormInstance, FormProps, notification, Row } from 'antd';
 // 方法
-import { useFormItems } from '../searchForm/hooks/useFormItems';
+import { useFormItems } from './hooks/useFormItems';
 // 常量
-import { ProFormItemProps } from '../searchForm/interface';
-import { FormActionType } from './interface';
+import { ProFormItemProps, FormActionType } from './interface';
 
 export interface IProFormProps
   extends FormProps,
@@ -17,14 +16,8 @@ export interface IProFormProps
   extraNode?: ReactNode;
 }
 const ProForm: FC<IProFormProps> = (props) => {
-  const {
-    children,
-    extraNode,
-    formItems,
-    actionRef,
-    isSearch,
-    ...restProps
-  } = props;
+  const { children, extraNode, formItems, actionRef, isSearch, ...restProps } =
+    props;
   const [form] = Form.useForm<FormInstance>();
   const newFormItems = useFormItems(formItems, isSearch);
   /**验证表单并提示 */
@@ -34,7 +27,7 @@ const ProForm: FC<IProFormProps> = (props) => {
         const msg = val?.errors?.[0];
         msg && notification.warning({ message: msg });
       });
-    }); 
+    });
     return correctValues ? correctValues : false;
   };
 
@@ -53,7 +46,7 @@ const ProForm: FC<IProFormProps> = (props) => {
       // onFinish={onFinish}
       {...restProps}
     >
-      <Row gutter={24}>
+      <Row gutter={24} style={{ margin: 0 }}>
         {newFormItems}
         {extraNode}
       </Row>

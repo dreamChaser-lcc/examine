@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { user_auth_token_api } from '@/api/user';
-import { SUCCESS_STATUS_CODE } from '@/utils/dom.utils';
-import { notMenusPage } from '@/constants/common';
+import { notMenusPage, SUCCESS_STATUS_CODE } from '@/constants/common';
 import { useLocation } from 'umi';
 
 interface IParams {

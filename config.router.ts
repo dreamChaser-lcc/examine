@@ -133,6 +133,12 @@ export const menus = [
     path: '/globalState',
   },
   {
+    key: 'about',
+    title: '关于',
+    iconCode: 'icon-select',
+    path: '/about',
+  },
+  {
     key: 'test-ts',
     title: 'test模块',
     iconCode: 'icon-ceshishenqing',

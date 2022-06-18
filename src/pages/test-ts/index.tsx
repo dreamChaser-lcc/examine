@@ -60,7 +60,7 @@ export default (props:any) => {
           {mouseTaget}
         </div> */}
       <DeepTable columns={[]} />
-      <Detail/>
+      {/* <Detail/> */}
     </>
   );
 };

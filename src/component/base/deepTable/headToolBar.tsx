@@ -38,17 +38,6 @@ interface IHeadToolBarProps {
 const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
   const { headOperation, tools, condition } = props;
 
-  const rowStyle: CSSProperties = {
-    padding: '10px 20px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  };
-  const toolStyle: CSSProperties = {
-    fontSize: 16,
-    color: '#636e72',
-  };
-
   const handleFullScreen = () => {
     const element = condition.deepTableRef?.current;
     isFullScreen() ? exitFullscreen() : requestFullScreen(element);
@@ -97,11 +86,11 @@ const HeadToolBar: FC<IHeadToolBarProps> = (props) => {
   };
 
   return (
-    <div style={rowStyle}>
+    <div className='deepTable-tools-rows' >
       <div>
         <Space>{headOperation}</Space>
       </div>
-      <Space style={toolStyle}>{renderTool()}</Space>
+      <Space className='deepTable-tools-item'>{renderTool()}</Space>
     </div>
   );
 };

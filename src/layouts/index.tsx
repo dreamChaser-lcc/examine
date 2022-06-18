@@ -1,4 +1,4 @@
-import { IRouteComponentProps } from 'umi';
+import { Helmet, IRouteComponentProps } from 'umi';
 // 组件
 import LayoutGuard from './layoutGuard';
 // 方法
@@ -9,8 +9,13 @@ import { ConfigProvider } from 'antd';
 
 export default function (props: IRouteComponentProps) {
   return (
-    <ConfigProvider locale={zhCN}>
-      <LayoutGuard tokenApi={user_auth_token_api} {...props} />;
-    </ConfigProvider>
+    <>
+      <Helmet>
+        <title>MyAdmin</title>
+      </Helmet>
+      <ConfigProvider locale={zhCN}>
+        <LayoutGuard tokenApi={user_auth_token_api} {...props} />;
+      </ConfigProvider>
+    </>
   );
 }

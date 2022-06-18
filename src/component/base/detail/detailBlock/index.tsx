@@ -1,13 +1,15 @@
 import { Children, FC } from 'react';
 interface IDetailProps {
-  isDetail: boolean;
+  /**详情显示下划线 */
+  isDetail?: boolean;
+  /**默认显示值 */
   filedValue?: any;
 }
 const DetailBlock: FC<IDetailProps> = (props) => {
   const { isDetail, filedValue } = props;
   if (isDetail) {
     return (
-      <div style={{ borderBottom: '1px dashed #95afc0' }}>{filedValue}</div>
+      <div className='detail-line'>{filedValue}</div>
     );
   }
   return (
@@ -17,5 +19,8 @@ const DetailBlock: FC<IDetailProps> = (props) => {
       })}
     </>
   );
+};
+DetailBlock.defaultProps = {
+  isDetail: true,
 };
 export default DetailBlock;
