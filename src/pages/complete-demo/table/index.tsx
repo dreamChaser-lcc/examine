@@ -10,6 +10,8 @@ export default (props: Partial<IDeepTableProps>) => {
       // key: '1',
       name: `${index}`,
       age: 32,
+      gender: index % 2 > 0 ? 'girl' : 'boy',
+      activeStatus: index % 2 > 0,
       address: `仓山区万达1${index}号`,
     };
   });

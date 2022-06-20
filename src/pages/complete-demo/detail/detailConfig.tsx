@@ -2,24 +2,27 @@ import { ProFormItemProps } from '@/component/base/deepForm/ProForm/interface';
 
 export const formItems: ProFormItemProps[] = [
   {
-    label: 'Input',
-    name: 'inputVal',
+    label: '姓名',
+    name: 'name',
     formItemType: 'Input',
     rules: [{ required: true }],
   },
   {
-    label: 'Select',
-    name: 'select',
+    label: '性别',
+    name: 'gender',
     formItemType: 'Select',
     fieldProps: {
       Select: {
-        options: [{ label: 'Demo', value: 'demo' }],
+        options: [
+          { label: 'boy', value: 'boy' },
+          { label: 'girl', value: 'girl' },
+        ],
       },
     },
     rules: [{ required: true }],
   },
   {
-    label: 'TreeSelect',
+    label: 'treeSelect',
     name: 'treeSelect',
     formItemType: 'TreeSelect',
     fieldProps: {
@@ -36,8 +39,8 @@ export const formItems: ProFormItemProps[] = [
     rules: [{ required: true }],
   },
   {
-    label: 'Cascader',
-    name: 'cascader',
+    label: '详细地址',
+    name: 'address',
     formItemType: 'Cascader',
     fieldProps: {
       Cascader: {
@@ -70,8 +73,8 @@ export const formItems: ProFormItemProps[] = [
     rules: [{ required: true }],
   },
   {
-    label: 'Switch',
-    name: 'Switch',
+    label: '激活状态',
+    name: 'activeStatus',
     formItemType: 'Switch',
     valuePropName: 'checked',
     rules: [{ required: true }],
