@@ -10,6 +10,7 @@ import { useFormatItems } from './hooks/useFomatItems';
 import { FormActionType } from '../deepForm/ProForm/interface';
 import { SUCCESS_STATUS_CODE } from '@/constants/common';
 import { IDetailProps } from './interface';
+import { useAutoHight } from './hooks/useAutoHight';
 
 const Detail: FC<IDetailProps> = (props) => {
   const {
@@ -26,6 +27,8 @@ const Detail: FC<IDetailProps> = (props) => {
     onFail,
   } = props;
   const formRef = useRef<FormActionType>();
+  const detailFormRef = useRef<HTMLDivElement>(null);
+
   const [visible, setVisible] = useState<boolean>(false);
   const [isDetail, setIsDetail] = useState<boolean>(false);
   const [detailData, setDetailData] = useState<any>();
@@ -36,6 +39,9 @@ const Detail: FC<IDetailProps> = (props) => {
     detailData,
     isDetail,
   );
+
+  const { autoHight } = useAutoHight(detailFormRef);
+  console.log('autoHight', autoHight, detailFormRef);
 
   /**显示详情&隐藏绑定id元素 */
   const changeVisible = (action: 'show' | 'hide') => {
@@ -63,7 +69,9 @@ const Detail: FC<IDetailProps> = (props) => {
       formRef.current?.form.setFieldsValue(record);
     });
   };
+  /**确定回调 */
   const handleConfirm = async () => {
+    if (isDetail) return;
     let params = await formRef.current?.onValidate();
     if (onSubmit) {
       onSubmit?.(params);
@@ -86,6 +94,7 @@ const Detail: FC<IDetailProps> = (props) => {
       }
     }
   };
+  /**取消&箭头回调 */
   const handleBack = () => {
     changeVisible('hide');
     onBack?.();
@@ -104,9 +113,11 @@ const Detail: FC<IDetailProps> = (props) => {
   }
   if (!visible) return null;
   return (
-    <DetailContext.Provider value={{ detailData: {} }}>
+    <DetailContext.Provider value={{ detailData: detailData }}>
       <div
         className="detail-wrap"
+        ref={detailFormRef}
+        style={{ height: autoHight }}
       >
         <PageHeader
           onBack={handleBack}
@@ -121,11 +132,18 @@ const Detail: FC<IDetailProps> = (props) => {
             </Space>
           }
         />
-        <DeepForm
-          actionRef={formRef}
-          labelCol={{ span: 6 }}
-          formItems={newFormItems}
-        />
+        <div
+          // ref={detailFormRef}
+          style={{
+            paddingTop: 20,
+          }}
+        >
+          <DeepForm
+            actionRef={formRef}
+            labelCol={{ span: 6 }}
+            formItems={newFormItems}
+          />
+        </div>
       </div>
     </DetailContext.Provider>
   );

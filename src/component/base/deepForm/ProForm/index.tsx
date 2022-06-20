@@ -19,7 +19,9 @@ const ProForm: FC<IProFormProps> = (props) => {
   const { children, extraNode, formItems, actionRef, isSearch, ...restProps } =
     props;
   const [form] = Form.useForm<FormInstance>();
+  /**格式化 */
   const newFormItems = useFormItems(formItems, isSearch);
+  
   /**验证表单并提示 */
   const handleValidate = async () => {
     const correctValues = await form.validateFields().catch((errorInfo) => {

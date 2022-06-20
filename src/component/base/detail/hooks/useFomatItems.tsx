@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
-import { ProFormItemProps } from '../../deepForm/ProForm/interface';
+// 组件
 import DetailBlock from '../detailBlock';
+// 方法
+import { cloneDeep } from 'lodash';
+// 常量
+import { ProFormItemProps } from '../../deepForm/ProForm/interface';
 
 /**格式化配置 */
 export const useFormatItems = (
@@ -11,7 +15,8 @@ export const useFormatItems = (
 ) => {
   const span = Math.round(24 / defaultLineNumber);
   const newFormItems = useMemo(() => {
-    const items = formItems.map((item) => {
+    const clone = cloneDeep(formItems);
+    const items = clone.map((item) => {
       const { name, initialValue, render } = item;
       /**详情展示 */
       if (isDetail) {
@@ -22,6 +27,7 @@ export const useFormatItems = (
             return <DetailBlock isDetail filedValue={renderText ?? '--'} />;
           };
         }
+      } else {
       }
       item.span = span;
       return item;

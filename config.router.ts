@@ -37,20 +37,15 @@ export const menus = [
         title: 'icons列表',
         path: '/complete-demo/IconsList',
       },
+      { key: 'detail', title: '详情页', path: '/complete-demo/detail' },
+      { key: 'table', title: '表格', path: '/complete-demo/table' },
     ],
   },
   {
     key: 'unComplete-demo',
     title: '未封装组件',
     iconCode: 'icon-zujian',
-    children: [
-      { key: 'details', title: '详情页', path: '/unComplete-demo/detail' },
-      {
-        key: 'tables',
-        title: '表格',
-        path: '/unComplete-demo/table',
-      },
-    ],
+    children: [],
   },
   {
     key: 'protable-cn',
