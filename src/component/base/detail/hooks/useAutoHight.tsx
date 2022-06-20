@@ -13,7 +13,6 @@ export const useAutoHight = (detailFormRef: MutableRefObject<any>) => {
       const container = document.querySelector('body') as HTMLBodyElement;
       setTimeout(() => {
         const top = getBoundTop(detailFormRef.current);
-        console.log('top', top, detailFormRef.current);
         const height = container?.clientHeight - top;
         setAutoHight(height || '100%');
       }, 100);
@@ -23,7 +22,6 @@ export const useAutoHight = (detailFormRef: MutableRefObject<any>) => {
   useEffect(() => {
     getAutoHight();
   }, [detailFormRef.current]);
-  console.log('element', detailFormRef.current);
   return {
     autoHight,
   };

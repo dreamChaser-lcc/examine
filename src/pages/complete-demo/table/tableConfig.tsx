@@ -5,7 +5,7 @@ import { columnsProps } from "@/component/base/deepTable/interface";
 /**列配置 */
 export const columns: columnsProps[] = [
   {
-    title: '排序',
+    title: '名称',
     dataIndex: 'name',
   },
   {

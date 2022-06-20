@@ -41,7 +41,6 @@ const Detail: FC<IDetailProps> = (props) => {
   );
 
   const { autoHight } = useAutoHight(detailFormRef);
-  console.log('autoHight', autoHight, detailFormRef);
 
   /**显示详情&隐藏绑定id元素 */
   const changeVisible = (action: 'show' | 'hide') => {
