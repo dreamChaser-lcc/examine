@@ -45,7 +45,8 @@ export const menus = [
     key: 'unComplete-demo',
     title: '未封装组件',
     iconCode: 'icon-zujian',
-    children: [],
+    children: [
+      { key: 'virtualTable', title: '虚拟表格', path: '/unComplete-demo/virtualTable' },],
   },
   {
     key: 'protable-cn',
