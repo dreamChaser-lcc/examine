@@ -8,6 +8,18 @@ export default defineConfig({
   devServer: {
     port: 8080,
   },
+  // routes: [
+  //   {
+  //     path: '/',
+  //     component: '@/layouts/index',
+  //     routes: [
+  //       { path: '/', component: '@/pages/index' },
+  //       { path: '/about', component: 'about' },
+  //       { path: '/login', component: '@/pages/login' },
+  //       { component: '@/pages/404' },
+  //     ],
+  //   },
+  // ],
   /**全局变量 */
   define: {
     APPINFO: { dependencies, devDependencies },

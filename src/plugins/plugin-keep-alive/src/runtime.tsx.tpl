@@ -70,7 +70,6 @@ function AliveRouterComponent({ children, history, ...renderProps }: any) {
 }
 
 export function rootContainer(container: React.ReactNode, clientProps: any) { 
-  console.log(container, clientProps, 666)   
   return (
     <AliveRouterComponent {...clientProps}>{container}</AliveRouterComponent>
   );
