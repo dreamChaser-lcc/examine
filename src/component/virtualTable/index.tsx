@@ -4,23 +4,13 @@ import ResizeObserver from 'rc-resize-observer';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { VariableSizeGrid as Grid } from 'react-window';
 
-// Usage
-const columns = [
-  { title: 'A', dataIndex: 'key', width: 150 },
-  { title: 'B', dataIndex: 'key' },
-  { title: 'C', dataIndex: 'key' },
-  { title: 'D', dataIndex: 'key' },
-  { title: 'E', dataIndex: 'key', width: 200 },
-  { title: 'F', dataIndex: 'key', width: 100 },
-];
-
 interface RenderCell {
   columnIndex: number;
   rowIndex: number;
   style: React.CSSProperties;
 }
 const VirtualTable: FC<Parameters<typeof Table>[0]> = (props) => {
-  const { scroll } = props;
+  const { scroll, columns } = props;
   /**表格内容区宽度 */
   const [tableWidth, setTableWidth] = useState<number>(0);
 
@@ -128,8 +118,18 @@ const VirtualTable: FC<Parameters<typeof Table>[0]> = (props) => {
     </ResizeObserver>
   );
 };
+// Usage
+const columns = [
+  { title: 'A', dataIndex: 'key', width: 150 },
+  { title: 'B', dataIndex: 'key' },
+  { title: 'C', dataIndex: 'key' },
+  { title: 'D', dataIndex: 'key' },
+  { title: 'E', dataIndex: 'key', width: 200 },
+  { title: 'F', dataIndex: 'key', width: 100 },
+];
 VirtualTable.defaultProps = {
   scroll: { y: 300, x: '100vw' },
   dataSource: Array.from({ length: 100000 }, (_, key) => ({ key })),
+  columns,
 };
 export default VirtualTable;
