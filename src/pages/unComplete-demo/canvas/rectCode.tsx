@@ -3,53 +3,61 @@ import { CSSProperties, FC, useEffect, useRef } from 'react';
 interface IRectCodeProps {
   width: number;
   height: number;
+  /**验证码位数 */
+  digit: number;
 }
 const RectCode: FC<IRectCodeProps> = (props) => {
-  const { width, height } = props;
+  const { width, height, digit } = props;
   const mainRef = useRef<HTMLCanvasElement>(null);
+
+  /**随机数 */
   const randomNum = (min: number, max: number) => {
     return max - Math.floor((max - min) * Math.random());
   };
+  /**随机颜色 */
   const randomColor = () => {
     const r = randomNum(0, 255);
     const g = randomNum(0, 255);
     const b = randomNum(0, 255);
     return `rgb(${r},${g},${b})`;
   };
+  /**圆 干扰点 */
   const drawArc = (ctx: CanvasRenderingContext2D) => {
-    ctx.beginPath();
     for (let i = 0; i < 10; i++) {
+      ctx.beginPath();
       const x = randomNum(0, width);
       const y = randomNum(0, height);
       ctx.arc(x, y, 1, 0, Math.PI * 2);
-      ctx.fillStyle = randomColor();
       ctx.stroke();
-      ctx.closePath();
     }
   };
+  /**干扰线 */
   const drawLine = (ctx: CanvasRenderingContext2D) => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
       const x = randomNum(0, width);
       const y = randomNum(0, height);
-
       const originX = randomNum(0, width);
       const originY = randomNum(0, height);
       ctx.moveTo(originX, originY);
       ctx.lineTo(x, y);
+      ctx.stroke();
     }
   };
+  // 文字
   const drawText = (ctx: CanvasRenderingContext2D, chart: string) => {
     ctx.beginPath();
-    const fontSize = randomNum(15, 20);
+    const fontSize = randomNum(20, 25);
     ctx.font = `${fontSize}px sans-serif`;
     ctx.fillStyle = randomColor();
     ctx.save();
     const x = randomNum(fontSize, width - fontSize);
-    const y = randomNum(fontSize, height - fontSize);
+    const y = randomNum(fontSize, height);
+    console.log('yyy', y, fontSize, height);
     const degree = randomNum(-45, 45);
-    // ctx.rotate((Math.PI / 180) * degree);
-    ctx.fillText(chart, x, y);
-    // ctx.rotate((Math.PI / 180) * -degree);
+    ctx.translate(x, y);
+    ctx.rotate((Math.PI / 180) * degree);
+    ctx.fillText(chart, -fontSize / 2, -fontSize / 2, fontSize);
     ctx.restore();
   };
   const getRandomCode = () => {
@@ -73,11 +81,11 @@ const RectCode: FC<IRectCodeProps> = (props) => {
   const draw = () => {
     if (!mainRef.current) return false;
     const ctx = mainRef.current.getContext('2d') as CanvasRenderingContext2D;
-    const codeArr: string[] = new Array(6).fill(0).map(() => {
+    const codeArr: string[] = new Array(digit).fill(0).map(() => {
       return getRandomCode();
     });
-    ctx.fillStyle = randomColor();
-    ctx.fillRect(0, 0, width, height);
+    // ctx.fillStyle = randomColor();
+    // ctx.fillRect(0, 0, width, height);
     codeArr.forEach((item) => {
       drawText(ctx, item);
     });
@@ -92,7 +100,7 @@ const RectCode: FC<IRectCodeProps> = (props) => {
   };
   useEffect(() => {
     draw();
-  });
+  }, []);
   const wrapStyle: CSSProperties = {
     border: '1px solid #000',
     userSelect: 'none',
@@ -113,5 +121,6 @@ const RectCode: FC<IRectCodeProps> = (props) => {
 RectCode.defaultProps = {
   width: 100,
   height: 60,
+  digit: 6,
 };
 export default RectCode;
