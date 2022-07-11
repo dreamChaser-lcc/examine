@@ -1,4 +1,4 @@
-import { directionType, DIRECTION_Enum } from '../typing';
+import { directionType, DIRECTION_Enum } from '../interface';
 
 /**
  * 调整弹窗大小
@@ -97,8 +97,7 @@ export const resizeFunc = (
   const clientHeight = document.documentElement.clientHeight;
 
   const toLeft = () => {
-    oDrag.style.width =
-      offsetWidth + offsetLeft - movedClientX + 'px';
+    oDrag.style.width = offsetWidth + offsetLeft - movedClientX + 'px';
     oDrag.style.left = movedClientX + 'px';
   };
   const toRight = () => {

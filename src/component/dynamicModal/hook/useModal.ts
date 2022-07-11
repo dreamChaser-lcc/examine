@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useModalProps } from '../typing';
+import { useModalProps } from '../interface';
 import { drag, resize } from './util';
 
 /**实现拖拽和扩展等功能扩展的hook */
@@ -62,7 +62,6 @@ export const useModal = (props: useModalProps) => {
 
     // 模态框的位置
     const { left, top } = modalRef.current!.getBoundingClientRect();
-    
   };
   /**全屏 */
   const fullScreen = () => {
@@ -70,7 +69,7 @@ export const useModal = (props: useModalProps) => {
       modalRef.current.style.top = '0';
       modalRef.current.style.left = '0';
       modalRef.current.style.width = '100%';
-      modalRef.current.style.height = '100vh'; 
+      modalRef.current.style.height = '100vh';
     }
   };
   /**恢复弹窗 */

@@ -2,9 +2,9 @@ import { ReactNode, FC, useRef } from 'react';
 // hooks
 import { useModal } from './hook/useModal';
 import { initBody, initOperate } from './modalConfig';
+import { Space } from 'antd';
 import classNames from 'classnames';
 import './style.less';
-import { Space } from 'antd';
 
 interface IDynamicModal {
   /**对话框默认宽度 */
@@ -18,7 +18,7 @@ interface IDynamicModal {
   /**body自定义样式 */
   bodyExtraClass?: string;
   /**确定按钮回调 */
-  onOk?:()=>void;
+  onOk?: () => void;
   /**关闭按钮回调事件 */
   onCancel?: () => void;
 }
@@ -79,7 +79,7 @@ const DynamicModal: FC<IDynamicModal> = (props) => {
   /**对话框样式 */
   const modalClassName = classNames('ant-modal', { 'modal-extra': true });
   /**默认的底部操作按钮 */
-  const footOperate = initOperate(onClickClose,onOk);
+  const footOperate = initOperate(onClickClose, onOk);
 
   return visible ? (
     <div id="dynamicModal">

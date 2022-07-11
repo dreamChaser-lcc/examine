@@ -8,7 +8,7 @@ import axios from 'axios';
 import { GET } from '@/axios';
 import DeepTable from '@/component/base/deepTable';
 import Detail from '@/component/base/detail';
-import { SliderJigsaw, RectCode } from '../unComplete-demo/canvas';
+import { VerifyCode } from '@/component/verifyCode';
 // const api = async ()=>{
 //   const {data:res} =  await axios.get("/app/tenantUser/allapi");
 //   console.log(res)
@@ -61,7 +61,7 @@ export default (props: any) => {
           {mouseTaget}
         </div> */}
       {/* <DeepTable columns={[]} /> */}
-      <RectCode />
+      {/* <RectCode /> */}
       {/* <Detail/> */}
     </>
   );

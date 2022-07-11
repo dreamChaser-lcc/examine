@@ -37,6 +37,6 @@ interface divRefType {
   /**外层dom元素 */
   modalWarpRef: MutableRefObject<refType>;
 }
-export interface useModalProps extends divRefType { }
+export interface useModalProps extends divRefType {}
 /**方向  上下左右 左上左下右上右下*/
 export type directionType = 'T' | 'B' | 'L' | 'R' | 'LT' | 'LB' | 'RT' | 'RB';
