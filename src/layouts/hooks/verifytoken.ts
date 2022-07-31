@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { user_auth_token_api } from '@/api/user';
+import { history } from 'umi';
 import { notMenusPage, SUCCESS_STATUS_CODE } from '@/constants/common';
 import { useLocation } from 'umi';
 
@@ -22,7 +23,8 @@ export const useVerifyToken = ({ api, refreshTime = 10 }: IParams) => {
           // setIsLoading(true);
           setLogin(true);
         } else {
-          window.location.href = `${window.location.origin}/#/login`;
+          // window.location.href = `${window.location.origin}/#/login`;
+          history.push('/login');
         }
         timerRef.current = null;
         clearTimeout(timerRef.current);

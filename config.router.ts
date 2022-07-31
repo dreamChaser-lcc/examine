@@ -39,6 +39,16 @@ export const menus = [
       },
       { key: 'detail', title: '详情页', path: '/complete-demo/detail' },
       { key: 'table', title: '表格', path: '/complete-demo/table' },
+      {
+        key: 'virtualTable',
+        title: '虚拟表格',
+        path: '/complete-demo/virtualTable',
+      },
+      {
+        key: 'publishDocs',
+        title: '组件文档',
+        path: '/complete-demo/publishDocs',
+      },
     ],
   },
   {
@@ -46,7 +56,8 @@ export const menus = [
     title: '未封装组件',
     iconCode: 'icon-zujian',
     children: [
-      { key: 'virtualTable', title: '虚拟表格', path: '/unComplete-demo/virtualTable' },],
+      // { key: 'virtualTable', title: '虚拟表格', path: '/unComplete-demo/virtualTable' },
+    ],
   },
   {
     key: 'protable-cn',
@@ -122,24 +133,18 @@ export const menus = [
   //   iconCode: 'icon-xiaoxizhongxin',
   //   path: '/message',
   // },
-  {
-    key: 'globalState',
-    title: 'hooks的全局状态共享',
-    iconCode: 'icon-WebHooks',
-    path: '/globalState',
-  },
-  {
-    key: 'about',
-    title: '关于',
-    iconCode: 'icon-select',
-    path: '/about',
-  },
-  {
-    key: 'test-ts',
-    title: 'test模块',
-    iconCode: 'icon-ceshishenqing',
-    path: '/test-ts',
-  },
+  // {
+  //   key: 'globalState',
+  //   title: 'hooks的全局状态共享',
+  //   iconCode: 'icon-WebHooks',
+  //   path: '/globalState',
+  // },
+  // {
+  //   key: 'test-ts',
+  //   title: 'test模块',
+  //   iconCode: 'icon-ceshishenqing',
+  //   path: '/test-ts',
+  // },
   {
     key: 'antdUI',
     title: 'antd组件',
@@ -183,5 +188,11 @@ export const menus = [
         path: '/antdUI/datePicker-cn1',
       },
     ],
+  },
+  {
+    key: 'about',
+    title: '关于',
+    iconCode: 'icon-select',
+    path: '/about',
   },
 ];

@@ -21,11 +21,20 @@ const Project: FC<IProjectProps> = () => {
     color: 'rgba(0, 0, 0, 0.45)',
     fontSize: 12,
   };
+  const handleJumpToDocs = (link: string) => {
+    window.open(link);
+  };
   return (
     <Card title="项目">
       {projectConfig.map((item) => {
         return (
-          <Card.Grid key={item.key} style={gridStyle}>
+          <Card.Grid
+            onClick={() => {
+              handleJumpToDocs(item.link);
+            }}
+            key={item.key}
+            style={gridStyle}
+          >
             <div style={titleStyle}>
               <Space>
                 <span>{item.icon}</span>

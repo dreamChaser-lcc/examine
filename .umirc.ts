@@ -4,6 +4,16 @@ import pkg from './package.json';
 /**获取package.Json中的信息 */
 const { dependencies, devDependencies } = pkg;
 
+const isProduction = process.env.NODE_ENV === 'production';
+// const DEPLOY_BASE_URL = isProduction ? '/admin/' : '/';
+/**hash路由不需要配置 */
+const DEPLOY_BASE_URL = './';
+const deployConfig = {
+  // logo: `${DEPLOY_BASE_URL}logo.png`,
+  favicon: `${DEPLOY_BASE_URL}favicon.ico`,
+  publicPath: DEPLOY_BASE_URL,
+};
+
 export default defineConfig({
   devServer: {
     port: 8080,
@@ -27,11 +37,10 @@ export default defineConfig({
   title: 'hi',
   // mfsu:{},
   plugins: ['./src/plugins/plugin-keep-alive/src/index.js'],
-  base: '/',
-  publicPath: './',
   history: { type: 'hash' },
   // hash: true,	// 清除缓存
-  favicon: '/favicon.ico',
+  base: '/',
+  ...deployConfig,
   proxy: {
     '/api': {
       target: 'http://150.158.189.25:8006',

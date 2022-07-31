@@ -1,3 +1,10 @@
+
+# 在线链接
+
+[项目地址](http://licc.cloud/admin/)
+
+[组件库文档地址](http://licc.cloud/stars-lib-docs/)
+
 # umi project
 
 ## Getting Started
@@ -5,29 +12,59 @@
 yarn Install dependencies
 
 ```bash
-$ yarn
+yarn
 ```
 
 Start the dev server,
 
 ```bash
-$ yarn start
+yarn start
 ```
+
 or
 
 npm Install dependencies,recommend use npm 7+
 
 ```bash
-$ npm install
+npm install
 ```
 
 Start the dev server,
 
 ```bash
-$ npm start
+npm start
 ```
 
+## 项目目录
+
+examine
+├─ mock               // 模拟数据
+├─ nodeServer         // nodeJs的一些demo
+├─ public             // 全局静态资源
+├─ Readme             // 学习笔记
+├─ src  
+│  ├─ api             // api函数
+│  ├─ assets          // 静态资源
+│  ├─ axios           // CORS 跨域 请求封装
+│  ├─ component       // 组件
+│  ├─ constants       // 常量
+│  ├─ enum            // 枚举
+│  ├─ globalContext   // useContext + useReducer实现mini状态管理
+│  ├─ hooks           // 指定要hooks
+│  ├─ layouts         // 布局
+│  ├─ pages           // 页面
+│  ├─ plugins         // umi的插件
+│  └─ utils           // 方法
+├─ config.router.ts   // 布局菜单配置
+├─ package.json
+├─ README.md
+├─ tsconfig.json      // ts配置
+├─ typings.d.ts       // ts第三方声明
+├─ yarn-error.log
+└─ yarn.lock
+
 ## 提交规范
+
 - :sparkles:feat：新功能（feature）
 - :bug:fix：修补bug
 - :memo:docs：文档（documentation）

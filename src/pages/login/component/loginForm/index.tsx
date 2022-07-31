@@ -1,3 +1,10 @@
+/*
+ * @Author: dreamChaser-lcc
+ * @Date: 2021-12-31 17:06:21
+ * @LastEditors: dreamChaser-lcc
+ * @LastEditTime: 2022-07-31 22:21:01
+ * @Description:
+ */
 import { FC, useContext, useMemo } from 'react';
 // 组件
 import { Button, Checkbox, Form, Input } from 'antd';
@@ -12,8 +19,9 @@ import {
 import { user_login_api } from '@/api/user';
 // 全局变量
 import BaseContext from '@/globalContext';
-import { SUCCESS_STATUS_CODE } from '@/constants/common';
 // 常量
+import { SUCCESS_STATUS_CODE } from '@/constants/common';
+import { history } from 'umi';
 
 interface ILoginForm {
   // 登录或register
@@ -35,15 +43,18 @@ const LoginForm: FC<ILoginForm> = () => {
     const res = await user_login_api(account, password);
     if (res?.code === SUCCESS_STATUS_CODE) {
       const { token } = res.result;
-      console.log(res);
+      // console.log(res);
       if (remember) {
         remenber(account, password, token);
       } else {
         clearRemenber();
       }
       dispatch('changeLoginState', true);
-      window.location.replace('/');
       handleVerifySuccess('登录成功');
+      setTimeout(() => {
+        history.push('/');
+      });
+      // window.location.replace('/');
     }
   };
   const onFinishFailed = (errInfo: any) => {
