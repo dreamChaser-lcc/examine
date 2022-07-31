@@ -37,6 +37,7 @@ npm start
 
 ## 项目目录
 
+```
 examine
 ├─ mock               // 模拟数据
 ├─ nodeServer         // nodeJs的一些demo
@@ -62,6 +63,7 @@ examine
 ├─ typings.d.ts       // ts第三方声明
 ├─ yarn-error.log
 └─ yarn.lock
+```
 
 ## 提交规范
 
