@@ -51,7 +51,7 @@ examine
 │  ├─ constants       // 常量
 │  ├─ enum            // 枚举
 │  ├─ globalContext   // useContext + useReducer实现mini状态管理
-│  ├─ hooks           // 指定要hooks
+│  ├─ hooks           // 自定义hooks
 │  ├─ layouts         // 布局
 │  ├─ pages           // 页面
 │  ├─ plugins         // umi的插件
