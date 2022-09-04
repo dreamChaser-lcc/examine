@@ -76,3 +76,9 @@ examine
 - :wrench:chore：构建过程或辅助工具的变动
 - :zap:perf：性能优化（performance）
 - tmp：临时提交（可用于非 master 分支）
+
+## 合并代码
+
+```bash
+git rebase xxx //xxx为分支名称 
+```
