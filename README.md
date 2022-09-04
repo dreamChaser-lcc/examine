@@ -79,6 +79,14 @@ examine
 
 ## 合并代码
 
+### git rebase 变基合并
+
 ```bash
 git rebase xxx //xxx为分支名称 
+```
+
+### git merge （会污染提交记录提交记录会多出一条merge oldBranch into newBranch的提交记录）
+
+```bash
+git merge xxx // xxx为新分支
 ```
