@@ -1,0 +1,136 @@
+.loading-wrap {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.loading-wrap .loading-title {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  font-size: 28px;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+}
+
+.loading-wrap .loading-desc {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  font-size: 24px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 360px;
+  transform: translate(-50%, -50%);
+  font-weight: 400;
+  animation: typing 2s steps(15);
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+  }
+}
+
+.loading-wrap .loading-animation {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+
+  & :nth-child(n) {
+    margin: 10px;
+  }
+  &-header-top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 25px solid #4a6886;
+    border-right-color: transparent;
+    border-radius: 25px;
+    animation: action-to-bottom 0.5s ease infinite;
+  }
+  &-header-bottom {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 25px solid #4a6886;
+    border-right-color: transparent;
+    border-radius: 25px;
+    animation: action-to-top 0.5s ease infinite;
+  }
+  &-dot-1 {
+    position: absolute;
+    left: 80px;
+    top: 25px;
+    transform: translateY(-50%);
+    border: 5px solid #4a6886;
+    border-radius: 5px;
+    animation: to-left-1 1s linear 0.25s infinite;
+  }
+  &-dot-2 {
+    position: absolute;
+    left: 100px;
+    top: 25px;
+    transform: translateY(-50%);
+    border: 5px solid #4a6886;
+    border-radius: 5px;
+    animation: to-left-2 1s linear 0.5s infinite;
+  }
+  &-dot-3 {
+    position: absolute;
+    left: 120px;
+    top: 25px;
+    transform: translateY(-50%);
+    border: 5px solid #4a6886;
+    border-radius: 5px;
+    animation: to-left-3 1s linear 0.75s infinite;
+  }
+}
+@keyframes action-to-bottom {
+  0% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+@keyframes action-to-top {
+  0% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-45deg);
+  }
+}
+@keyframes to-left-1 {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-80px, -50%);
+  }
+}
+@keyframes to-left-2 {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-100px, -50%);
+  }
+}
+@keyframes to-left-3 {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-120px, -50%);
+  }
+}

@@ -1,3 +1,10 @@
+/*
+ * @Author: lcc
+ * @Date: 2022-09-04 21:06:36
+ * @LastEditors: lcc
+ * @LastEditTime: 2022-11-19 21:00:02
+ * @Description:
+ */
 import React, { FC, useEffect } from 'react';
 
 import { history, IRouteComponentProps } from 'umi';
@@ -15,6 +22,7 @@ import { useVerifyToken } from './hooks/verifytoken';
 import { notMenusPage } from '@/constants/common';
 import ProTransition from '@/component/ProTransition';
 import Login from '@/pages/login';
+import Loading from '@/component/loading';
 interface Iprops extends IRouteComponentProps {
   tokenApi?: Function;
 }
@@ -23,6 +31,11 @@ const LayoutGuard: FC<Iprops> = (props) => {
   const curLocation = useLocation();
   const { dispatch, routerTabs } = useGlobal();
   const { isLogin } = useVerifyToken({ api: tokenApi });
+
+  if (!isLogin && curLocation.pathname !== '/login') {
+    return <Loading />;
+  }
+
   const layoutRender = () => {
     // console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
     if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {

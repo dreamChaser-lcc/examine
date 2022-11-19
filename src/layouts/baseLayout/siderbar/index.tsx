@@ -7,7 +7,7 @@ import MyIcon from '@/component/myIcon';
 import _ from 'lodash';
 // 常量
 // import logo from '@/assets/images/readingLogo1.png';
-import logo from '/public/logo.png';
+import logo from '@/../public/logo.png';
 import { menus } from '@/../config.router';
 import classNames from 'classnames';
 

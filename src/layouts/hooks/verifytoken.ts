@@ -14,16 +14,13 @@ export const useVerifyToken = ({ api, refreshTime = 10 }: IParams) => {
   const timerRef = useRef<any>(null);
   const [isLogin, setLogin] = useState<boolean>(false);
   const curLocation = useLocation();
-  // console.log(timerRef);
   useEffect(() => {
     if (!timerRef.current && !notMenusPage.includes(curLocation.pathname)) {
       timerRef.current = setTimeout(async () => {
         const res = await api?.();
         if (res?.code === SUCCESS_STATUS_CODE) {
-          // setIsLoading(true);
           setLogin(true);
         } else {
-          // window.location.href = `${window.location.origin}/#/login`;
           history.push('/login');
         }
         timerRef.current = null;
