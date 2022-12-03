@@ -38,6 +38,11 @@ export default defineConfig({
   // mfsu:{},
   plugins: ['./src/plugins/plugin-keep-alive/src/index.js'],
   history: { type: 'hash' },
+  chainWebpack(config) {
+    if (isProduction) {
+      config.output.filename('[name].[hash:8].js');
+    }
+  },
   // hash: true,	// 清除缓存
   base: '/',
   ...deployConfig,
