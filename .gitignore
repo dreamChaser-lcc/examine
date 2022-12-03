@@ -20,4 +20,4 @@
 
 # deploy
 
-/client/*.tar.gz
+/client/**.*
