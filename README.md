@@ -35,13 +35,22 @@ Start the dev server,
 npm start
 ```
 
+## deploy部署远程服务器
+
+```bash
+npm run deploy
+```
+
+部署前需要更改client文件的远程服务器配置
+
+
 ## 项目目录
 
 ```
 examine
 ├─ mock               // 模拟数据
 ├─ nodeServer         // nodeJs的一些demo
-├─ public             // 全局静态资源
+├─ public             // 全局静态资源 
 ├─ Readme             // 学习笔记
 ├─ src  
 │  ├─ api             // api函数
