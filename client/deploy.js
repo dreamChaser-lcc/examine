@@ -14,7 +14,7 @@ let pro = cp.exec(script, (error) => {
 
 pro.stdout.pipe(process.stdout);
 pro.on('exit', () => {
-  console.log('in');
+  console.log('------------connect start------------');
   connect();
 });
 
@@ -75,13 +75,15 @@ const upload = () => {
 const shell = () => {
   /**
    * 1.备份数据到bak目录下，并以时间戳命名
-   * 2.解压到指定文件夹
-   * 3.删除原压缩文件
+   * 2.清空原解压文件夹所有文件
+   * 3.解压到指定文件夹
+   * 4.删除原压缩文件
    */
   // 部署脚本
   const shellScript = `
    cd ${deployRootDir}
    cp ${deployFile} bak/bak.$(date "+%Y.%m.%d_%H:%M").tar.gz
+   rm -rf ${deployDir}/*
    tar -zxvf ${deployFile} -C ${deployDir}
    rm -rf ${deployFile}
    exit

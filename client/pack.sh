@@ -1,6 +1,6 @@
 echo '------------start packaging------------'
 
-npm run build
+# npm run build
 
 echo '------------build end------------'
 
