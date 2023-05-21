@@ -54,7 +54,7 @@ const deployConfig = {
             vendor: {
               name: 'vendors',
               chunks: 'all',
-              test: /[\\/]node_modules[\\/](lodash|moment)/,
+              test: /[\\/]node_modules[\\/](lodash|moment|react|react-dom)/,
               priority: 9,
               enforce: true,
             },
@@ -63,14 +63,15 @@ const deployConfig = {
       },
     });
   },
-  externals: {
-    react: 'window.React',
-    'react-dom': 'window.ReactDom',
-  },
-  scripts: [
-    'https://unpkg.com/react@17/umd/react.production.min.js',
-    'https://unpkg.com/react-dom@17/umd/react-dom.production.min.js',
-  ],
+  // externals: {
+  //   react: 'window.React',
+  //   'react-dom': 'window.ReactDom',
+  // },
+  // scripts: [
+  //   'https://unpkg.com/react@17/umd/react.production.min.js',
+  //   'https://unpkg.com/react-dom@17/umd/react-dom.production.min.js',
+  // ],
+  thread: false,
   hash: true, // hash文件,可以避免部署后前文件被浏览器缓存未刷新
 };
 
