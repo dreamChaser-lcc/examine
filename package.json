@@ -5,6 +5,7 @@
     "dev": "npm run start:dev",
     "start:dev": "cross-env NODE_ENV=dev webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "umi build",
+    "analyze:build": "cross-env ANALYZE=1 umi build",
     "deploy":"node ./client/deploy.js",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
