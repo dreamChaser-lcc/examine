@@ -9,20 +9,6 @@
 
 ## Getting Started
 
-yarn Install dependencies
-
-```bash
-yarn
-```
-
-Start the dev server,
-
-```bash
-yarn start
-```
-
-or
-
 npm Install dependencies,recommend use npm 7+
 
 ```bash
@@ -33,6 +19,20 @@ Start the dev server,
 
 ```bash
 npm start
+```
+
+or
+
+yarn Install dependencies
+
+```bash
+yarn
+```
+
+Start the dev server,
+
+```bash
+yarn start
 ```
 
 ## deploy部署远程服务器
