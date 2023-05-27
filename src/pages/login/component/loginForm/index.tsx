@@ -1,8 +1,8 @@
 /*
  * @Author: dreamChaser-lcc
  * @Date: 2021-12-31 17:06:21
- * @LastEditors: dreamChaser-lcc
- * @LastEditTime: 2022-07-31 22:21:01
+ * @LastEditors: lcc
+ * @LastEditTime: 2023-05-26 00:09:43
  * @Description:
  */
 import { FC, useContext, useMemo } from 'react';
@@ -79,7 +79,7 @@ const LoginForm: FC<ILoginForm> = () => {
           // initialValue={user.account}
           rules={[{ required: true, message: '请输入账号' }]}
         >
-          <Input placeholder="账号：Admin" />
+          <Input size="large" placeholder="账号：Admin" />
         </Form.Item>
 
         <Form.Item
@@ -87,16 +87,21 @@ const LoginForm: FC<ILoginForm> = () => {
           // initialValue={user.pwd}
           rules={[{ required: true, message: '请输入密码' }]}
         >
-          <Input.Password placeholder="密码：123456" />
+          <Input.Password size="large" placeholder="密码：123456" />
         </Form.Item>
 
         <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox style={{ color: '#fff' }}>Remember me</Checkbox>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            登录
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            style={{ width: '100%' }}
+          >
+            login
           </Button>
         </Form.Item>
       </Form>

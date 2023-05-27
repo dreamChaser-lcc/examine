@@ -1,119 +1,47 @@
-@background-color: linear-gradient
-  (to right top, #33695b, #006d7c, #006bba, #005ff2, #0025f4);
-@NAV-THEME-COLOR: #296891;
-@keyframes moveblock {
-  0% {
-    background-position: 0px 0px;
-  }
-  100% {
-    background-position: 48px 0px;
-  }
-}
 .login-container {
-  width: 100vw;
-  height: 100vh;
-  min-height: 650px;
-  overflow: auto;
-  // background-color: red; /* 不支持线性的时候显示 */
-  background: linear-gradient(
-    to right top,
-    #33695b,
-    #006d7c,
-    #006bba,
-    #005ff2,
-    #0025f4
-  );
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .login-wapper {
-    .login-title {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translate(-50%);
-      text-align: center;
-      h1 {
-        color: #fff;
-      }
+  margin: 0 auto;
+  padding: 12em 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/images/login_background.jpg') no-repeat 0px 0px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+
+  &:hover {
+    .login-form {
+      box-shadow: 0px 0px 50px #000;
     }
-    .login-layout {
-      display: flex;
-      width: 65vw;
-      height: calc(60vw / 2);
-      margin: 0 auto;
-      border-radius: 10px;
-      background-color: #fafafa;
-      box-shadow: 1px 1px 1px 1px #888888;
-      .login-left {
-        overflow: auto;
-        flex: 4;
-        background-image: linear-gradient(
-          to right top,
-          #33695b,
-          #006d7c,
-          #006bba,
-          #005ff2,
-          #0025f4
-        );
-        /*裁剪样式*/
-        -webkit-clip-path: polygon(0 0, 100% 0, 87% 80%, 49% 100%, 0 100%);
-        clip-path: polygon(0 0, 100% 0, 87% 80%, 49% 100%, 0 100%);
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: space-between;
-        .description {
-          font-size: 10px;
-          font-weight: bold;
-          color: #fafafa;
-          padding: 10px;
-          height: 100px;
-          align-self: flex-start;
-        }
-        .bottom-image {
-          flex: 1;
-          width: 50%;
-        }
-      }
-      .login-right {
-        flex: 3;
-        display: flex;
-        overflow: auto;
-        flex-direction: column;
-        align-items: center;
-        .portrait {
-          margin: 30px 0;
-        }
-      }
+  }
+
+  .login-form {
+    background: transparent;
+    width: 30%;
+    margin: 0 auto;
+    padding: 36px;
+    border-radius: 6px;
+
+    &:hover {
+      box-shadow: 0px 0px 70px #000;
+    }
+
+    .login-title {
+      letter-spacing: 1px;
+      color: #fff;
+      font-size: 3em;
+      font-weight: 600;
+      font-family: 'Philosopher', sans-serif;
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+
+    .ant-btn-primary:hover,
+    .ant-btn-primary:focus {
+      color: #40a9ff !important;
+      border-color: #40a9ff !important;
+      background: transparent !important;
     }
   }
 }
-// 输入框样式
-// .inputWrapper {
-//   position: relative;
-//   & input {
-//     background-color: transparent;
-//     border-bottom: 1px solid #1890ff;
-//   }
-//   & input:focus {
-//     outline: none !important;
-//     border-bottom: 1px solid #1890ff;
-//   }
-//   & > label {
-//     position: absolute;
-//     // 不可选择
-//     user-select: none;
-//     // 鼠标点击忽略
-//     pointer-events: none;
-//     left: 2px;
-//     top: 0px;
-//   }
-//   & input:focus + label {
-//     top: -10px;
-//     background-color: transparent;
-//   }
-//   & input:valid + label {
-//     top: -10px;
-//   }
-// }
