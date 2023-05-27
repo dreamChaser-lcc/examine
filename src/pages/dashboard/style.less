@@ -1,9 +1,9 @@
 @shadow: 1px 1px 5px 2px #e3e3ea;
-@radius: 10px;
+@radius: 16px;
 
 .dashboard-wrap {
   padding: 10px;
-  background-color: #fafafb;
+  // background-color: #fafafb;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -11,6 +11,11 @@
   flex-direction: column;
   .header {
     flex-basis: 100px;
+    background-color: #fff;
+    border-radius: 16px;
+    .ant-page-header {
+      border-radius: 16px;
+    }
   }
   .container {
     flex: 1;
@@ -24,6 +29,7 @@
       & .right {
         flex: 0 0 250px;
         height: 300px;
+        background-color: #fff;
         box-shadow: @shadow;
         border-radius: @radius;
       }
@@ -32,6 +38,7 @@
         height: 300px;
         box-shadow: @shadow;
         border-radius: @radius;
+        background-color: #fff;
         margin: 0 20px;
       }
     }
@@ -44,14 +51,19 @@
         flex: 1;
         box-shadow: @shadow;
         border-radius: @radius;
+        background: #fff;
         height: 300px;
         margin: 0 20px 0 0;
+        .ant-card {
+          border-radius: 16px 0 0 16px;
+        }
       }
       & .right {
         flex: 0 0 250px;
         height: 300px;
         box-shadow: @shadow;
         border-radius: @radius;
+        background: #fff;
       }
     }
   }

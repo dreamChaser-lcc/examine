@@ -31,6 +31,11 @@ export const menus = [
     title: '组件',
     iconCode: 'icon-zujian',
     children: [
+      {
+        key: 'publishDocs',
+        title: '组件文档',
+        path: '/complete-demo/publishDocs',
+      },
       { key: 'modal', title: '动态对话框', path: '/complete-demo/modal' },
       {
         key: 'IconsList',
@@ -43,11 +48,6 @@ export const menus = [
         key: 'virtualTable',
         title: '虚拟表格',
         path: '/complete-demo/virtualTable',
-      },
-      {
-        key: 'publishDocs',
-        title: '组件文档',
-        path: '/complete-demo/publishDocs',
       },
     ],
   },

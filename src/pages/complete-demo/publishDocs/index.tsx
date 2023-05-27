@@ -22,7 +22,7 @@ export default () => {
         </Space>
 
         <iframe
-          style={{ width: '100%', height: '350px', marginTop: 10 }}
+          style={{ width: '100%', minHeight: '450px', marginTop: 10 }}
           src="http://licc.cloud/stars-lib-docs/"
         >
           <p>您的浏览器不支持 iframe 标签。</p>

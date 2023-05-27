@@ -1,3 +1,10 @@
+/*
+ * @Author: lcc
+ * @Date: 2022-11-19 21:17:21
+ * @LastEditors: lcc
+ * @LastEditTime: 2023-05-27 16:22:49
+ * @Description:
+ */
 import { FC, Key, useMemo, useState } from 'react';
 // 组件
 import { Layout, Menu } from 'antd';
@@ -73,7 +80,7 @@ const Siderbar: FC<SiderbarProps> = (props) => {
   return (
     <Layout.Sider
       collapsed={collapsed}
-      width={180}
+      width={200}
       className="base-layout-sider"
     >
       <div className={logoClass}>

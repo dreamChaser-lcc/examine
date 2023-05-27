@@ -1,8 +1,8 @@
 /*
  * @Author: dreamChaser-lcc
  * @Date: 2022-03-24 22:14:21
- * @LastEditors: dreamChaser-lcc
- * @LastEditTime: 2022-07-31 23:22:22
+ * @LastEditors: lcc
+ * @LastEditTime: 2023-05-27 22:42:01
  * @Description: 布局头部右边按钮
  */
 import { FC, memo } from 'react';
@@ -11,8 +11,13 @@ import { history } from 'umi';
 import { clearRemenber } from '@/utils/login.utils';
 // 组件
 import MyIcon from '@/component/myIcon';
-import { PieChartOutlined, GithubOutlined } from '@ant-design/icons';
-import { Avatar, Dropdown, Menu, Space } from 'antd';
+import SearchRoute from '@/component/searchRoute';
+import {
+  PieChartOutlined,
+  GithubOutlined,
+  AlertOutlined,
+} from '@ant-design/icons';
+import { Avatar, Dropdown, Menu, Space, Badge } from 'antd';
 
 const BreadcrumbExtra: FC = () => {
   const memuConfig = [
@@ -52,12 +57,19 @@ const BreadcrumbExtra: FC = () => {
 
   return (
     <div>
-      <Dropdown overlay={menu}>
-        <Space align="center" style={{ margin: '0 10px' }}>
-          <Avatar src="https://joeschmoe.io/api/v1/random" size={25} />
-          Admin lcc
-        </Space>
-      </Dropdown>
+      <Space align="center" size="middle" style={{ margin: '0 24px' }}>
+        <SearchRoute />
+        {/* <Badge dot>
+          <AlertOutlined style={{ fontSize: 18 }} />
+        </Badge> */}
+        <Dropdown overlay={menu}>
+          <Avatar
+            icon={<GithubOutlined style={{ fontSize: 16 }} />}
+            style={{ background: '#555' }}
+            size={32}
+          />
+        </Dropdown>
+      </Space>
     </div>
   );
 };

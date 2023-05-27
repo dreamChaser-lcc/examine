@@ -1,3 +1,10 @@
+/*
+ * @Author: lcc
+ * @Date: 2022-11-19 21:17:21
+ * @LastEditors: lcc
+ * @LastEditTime: 2023-05-27 22:37:05
+ * @Description:
+ */
 import { FC, memo, useEffect, useMemo, useState } from 'react';
 // 组件
 import { Avatar, Button, Card, List, Space, Tooltip } from 'antd';
@@ -55,7 +62,7 @@ const PlanList: FC<IPlanListProps> = () => {
   }, [data]);
   return (
     <div style={{ marginTop: '1rem' }}>
-      <Card title="计划" extra={hasRefresh}>
+      <Card title="嗒嗒嗒" extra={hasRefresh}>
         <List>
           {data?.slice(0, 5)?.map((item: any, index: number) => {
             return (

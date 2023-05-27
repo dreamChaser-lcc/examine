@@ -1,7 +1,7 @@
 import { ReactNode, Fragment, FC, useContext, useEffect } from 'react';
 // 组件
 import { Breadcrumb, Col, Row, Tabs } from 'antd';
-import { MenuFoldOutlined, HomeOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined } from '@ant-design/icons';
 import DropMenus from './sub/dropMenus';
 import TabpaneOperation from './sub/tabpaneOperation';
 // 方法
@@ -75,10 +75,12 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
       <div
         style={{
           display: 'flex',
-          width: 30,
+          marginRight: 16,
           justifyContent: 'center',
           alignItems: 'center',
           height: 'inherit',
+          fontSize: 18,
+          color: '#5470c6',
         }}
       >
         <MenuFoldOutlined
@@ -106,19 +108,20 @@ const ProHeader: FC<IProHeaderProps> = (props) => {
     const basicItem = [
       <Breadcrumb.Item key="home">
         <Link to="/">
-          <HomeOutlined />
+          {/* <HomeOutlined /> */}
           Home
         </Link>
       </Breadcrumb.Item>,
     ].concat(extraBreadcrumbItems);
     return (
       <div className="nav-breadcrumb">
-        <div>
+        <div className="nav-breadcrumb-left flex-center">
+          <h3 className="nav-breadcrumb-title">
+            {allMenus?.[snippet?.[snippet.length - 1]] ?? 'Home'}
+          </h3>
           <Breadcrumb>{basicItem}</Breadcrumb>
         </div>
-        <div>
-          <BreadcrumbExtra />
-        </div>
+        <BreadcrumbExtra />
       </div>
     );
   };
