@@ -5,6 +5,8 @@
 
 [组件库文档地址](http://licc.cloud/stars-lib-docs/)
 
+[umiV3官方文档](https://v3.umijs.org/config)
+
 # umi project
 
 ## Getting Started
