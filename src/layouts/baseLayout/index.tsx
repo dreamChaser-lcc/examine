@@ -1,4 +1,12 @@
+/*
+ * @Author: lcc
+ * @Date: 2022-11-19 21:17:21
+ * @LastEditors: lcc
+ * @LastEditTime: 2023-05-31 19:42:46
+ * @Description:
+ */
 import React, { FC, useMemo, useState } from 'react';
+import { IRouteComponentProps, useLocation, Outlet, useMatch } from 'umi';
 // 组件
 import ProHeader from './proheader';
 import { Badge, Card, Layout, Menu, Popover, Space } from 'antd'; // 布局容器 导航菜单
@@ -6,7 +14,6 @@ import { Badge, Card, Layout, Menu, Popover, Space } from 'antd'; // 布局容�
 import _ from 'lodash';
 import { findCurrentMenuKey, handleRouterInfo } from '@/layouts/utils';
 // hooks
-import { Link, useLocation } from 'umi'; // umi自带的链接组件
 // 常量
 import { menus } from '@/../config.router';
 import logo from '@/assets/images/readingLogo1.png';

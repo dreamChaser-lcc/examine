@@ -2,12 +2,11 @@
  * @Author: lcc
  * @Date: 2022-09-04 21:06:36
  * @LastEditors: lcc
- * @LastEditTime: 2022-12-03 15:32:25
+ * @LastEditTime: 2023-06-01 09:24:07
  * @Description:
  */
-import React, { FC, useEffect } from 'react';
-
-import { history, IRouteComponentProps } from 'umi';
+import React, { FC, memo, useCallback, useEffect } from 'react';
+import { IRouteComponentProps, useLocation, Outlet, useMatch } from 'umi';
 // 组件
 import BaseLayout from './baseLayout';
 
@@ -15,7 +14,6 @@ import BaseLayout from './baseLayout';
 import BaseContext from '@/globalContext';
 // 方法
 import { useGlobal } from '@/globalContext/hook';
-import { useLocation } from 'umi';
 // 常量
 import { Spin } from 'antd';
 import { useVerifyToken } from './hooks/verifytoken';
@@ -27,20 +25,19 @@ interface Iprops extends IRouteComponentProps {
   tokenApi?: Function;
 }
 const LayoutGuard: FC<Iprops> = (props) => {
-  const { children, route, tokenApi } = props;
+  const { children, tokenApi } = props;
   const curLocation = useLocation();
   const { dispatch, routerTabs } = useGlobal();
   const { isLogin } = useVerifyToken({ api: tokenApi });
-
   if (!isLogin && curLocation.pathname !== '/login') {
     return <Loading />;
   }
 
   const layoutRender = () => {
     // console.log('curLocation.pathname',curLocation.pathname,route?.routes,route?.routes?.find((i) => i.path === curLocation.pathname));
-    if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {
-      return children;
-    }
+    // if (!route?.routes?.find((i) => i.path === curLocation.pathname)) {
+    //   return <Outlet/>;
+    // }
     const pathname = location.hash.replace('#/', '');
     const showMenus = !notMenusPage.includes(curLocation.pathname) ? 1 : 0;
     return (
@@ -67,7 +64,9 @@ const LayoutGuard: FC<Iprops> = (props) => {
         }
       >
         <BaseLayout showmenus={showMenus}>
-          <ProTransition animatekey={pathname}>{children}</ProTransition>
+          <ProTransition animatekey={pathname}>
+            <Outlet />
+          </ProTransition>
         </BaseLayout>
       </React.Suspense>
     );
@@ -79,4 +78,4 @@ const LayoutGuard: FC<Iprops> = (props) => {
   );
 };
 
-export default LayoutGuard;
+export default memo(LayoutGuard);

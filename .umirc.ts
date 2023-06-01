@@ -8,77 +8,84 @@ const isProduction = process.env.NODE_ENV === 'production';
 // const DEPLOY_BASE_URL = isProduction ? '/admin/' : '/';
 /**hash路由不需要配置 */
 const DEPLOY_BASE_URL = './';
-const deployConfig = {
-  // logo: `${DEPLOY_BASE_URL}logo.png`,
-  favicon: `${DEPLOY_BASE_URL}favicon.ico`,
-  publicPath: DEPLOY_BASE_URL,
-  chunks: ['antdesigns', 'echarts', 'vendors', 'umi'],
-  // 打包分析配置
-  analyze: {
-    analyzerMode: 'server',
-    analyzerPort: 8888,
-    openAnalyzer: true,
-    // generate stats file while ANALYZE_DUMP exist
-    generateStatsFile: false,
-    statsFilename: 'stats.json',
-    logLevel: 'info',
-    defaultSizes: 'parsed',
-  },
-  chainWebpack(config: any) {
-    if (isProduction) {
-      config.output.filename('[name].[hash:8].js');
-    }
-    config.merge({
-      optimization: {
-        minimize: true,
-        splitChunks: {
-          chunks: 'async',
-          minSize: 30000,
-          minChunks: 1,
-          automaticNameDelimiter: '.',
-          cacheGroups: {
-            antdesigns: {
-              name: 'antdesigns',
-              chunks: 'all',
-              test: /[\\/]node_modules[\\/](@antv|antd|@ant-design)/,
-              priority: 11,
-              enforce: true,
-            },
-            eChart: {
-              name: 'echarts',
-              chunks: 'all',
-              test: /[\\/]node_modules[\\/](echarts|echarts-for-react)/,
-              priority: 10,
-              enforce: true,
-            },
-            vendor: {
-              name: 'vendors',
-              chunks: 'all',
-              test: /[\\/]node_modules[\\/](lodash|moment|react|react-dom)/,
-              priority: 9,
-              enforce: true,
+const deployConfig = () => {
+  if (!isProduction)
+    return {
+      favicon: [`${DEPLOY_BASE_URL}favicon.ico`],
+      publicPath: DEPLOY_BASE_URL,
+    };
+  return {
+    // logo: `${DEPLOY_BASE_URL}logo.png`,
+    favicons: [`${DEPLOY_BASE_URL}favicon.ico`],
+    publicPath: DEPLOY_BASE_URL,
+    chunks: ['antdesigns', 'echarts', 'vendors', 'umi'],
+    // 打包分析配置
+    analyze: {
+      analyzerMode: 'server',
+      analyzerPort: 8888,
+      openAnalyzer: true,
+      // generate stats file while ANALYZE_DUMP exist
+      generateStatsFile: false,
+      statsFilename: 'stats.json',
+      logLevel: 'info',
+      defaultSizes: 'parsed',
+    },
+    chainWebpack(config: any) {
+      if (isProduction) {
+        config.output.filename('[name].[hash:8].js');
+      }
+      config.merge({
+        optimization: {
+          minimize: true,
+          splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            automaticNameDelimiter: '.',
+            cacheGroups: {
+              antdesigns: {
+                name: 'antdesigns',
+                chunks: 'all',
+                test: /[\\/]node_modules[\\/](@antv|antd|@ant-design)/,
+                priority: 11,
+                enforce: true,
+              },
+              eChart: {
+                name: 'echarts',
+                chunks: 'all',
+                test: /[\\/]node_modules[\\/](echarts|echarts-for-react)/,
+                priority: 10,
+                enforce: true,
+              },
+              vendor: {
+                name: 'vendors',
+                chunks: 'all',
+                test: /[\\/]node_modules[\\/](lodash|moment|react|react-dom)/,
+                priority: 9,
+                enforce: true,
+              },
             },
           },
         },
-      },
-    });
-  },
-  // externals: {
-  //   react: 'window.React',
-  //   'react-dom': 'window.ReactDom',
-  // },
-  // scripts: [
-  //   'https://unpkg.com/react@17/umd/react.production.min.js',
-  //   'https://unpkg.com/react-dom@17/umd/react-dom.production.min.js',
-  // ],
-  thread: false,
-  hash: true, // hash文件,可以避免部署后前文件被浏览器缓存未刷新
+      });
+    },
+    // externals: {
+    //   react: 'window.React',
+    //   'react-dom': 'window.ReactDom',
+    // },
+    // scripts: [
+    //   'https://unpkg.com/react@17/umd/react.production.min.js',
+    //   'https://unpkg.com/react-dom@17/umd/react-dom.production.min.js',
+    // ],
+    thread: false,
+    hash: true, // hash文件,可以避免部署后前文件被浏览器缓存未刷新
+  };
 };
 
 export default defineConfig({
-  devServer: {
-    port: 8080,
-  },
+  // devServer: {
+  //   port: 8080,
+  // },
   // routes: [
   //   {
   //     path: '/',
@@ -96,8 +103,12 @@ export default defineConfig({
     APPINFO: { dependencies, devDependencies },
   },
   title: 'hi',
-  // mfsu:{},
-  plugins: ['./src/plugins/plugin-keep-alive/src/index.js'],
+  // 用 esbuild 做依赖预编译
+  // mfsu: {
+  //   esbuild: true,
+  // },
+  // plugins: ['./src/plugins/plugin-keep-alive/lib/index.js'],
+  plugins: ['umi-plugin-keep-alive'],
   history: { type: 'hash' },
   // chainWebpack(config) {
   //   if (isProduction) {
@@ -106,7 +117,7 @@ export default defineConfig({
   // },
   // hash: true,	// 清除缓存
   base: '/',
-  ...deployConfig,
+  // ...deployConfig(),
   proxy: {
     '/api': {
       target: 'http://licc.cloud:8006',

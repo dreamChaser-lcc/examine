@@ -1,6 +1,6 @@
 import { Alert, Card, Table } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import { useRouteMatch, useLocation, useHistory } from 'umi';
+import { useRouteMatch, useLocation } from 'umi';
 import { handleTimer } from './hooks';
 
 export default () => {
@@ -37,7 +37,7 @@ export default () => {
     { sortNumber: 4322, name: 'c2', gender: '02' },
     { sortNumber: 4332, name: 'c2', gender: '02' },
   ];
-  const history = useHistory<string>();
+  const location = useLocation<string>();
   const config = {
     rownum: 10,
     playSpeed: 50,
@@ -46,7 +46,7 @@ export default () => {
     const tableBodyEle = document.querySelector(
       '#tableIdCustom .ant-table-body',
     ) as HTMLElement;
-    if (history.location.pathname !== '/echarts-explore/scrollTable') {
+    if (location.pathname !== '/echarts-explore/scrollTable') {
       clearTimer();
     } else {
       if (!tableBodyEle) {

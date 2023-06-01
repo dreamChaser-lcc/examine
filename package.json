@@ -1,14 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "max dev",
     "dev": "npm run start:dev",
     "start:dev": "cross-env NODE_ENV=dev webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "build": "umi build",
+    "build": "max build",
     "slow:build": "cross-env Umi_UI=none cross-env UMI_BUILD_THREAD_WORKERS=0 cross-env NODE_OPTIONS=\"--max-old-space-size=1024\" umi build",
     "analyze:build": "cross-env ANALYZE=1 umi build",
     "deploy": "node ./client/deploy.js",
-    "postinstall": "umi generate tmp",
+    "postinstall": "max setup",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
@@ -25,10 +25,12 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.3",
     "@ant-design/pro-descriptions": "^1.7.8",
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.36.0",
     "@antv/g2": "^4.1.16",
+    "@umijs/max": "^4.0.0",
     "@umijs/preset-react": "^1.8.30",
     "@umijs/renderer-react": "3.x",
     "ahooks": "^3.5.0",
@@ -42,6 +44,7 @@
     "http-proxy-middleware": "^2.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "rc-resize-observer": "^1.3.1",
     "react-activation": "^0.9.4",
     "react-router-config": "^5.1.1",
     "react-sortablejs": "^6.0.0",
@@ -49,7 +52,8 @@
     "react-window": "^1.8.7",
     "sortablejs": "^1.14.0",
     "ssh2": "^1.11.0",
-    "umi": "3.4.7"
+    "umi-plugin-keep-alive": "^0.0.1-beta.35",
+    "umi-request": "^1.4.0"
   },
   "devDependencies": {
     "@types/echarts": "^4.9.13",
